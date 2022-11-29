@@ -53,6 +53,6 @@ function ClientEdit() {
 
 export default ClientEdit;
 
-if (document.getElementById('ClientEdit')) {
-    ReactDOM.render(<ClientEdit />, document.getElementById('ClientEdit'));
+if (document.getElementById('app')) {
+    ReactDOM.render(<ClientEdit />, document.getElementById('app'));
 }
