@@ -17,6 +17,7 @@ class CreateProfilsTable extends Migration
             $table->id();
             $table->string('nom', 30);
             $table->string('prenom', 30);
+            $table->string('courriel')->unique();
             $table->date('anniversaire');
             $table->text('adresse', 100);
             $table->string('code_postal', 100);

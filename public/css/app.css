@@ -1,5 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
-@charset "UTF-8"; /*!
+@import url('./style-client//client-edit.css');
+
+@charset "UTF-8"; 
+/*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
  * Copyright 2011-2022 Twitter, Inc.
@@ -1955,6 +1958,11 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
+/* mettre du style pour le formulaire  */
+
+
+
+
 .form-label {
   margin-bottom: 0.5rem;
 }
