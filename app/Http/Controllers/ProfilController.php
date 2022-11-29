@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 
-class ProfilControlleur extends Controller
+class ProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -95,6 +95,7 @@ class ProfilControlleur extends Controller
     public function update(Request $request, Profil $profil)
     {
         $request->validate([
+            
             'courriel' => 'required|email|unique:profils',
             'nom' => 'required',
             'prenom' => 'required',
@@ -104,6 +105,7 @@ class ProfilControlleur extends Controller
             'ville' => 'required',
             'telephone' => 'required|numeric|digits:10',
             'cellulaire' => 'required|numeric|digits:10',
+
         ]);
 
         $profil->update([
