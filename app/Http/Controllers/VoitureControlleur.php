@@ -14,7 +14,9 @@ class VoitureControlleur extends Controller
      */
     public function index()
     {
-        //
+
+       $voitures = Voiture::all();
+
     }
 
     /**
@@ -35,7 +37,23 @@ class VoitureControlleur extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date_arrivee' => 'required|date_format:m/d/Y',
+            'prix' => 'required',
+            'modeleId' => 'required',
+            'transmissionId' => 'required',
+            'carburantId' => 'required',
+            'carrosserieId' => 'required',
+        ]);
+        $nouvelleVoiture = Voiture::create([
+
+            'date_arrivee' => $request->date_arrivee,
+            'prix' => $request->prix,
+            'modeleId' => $request->modeleId,
+            'transmissionId' => $request->transmissionId,
+            'carburantId' => $request->carburantId,
+            'carrosserieId' => $request->carrosserieId,
+        ]); 
     }
 
     /**
@@ -44,9 +62,9 @@ class VoitureControlleur extends Controller
      * @param  \App\Models\Voiture  $voiture
      * @return \Illuminate\Http\Response
      */
-    public function show(Voiture $voiture)
+    public function show(Voiture $id)
     {
-        //
+        $voiture = Voiture::find($id);
     }
 
     /**
@@ -57,7 +75,7 @@ class VoitureControlleur extends Controller
      */
     public function edit(Voiture $voiture)
     {
-        //
+        $voiture = Voiture::find($voiture);
     }
 
     /**
@@ -69,7 +87,24 @@ class VoitureControlleur extends Controller
      */
     public function update(Request $request, Voiture $voiture)
     {
-        //
+        $request->validate([
+            'date_arrivee' => 'required|date_format:m/d/Y',
+            'prix' => 'required',
+            'modeleId' => 'required',
+            'transmissionId' => 'required',
+            'carburantId' => 'required',
+            'carrosserieId' => 'required',
+        ]);
+        $voiture->update([
+
+            'date_arrivee' => $request->date_arrivee,
+            'prix' => $request->prix,
+            'modeleId' => $request->modeleId,
+            'transmissionId' => $request->transmissionId,
+            'carburantId' => $request->carburantId,
+            'carrosserieId' => $request->carrosserieId,
+
+        ]);
     }
 
     /**
@@ -80,6 +115,6 @@ class VoitureControlleur extends Controller
      */
     public function destroy(Voiture $voiture)
     {
-        //
+        $voiture->delete();
     }
 }

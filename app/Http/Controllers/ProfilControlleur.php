@@ -79,9 +79,9 @@ class ProfilControlleur extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profil $id)
+    public function edit(Profil $Profil)
     {
-        $profil = Profil::find($id);
+        $profil = Profil::find($Profil);
 
     }
 
@@ -106,7 +106,7 @@ class ProfilControlleur extends Controller
             'cellulaire' => 'required|numeric|digits:10',
         ]);
 
-        $etudiant->update([
+        $profil->update([
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'anniversaire' => $request->anniversaire,
