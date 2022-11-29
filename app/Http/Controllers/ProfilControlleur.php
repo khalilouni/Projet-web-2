@@ -35,7 +35,31 @@ class ProfilControlleur extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'courriel' => 'required|email|unique:profils',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'anniversaire' => 'required|date_format:m/d/Y',
+            'adresse' => 'required',
+            'code_postal' => 'required',
+            'ville' => 'required',
+            'telephone' => 'required|numeric|digits:10',
+            'cellulaire' => 'required|numeric|digits:10',
+        ]);
+
+        $nouveauProfil = Profil::create([
+
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'anniversaire' => $request->anniversaire,
+            'adresse' => $request->adresse,
+            'code_postal' => $request->code_postal,
+            'ville' => $request->ville,
+            'telephone' => $request->telephone,
+            'cellulaire' => $request->cellulaire,
+            'userId' => $request->userId,
+            'villeId' => $request->villeId
+        ]); 
     }
 
     /**
@@ -55,9 +79,10 @@ class ProfilControlleur extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profil $profil)
+    public function edit(Profil $id)
     {
-        //
+        $profil = Profil::find($id);
+
     }
 
     /**
@@ -69,7 +94,30 @@ class ProfilControlleur extends Controller
      */
     public function update(Request $request, Profil $profil)
     {
-        //
+        $request->validate([
+            'courriel' => 'required|email|unique:profils',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'anniversaire' => 'required|date_format:m/d/Y',
+            'adresse' => 'required',
+            'code_postal' => 'required',
+            'ville' => 'required',
+            'telephone' => 'required|numeric|digits:10',
+            'cellulaire' => 'required|numeric|digits:10',
+        ]);
+
+        $etudiant->update([
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'anniversaire' => $request->anniversaire,
+            'adresse' => $request->adresse,
+            'code_postal' => $request->code_postal,
+            'ville' => $request->ville,
+            'telephone' => $request->telephone,
+            'cellulaire' => $request->cellulaire
+        ]);
+
+
     }
 
     /**
@@ -80,6 +128,6 @@ class ProfilControlleur extends Controller
      */
     public function destroy(Profil $profil)
     {
-        //
+        $profil->delete();
     }
 }
