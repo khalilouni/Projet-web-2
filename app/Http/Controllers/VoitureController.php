@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Voiture;
 use Illuminate\Http\Request;
 
-class VoitureControlleur extends Controller
+class VoitureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +16,8 @@ class VoitureControlleur extends Controller
     {
 
        $voitures = Voiture::all();
+       
+       //return response()->json($voitures);
 
     }
 
