@@ -12,6 +12,7 @@ use App\Models\Transmission;
 use App\Models\Modele;
 use App\Models\Voiture;
 use App\Models\User;
+use App\Models\Privilege;
 
 
 class DatabaseSeeder extends Seeder
@@ -26,13 +27,29 @@ class DatabaseSeeder extends Seeder
         /* Faker pour créer des données dans la base de donnée */
         $faker = \Faker\Factory::create();
 
+
+        /* créer les privileges */
+        Privilege::create([
+            'id' => 1,
+            'nom' => 'administrateur',
+        ]);
+        Privilege::create([
+            'id' => 2,
+            'nom' => 'employe',
+        ]);
+        Privilege::create([
+            'id' => 3,
+            'nom' => 'client'
+        ]);
+
         /* créer un utilisateur */
-/*         User::create([
+        User::create([
             'name' => 'Alex',
+            'privilegeid' => 1,
             'email' => 'alex@alex.com',
             'password' => Hash::make('password'),
         ]);
- */
+
         /* créer les carburants */
         Carburant::create([
             'type' => 'Essence'
