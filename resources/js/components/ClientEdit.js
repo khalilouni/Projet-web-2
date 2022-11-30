@@ -1,9 +1,28 @@
-import React from 'react';
+import axios from 'axios';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-function ClientEdit() {
-    return (
-        <div className="container">
+
+class ClientEdit extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            voitures: [],
+        }
+    }
+    componentDidMount() {
+        this.getVoitures();
+    }
+
+    getVoitures = () => {
+        axios.get('http://localhost:8000/api/v1/voiture').then(function(response) {
+            console.log(response.data);
+        })
+    }
+
+    render () {
+        return (
+            <div className="container">
             <form className='form px-5 border-opacity-25 rounded'>
             <h1 className='title-form font-weight-bold text-center m-4 p-3'>Modification de vos données</h1>
                     <div className="mb-3">
@@ -48,8 +67,11 @@ function ClientEdit() {
                     </div> 
             </form>
         </div>
-    );
+        )
+    }
 }
+
+
 
 export default ClientEdit;
 

@@ -14,10 +14,11 @@ class VoitureController extends Controller
      */
     public function index()
     {
-
-       $voitures = Voiture::all();
+     
+            $voitures = Voiture::all();
+            return response()->json($voitures);
        
-       //return response()->json($voitures);
+       
 
     }
 
@@ -64,9 +65,10 @@ class VoitureController extends Controller
      * @param  \App\Models\Voiture  $voiture
      * @return \Illuminate\Http\Response
      */
-    public function show(Voiture $id)
+    public function show(Voiture $voiture)
     {
-        $voiture = Voiture::find($id);
+        $voiture = Voiture::find($voiture);
+        return response()->json($voiture);
     }
 
     /**
@@ -118,5 +120,6 @@ class VoitureController extends Controller
     public function destroy(Voiture $voiture)
     {
         $voiture->delete();
+        return response()->json('voiture supprimer');
     }
 }
