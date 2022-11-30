@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VoitureControlleur;
+use App\Http\Controllers\VoitureController;
+use App\Http\Controllers\User\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,9 @@ use App\Http\Controllers\VoitureControlleur;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'v1'], function() {
+    Route::apiResource('voiture', VoitureController::class);
 });
 
-Route::get('/voiture', 'VoitureControlleur@index');
+Route::post('v1/register', [AuthController::class,'inscrire'])->name('inscrire');
+
