@@ -7,6 +7,7 @@ import Footer from './Footer';
 /* pour changement de langue */
 import LangueWrapper from './LangueWrapper';
 import '../../css/app.css';
+import inscriptionClient from '../pages/register/inscriptionClient'
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             {/* <Route path="/" element={<UsersListe users = {users} />} /> */}
             <Route path="/register" element={<Inscription  />} />
+            <Route path="/inscriptionClient" element={<inscriptionClient  />} />
           </Routes>
         </div>
       </LangueWrapper>

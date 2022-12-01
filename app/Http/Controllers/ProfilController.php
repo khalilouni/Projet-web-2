@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class ProfilController extends Controller
 {
@@ -36,15 +38,17 @@ class ProfilController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'courriel' => 'required|email|unique:profils',
+
+            'courriel' => 'required|email',
             'nom' => 'required',
             'prenom' => 'required',
-            'anniversaire' => 'required|date_format:m/d/Y',
+            'anniversaire' => 'required|date',
             'adresse' => 'required',
             'code_postal' => 'required',
             'ville' => 'required',
             'telephone' => 'required|numeric|digits:10',
-            'cellulaire' => 'required|numeric|digits:10',
+            'cellulaire' => 'numeric|digits:10|nullable',
+            
         ]);
 
         $nouveauProfil = Profil::create([
@@ -57,9 +61,14 @@ class ProfilController extends Controller
             'ville' => $request->ville,
             'telephone' => $request->telephone,
             'cellulaire' => $request->cellulaire,
-            'userId' => $request->userId,
-            'villeId' => $request->villeId
+            'userId' => 3,
+            'courriel' => $request->courriel
         ]); 
+
+        return response()->json([
+            'profil' => $nouveauProfil,
+            'message' => 'profil enregistrer avec succes'
+        ], 200);
     }
 
     /**
@@ -130,6 +139,8 @@ class ProfilController extends Controller
      */
     public function destroy(Profil $profil)
     {
-        $profil->delete();
+        $profil = Profil::find($profil);
+        
+        
     }
 }
