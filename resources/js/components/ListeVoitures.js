@@ -3,9 +3,8 @@ import axios from 'axios'
 
 const ListeVoitures = () => {
 
-    const [courriel,setCourriel] = useState('');
-    const [nomDeUtilisateur,setNomDeUtilisateur] = useState('');
-    const [motDePasse,setMotDePasse] = useState('');
+    const [dateArrivee,setDateArrivee] = useState('');
+    const [prix,setPrix] = useState('');
 
     const surSoumettre = (e) => {
        e.preventDefault();

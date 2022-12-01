@@ -23,7 +23,6 @@ const Inscription = () => {
             .then(res => {
                 console.log(res.data);
             })
-
       }
 
 

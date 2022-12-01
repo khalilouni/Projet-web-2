@@ -8,18 +8,20 @@ import VoitureDetail from './VoitureDetail';
 /* pour changement de langue */
 import LangueWrapper from './LangueWrapper';
 import '../../css/app.css';
+import InscriptionClient from '../pages/register/InscriptionClient'
 
 function App() {
     return (
       <LangueWrapper>
         <div className='container'>
           <Header/>
-          <Footer/>
           <Routes>
             {/* <Route path="/" element={<UsersListe users = {users} />} /> */}
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
+            <Route path="/inscriptionClient" element={<InscriptionClient  />} />
           </Routes>
+          <Footer/>
         </div>
       </LangueWrapper>
     );
