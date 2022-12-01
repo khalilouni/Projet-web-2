@@ -1,0 +1,80 @@
+/* css de la page details */
+
+.details-wrapper{
+    display: flex;
+    flex-direction: row; 
+    width: 90%;
+    height: auto;
+    justify-content:space-around;
+    margin: auto; 
+}
+
+.details-title-container{
+    margin: 50px 0px 30px 50px;
+    font-size: 28px;
+    font-weight: bold;
+    color :#0D6EFD;
+}
+
+/* 1er colonne img */
+.details-container-left-img{
+    text-align: center;
+    width: 40%;
+    height: auto;
+    justify-content: center;
+    align-self: flex-start;
+    position: sticky;
+    top: 10px;
+}
+
+/* 2e colonne*/
+.details-wrapper-left{
+    display: flex;
+    flex-direction: row;
+    width: 10%;
+    
+}
+
+.details-container-middle{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* 3e colonne*/
+.details-container-right{
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+    
+}
+
+/* 4e colonne */
+.detail-container-achat{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.details-infos-left{
+    display: flex;
+    flex-direction: column;   
+}
+
+.details-img{
+    margin: 0 15px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details-list-title{
+    color :#0D6EFD;
+    font-weight: bold;
+    margin: 5px 5px 5px 5px;
+}
+
+.details-list{
+    margin: 5px 5px 5px 5px;
+}
+
