@@ -14,11 +14,9 @@ class VoitureController extends Controller
      */
     public function index()
     {
-     
+
             $voitures = Voiture::all();
             return response()->json($voitures);
-       
-       
 
     }
 
@@ -56,7 +54,7 @@ class VoitureController extends Controller
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
             'carrosserieId' => $request->carrosserieId,
-        ]); 
+        ]);
     }
 
     /**
