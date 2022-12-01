@@ -20,55 +20,60 @@ class AuthController extends Controller
      */
     public function inscrire(Request $requete)
     {
-        $this->validateur($requete->all())->validate();
-        $utilisateur = $this->create($requete->all());
-        //$this->guard()->login($utilisateur);
+
+        //Obtenir les paramètres
+        $courrielDeUtilisateur = $requete->input('email');
+        $nomDeUtilisateur = $requete->input('name');
+        $motDePasse = $requete->input('password');
+
+        //Vérifiez que le paramètre est vide
+        if(empty($courrielDeUtilisateur) || empty($nomDeUtilisateur) || empty($motDePasse)) {
+            return response()->json([
+                'errno' => 401, 'errmsg' => 'Erreur de paramètre'
+            ]);
+        }
+
+        //Vérifier que l'utilisateur existe
+        $utilisateur = $this->obtenirParCourrielDeUtilisateur($courrielDeUtilisateur);
+        if(!is_null($utilisateur)) {
+            return response()->json([
+                'errno' => 704, 'errmsg' => 'email de l\'utilisateur a été enregistrée.'
+            ]);
+        }
+
+        //Créez une nouvelle instance d'utilisateur après un enregistrement valide.
+        $utilisateur = new User;
+        $utilisateur->email = $courrielDeUtilisateur;
+        $utilisateur->name = $nomDeUtilisateur;
+        $utilisateur->password = Hash::make($motDePasse);
+
+        $utilisateurIp = $requete->getClientIp();
+        $utilisateur->save();
+
+        //Retour les messages
         return response()->json([
-            'user' => $utilisateur,
-            'message' => 'registration successful'
-        ], 200);
-    }
-
-    
-    /**
-     * Obtenez un validateur pour une demande d'inscription entrante..
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validateur(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:20'],
-            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-            //'password' => ['required', 'string', 'min:4', 'confirmed'],
-            // NO PASSWORD CONFIRMATION
-            'password' => ['required', 'string', 'min:6'],
+            'errno' => 0, 'errmsg' => 'succès de l\'inscription','data' => [
+                'token' => '',
+                'utilisateurInfo' => [
+                    'courriel' => $courrielDeUtilisateur,
+                    'nomDeUtilisateur' => $nomDeUtilisateur,
+                    'ipDeUtilisateur' => $utilisateurIp
+                ]
+            ]
         ]);
+
     }
 
-    
+
     /**
-     * Créez une nouvelle instance d'utilisateur après un enregistrement valide.
+     * Obtenir des utilisateurs en fonction de l'e-mail de l'utilisateur.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param  $courriel
+     * @return User | null | Model
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    protected function obtenirParCourrielDeUtilisateur($courriel) {
+        return User::query()->where('email',$courriel)->first();
     }
-
-    protected function guard()
-    {
-        return Auth::guard();
-    }
-
-
 
 
 }

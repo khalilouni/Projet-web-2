@@ -7,7 +7,7 @@ import Footer from './Footer';
 /* pour changement de langue */
 import LangueWrapper from './LangueWrapper';
 import '../../css/app.css';
-import InscriptionClient from '../pages/register/inscriptionClient'
+import InscriptionClient from '../pages/register/InscriptionClient'
 
 function App() {
     return (
