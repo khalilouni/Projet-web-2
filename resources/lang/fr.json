@@ -1,4 +1,14 @@
 {
   "header.accueil" : "Accueil" ,
-  "header.voitures" : "Voitures" 
+  "header.voitures" : "Voitures",
+
+  "voitureDetail.constructeur" : "Constructeur" ,
+  "voitureDetail.modele" : "Modele" ,
+  "voitureDetail.annee" : "Annee" ,
+  "voitureDetail.carburant" : "Carburant" ,
+  "voitureDetail.transmission" : "Transmission" ,
+  "voitureDetail.carrosserie" : "Carrosserie",
+  "voitureDetail.acheter" : "Acheter" ,
+  "voitureDetail.reserver" : "Reserver"
+ 
  }
