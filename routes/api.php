@@ -24,7 +24,9 @@ Route::post('v1/register', [AuthController::class,'inscrire'])->name('inscrire')
 
 Route::post('v1/inscriptionClient', [ProfilController::class,'store'])->name('inscrire.client');
 
-Route::delete('v1/supprimerClient/{client}', [ProfilController::class,'destroy'])->name('supprimer.client');
+Route::group(['prefix' => 'v1'], function() {
+    Route::apiResource('profil', ProfilController::class);
+});
 
 
 

@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 
 
+const ModificationClient = () => {
 
-const InscriptionClient = () => {
+    const [profil, setProfil] = useState();
+    let id = window.location.pathname.split('/')[2];
 
-    
     const [courriel,setCourriel] = useState('');
     const [nom,setNom] = useState('');
     const [prenom,setPrenom] = useState('');
@@ -17,11 +19,19 @@ const InscriptionClient = () => {
     const [ville,setVille] = useState('');
     const [telephone,setTelephone] = useState('');
     const [cellulaire,setCellulaire] = useState('');
+   
+   
+    useEffect(() => {
+        axios.get(`http://127.0.0.1:8000/api/v1/profil/${id}`).then((response) => {
+            setProfil(response.data[0]);
+        }).catch(error => {
+            setError(error);
+        });
+      }, []);
 
-    let message = "";
+     // console.log(profil.nom);
 
-
-    const onSubmit = (e) => {
+      const onSubmit = (e) => {
         e.preventDefault();
         let donneesClient = {}
         donneesClient.courriel = courriel
@@ -33,24 +43,21 @@ const InscriptionClient = () => {
         donneesClient.ville = ville
         donneesClient.telephone = telephone
         donneesClient.cellulaire = cellulaire
+        
 
-       axios({
-           method: 'post',
-           url: 'http://127.0.0.1:8000/api/v1/inscriptionClient',
-           data: donneesClient,
-       })
-           .then(res => {
-               message = res.data.message;
-               console.log(message);
-           })
+        axios.put(`http://127.0.0.1:8000/api/v1/profil/${id}`, donneesClient)
+         .then(res => {
+             console.log(res.data);
+         })
 
      }
+
 
 
     return (
                 <div className="container p-4 m-3">
                     <form className='form px-5 border-opacity-25 rounded bg-light' onSubmit={onSubmit}>
-                        <h1 className=' font-weight-bold text-center text-dark mt-5 py-5'><FormattedMessage id="titre.form_inscription"/></h1>
+                        <h1 className=' font-weight-bold text-center text-dark mt-5 py-5'><FormattedMessage id="titre.form_modification"/></h1>
                         <div className="mb-3">
                             <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
                             <input
@@ -133,14 +140,13 @@ const InscriptionClient = () => {
                             />
                         </div>
                         <div className="mb-3 ">
-                            <button type="submit" className="btn btn-primary"><FormattedMessage id="submit.form_inscription"/></button>
+                            <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
                             <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
                         </div> 
                     </form>
                 </div>
         
-       
     );
 }
 
-export default InscriptionClient;
+export default ModificationClient;

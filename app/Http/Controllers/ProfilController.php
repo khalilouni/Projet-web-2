@@ -16,7 +16,8 @@ class ProfilController extends Controller
      */
     public function index()
     {
-        //
+        $profils = Profil::all();
+        return response()->json($profils);
     }
 
     /**
@@ -77,9 +78,10 @@ class ProfilController extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function show(Profil $profil)
+    public function show(Profil $Profil)
     {
-        //
+        $profil = Profil::find($Profil);
+        return response()->json($profil);
     }
 
     /**
@@ -91,7 +93,7 @@ class ProfilController extends Controller
     public function edit(Profil $Profil)
     {
         $profil = Profil::find($Profil);
-
+        return response()->json($profil);
     }
 
     /**
@@ -101,23 +103,27 @@ class ProfilController extends Controller
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profil $profil)
+    public function update(Request $request, $id)
     {
+        
+        $Profil = Profil::find($id);
+
         $request->validate([
-            
-            'courriel' => 'required|email|unique:profils',
+
+            'courriel' => 'required|email',
             'nom' => 'required',
             'prenom' => 'required',
-            'anniversaire' => 'required|date_format:m/d/Y',
+            'anniversaire' => 'required|date',
             'adresse' => 'required',
             'code_postal' => 'required',
             'ville' => 'required',
             'telephone' => 'required|numeric|digits:10',
-            'cellulaire' => 'required|numeric|digits:10',
-
+            'cellulaire' => 'numeric|digits:10|nullable',
+            
         ]);
 
-        $profil->update([
+        $Profil->update([
+
             'nom' => $request->nom,
             'prenom' => $request->prenom,
             'anniversaire' => $request->anniversaire,
@@ -125,9 +131,14 @@ class ProfilController extends Controller
             'code_postal' => $request->code_postal,
             'ville' => $request->ville,
             'telephone' => $request->telephone,
-            'cellulaire' => $request->cellulaire
-        ]);
+            'cellulaire' => $request->cellulaire,
+            'userId' => 3,
+            'courriel' => $request->courriel
+            
+        ]); 
 
+       
+        return response()->json($Profil);
 
     }
 
@@ -139,7 +150,8 @@ class ProfilController extends Controller
      */
     public function destroy(Profil $profil)
     {
-        $profil = Profil::find($profil);
+        $profil->delete();
+        return response()->json($profil);
         
         
     }
