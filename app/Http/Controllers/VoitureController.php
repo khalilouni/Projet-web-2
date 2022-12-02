@@ -65,7 +65,11 @@ class VoitureController extends Controller
      */
     public function show(Voiture $voiture)
     {
-        $voiture = Voiture::find($voiture);
+        $voiture = Voiture::with('modele',  
+                                 'transmission', 
+                                 'carburant', 
+                                 'carrosserie',
+                                 'modele.constructeur')->find($voiture);
         return response()->json($voiture);
     }
 
