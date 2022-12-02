@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom' 
-import carImage from '../../../public/images/voiture-accueil.jpeg'
+import carImage from './img/com-soon.png'
 
 
 const CardVoiture = ({size, width, height}) => {

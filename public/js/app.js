@@ -8802,7 +8802,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "warning": () => (/* binding */ warning)
 /* harmony export */ });
 /**
- * @remix-run/router v1.0.3
+ * @remix-run/router v1.0.4
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -8919,8 +8919,13 @@ function createMemoryHistory(options) {
       return typeof to === "string" ? to : createPath(to);
     },
 
-    encodeLocation(location) {
-      return location;
+    encodeLocation(to) {
+      let path = typeof to === "string" ? parsePath(to) : to;
+      return {
+        pathname: path.pathname || "",
+        search: path.search || "",
+        hash: path.hash || ""
+      };
     },
 
     push(to, state) {
@@ -9252,14 +9257,14 @@ function getUrlBasedHistory(getLocation, createHref, validateLocation, options) 
       return createHref(window, to);
     },
 
-    encodeLocation(location) {
+    encodeLocation(to) {
       // Encode a Location the same way window.location would
-      let url = createURL(createPath(location));
-      return _extends({}, location, {
+      let url = createURL(typeof to === "string" ? to : createPath(to));
+      return {
         pathname: url.pathname,
         search: url.search,
         hash: url.hash
-      });
+      };
     },
 
     push,
@@ -10020,10 +10025,21 @@ const redirect = function redirect(url, init) {
  */
 
 class ErrorResponse {
-  constructor(status, statusText, data) {
+  constructor(status, statusText, data, internal) {
+    if (internal === void 0) {
+      internal = false;
+    }
+
     this.status = status;
     this.statusText = statusText || "";
-    this.data = data;
+    this.internal = internal;
+
+    if (data instanceof Error) {
+      this.data = data.toString();
+      this.error = data;
+    } else {
+      this.data = data;
+    }
   }
 
 }
@@ -10036,6 +10052,12 @@ function isRouteErrorResponse(e) {
   return e instanceof ErrorResponse;
 }
 
+const validActionMethodsArr = ["post", "put", "patch", "delete"];
+const validActionMethods = new Set(validActionMethodsArr);
+const validRequestMethodsArr = ["get", ...validActionMethodsArr];
+const validRequestMethods = new Set(validRequestMethodsArr);
+const redirectStatusCodes = new Set([301, 302, 303, 307, 308]);
+const redirectPreserveMethodStatusCodes = new Set([307, 308]);
 const IDLE_NAVIGATION = {
   state: "idle",
   location: undefined,
@@ -10086,11 +10108,13 @@ function createRouter(init) {
   if (initialMatches == null) {
     // If we do not match a user-provided-route, fall back to the root
     // to allow the error boundary to take over
+    let error = getInternalRouterError(404, {
+      pathname: init.history.location.pathname
+    });
     let {
       matches,
-      route,
-      error
-    } = getNotFoundMatches(dataRoutes);
+      route
+    } = getShortCircuitMatches(dataRoutes);
     initialMatches = matches;
     initialErrors = {
       [route.id]: error
@@ -10266,7 +10290,7 @@ function createRouter(init) {
     // the same encoding we'd get from a history.pushState/window.location read
     // without having to touch history
 
-    location = init.history.encodeLocation(location);
+    location = _extends({}, location, init.history.encodeLocation(location));
     let historyAction = (opts && opts.replace) === true || submission != null ? Action.Replace : Action.Push;
     let preventScrollReset = opts && "preventScrollReset" in opts ? opts.preventScrollReset === true : undefined;
     return await startNavigation(historyAction, location, {
@@ -10330,11 +10354,13 @@ function createRouter(init) {
     let matches = matchRoutes(dataRoutes, location, init.basename); // Short circuit with a 404 on the root error boundary if we match nothing
 
     if (!matches) {
+      let error = getInternalRouterError(404, {
+        pathname: location.pathname
+      });
       let {
         matches: notFoundMatches,
-        route,
-        error
-      } = getNotFoundMatches(dataRoutes); // Cancel all pending deferred on 404s since we don't keep any routes
+        route
+      } = getShortCircuitMatches(dataRoutes); // Cancel all pending deferred on 404s since we don't keep any routes
 
       cancelActiveDeferreds();
       completeNavigation(location, {
@@ -10430,7 +10456,14 @@ function createRouter(init) {
     let actionMatch = getTargetMatch(matches, location);
 
     if (!actionMatch.route.action) {
-      result = getMethodNotAllowedResult(location);
+      result = {
+        type: ResultType.error,
+        error: getInternalRouterError(405, {
+          method: request.method,
+          pathname: location.pathname,
+          routeId: actionMatch.route.id
+        })
+      };
     } else {
       result = await callLoaderOrAction("action", request, actionMatch, matches, router.basename);
 
@@ -10442,12 +10475,7 @@ function createRouter(init) {
     }
 
     if (isRedirectResult(result)) {
-      let redirectNavigation = _extends({
-        state: "loading",
-        location: createLocation(state.location, result.location)
-      }, submission);
-
-      await startRedirectNavigation(result, redirectNavigation, opts && opts.replace);
+      await startRedirectNavigation(state, result, opts && opts.replace === true);
       return {
         shortCircuited: true
       };
@@ -10574,8 +10602,7 @@ function createRouter(init) {
     let redirect = findRedirect(results);
 
     if (redirect) {
-      let redirectNavigation = getLoaderRedirect(state, redirect);
-      await startRedirectNavigation(redirect, redirectNavigation, replace);
+      await startRedirectNavigation(state, redirect, replace);
       return {
         shortCircuited: true
       };
@@ -10621,7 +10648,9 @@ function createRouter(init) {
     let matches = matchRoutes(dataRoutes, href, init.basename);
 
     if (!matches) {
-      setFetcherError(key, routeId, new ErrorResponse(404, "Not Found", null));
+      setFetcherError(key, routeId, getInternalRouterError(404, {
+        pathname: href
+      }));
       return;
     }
 
@@ -10649,9 +10678,11 @@ function createRouter(init) {
     fetchLoadMatches.delete(key);
 
     if (!match.route.action) {
-      let {
-        error
-      } = getMethodNotAllowedResult(path);
+      let error = getInternalRouterError(405, {
+        method: submission.formMethod,
+        pathname: path,
+        routeId: routeId
+      });
       setFetcherError(key, routeId, error);
       return;
     } // Put this fetcher into it's submitting state
@@ -10699,14 +10730,7 @@ function createRouter(init) {
       updateState({
         fetchers: new Map(state.fetchers)
       });
-
-      let redirectNavigation = _extends({
-        state: "loading",
-        location: createLocation(state.location, actionResult.location)
-      }, submission);
-
-      await startRedirectNavigation(actionResult, redirectNavigation);
-      return;
+      return startRedirectNavigation(state, actionResult);
     } // Process any non-redirect errors thrown
 
 
@@ -10780,9 +10804,7 @@ function createRouter(init) {
     let redirect = findRedirect(results);
 
     if (redirect) {
-      let redirectNavigation = getLoaderRedirect(state, redirect);
-      await startRedirectNavigation(redirect, redirectNavigation);
-      return;
+      return startRedirectNavigation(state, redirect);
     } // Process and commit output from loaders
 
 
@@ -10867,8 +10889,7 @@ function createRouter(init) {
 
 
     if (isRedirectResult(result)) {
-      let redirectNavigation = getLoaderRedirect(state, result);
-      await startRedirectNavigation(result, redirectNavigation);
+      await startRedirectNavigation(state, result);
       return;
     } // Process any non-redirect errors thrown
 
@@ -10924,19 +10945,60 @@ function createRouter(init) {
    */
 
 
-  async function startRedirectNavigation(redirect, navigation, replace) {
+  async function startRedirectNavigation(state, redirect, replace) {
     if (redirect.revalidate) {
       isRevalidationRequired = true;
     }
 
-    invariant(navigation.location, "Expected a location on the redirect navigation"); // There's no need to abort on redirects, since we don't detect the
+    let redirectLocation = createLocation(state.location, redirect.location);
+    invariant(redirectLocation, "Expected a location on the redirect navigation");
+
+    if (redirect.external && typeof window !== "undefined" && typeof window.location !== "undefined") {
+      if (replace) {
+        window.location.replace(redirect.location);
+      } else {
+        window.location.assign(redirect.location);
+      }
+
+      return;
+    } // There's no need to abort on redirects, since we don't detect the
     // redirect until the action/loaders have settled
+
 
     pendingNavigationController = null;
     let redirectHistoryAction = replace === true ? Action.Replace : Action.Push;
-    await startNavigation(redirectHistoryAction, navigation.location, {
-      overrideNavigation: navigation
-    });
+    let {
+      formMethod,
+      formAction,
+      formEncType,
+      formData
+    } = state.navigation; // If this was a 307/308 submission we want to preserve the HTTP method and
+    // re-submit the POST/PUT/PATCH/DELETE as a submission navigation to the
+    // redirected location
+
+    if (redirectPreserveMethodStatusCodes.has(redirect.status) && formMethod && isSubmissionMethod(formMethod) && formEncType && formData) {
+      await startNavigation(redirectHistoryAction, redirectLocation, {
+        submission: {
+          formMethod,
+          formAction: redirect.location,
+          formEncType,
+          formData
+        }
+      });
+    } else {
+      // Otherwise, we kick off a new loading navigation, preserving the
+      // submission info for the duration of this navigation
+      await startNavigation(redirectHistoryAction, redirectLocation, {
+        overrideNavigation: {
+          state: "loading",
+          location: redirectLocation,
+          formMethod: formMethod || undefined,
+          formAction: formAction || undefined,
+          formEncType: formEncType || undefined,
+          formData: formData || undefined
+        }
+      });
+    }
   }
 
   async function callLoadersAndMaybeResolveData(currentMatches, matches, matchesToLoad, fetchersToLoad, request) {
@@ -11140,6 +11202,7 @@ function createRouter(init) {
     // Passthrough to history-aware createHref used by useHref so we get proper
     // hash-aware URLs in DOM paths
     createHref: to => init.history.createHref(to),
+    encodeLocation: to => init.history.encodeLocation(to),
     getFetcher,
     deleteFetcher,
     dispose,
@@ -11152,11 +11215,10 @@ function createRouter(init) {
 //#region createStaticHandler
 ////////////////////////////////////////////////////////////////////////////////
 
-const validActionMethods = new Set(["POST", "PUT", "PATCH", "DELETE"]);
-const validRequestMethods = new Set(["GET", "HEAD", ...validActionMethods]);
-function unstable_createStaticHandler(routes) {
+function unstable_createStaticHandler(routes, opts) {
   invariant(routes.length > 0, "You must provide a non-empty routes array to unstable_createStaticHandler");
   let dataRoutes = convertRoutesToDataRoutes(routes);
+  let basename = (opts ? opts.basename : null) || "/";
   /**
    * The query() method is intended for document requests, in which we want to
    * call an optional action and potentially multiple loaders for all nested
@@ -11179,16 +11241,20 @@ function unstable_createStaticHandler(routes) {
 
   async function query(request) {
     let url = new URL(request.url);
+    let method = request.method.toLowerCase();
     let location = createLocation("", createPath(url), null, "default");
-    let matches = matchRoutes(dataRoutes, location);
+    let matches = matchRoutes(dataRoutes, location, basename); // SSR supports HEAD requests while SPA doesn't
 
-    if (!validRequestMethods.has(request.method)) {
+    if (!isValidMethod(method) && method !== "head") {
+      let error = getInternalRouterError(405, {
+        method
+      });
       let {
         matches: methodNotAllowedMatches,
-        route,
-        error
-      } = getMethodNotAllowedMatches(dataRoutes);
+        route
+      } = getShortCircuitMatches(dataRoutes);
       return {
+        basename,
         location,
         matches: methodNotAllowedMatches,
         loaderData: {},
@@ -11201,12 +11267,15 @@ function unstable_createStaticHandler(routes) {
         actionHeaders: {}
       };
     } else if (!matches) {
+      let error = getInternalRouterError(404, {
+        pathname: location.pathname
+      });
       let {
         matches: notFoundMatches,
-        route,
-        error
-      } = getNotFoundMatches(dataRoutes);
+        route
+      } = getShortCircuitMatches(dataRoutes);
       return {
+        basename,
         location,
         matches: notFoundMatches,
         loaderData: {},
@@ -11230,7 +11299,8 @@ function unstable_createStaticHandler(routes) {
 
 
     return _extends({
-      location
+      location,
+      basename
     }, result);
   }
   /**
@@ -11246,35 +11316,42 @@ function unstable_createStaticHandler(routes) {
    * can do proper boundary identification in Remix where a thrown Response
    * must go to the Catch Boundary but a returned Response is happy-path.
    *
-   * One thing to note is that any Router-initiated thrown Response (such as a
-   * 404 or 405) will have a custom X-Remix-Router-Error: "yes" header on it
-   * in order to differentiate from responses thrown from user actions/loaders.
+   * One thing to note is that any Router-initiated Errors that make sense
+   * to associate with a status code will be thrown as an ErrorResponse
+   * instance which include the raw Error, such that the calling context can
+   * serialize the error as they see fit while including the proper response
+   * code.  Examples here are 404 and 405 errors that occur prior to reaching
+   * any user-defined loaders.
    */
 
 
   async function queryRoute(request, routeId) {
     let url = new URL(request.url);
+    let method = request.method.toLowerCase();
     let location = createLocation("", createPath(url), null, "default");
-    let matches = matchRoutes(dataRoutes, location);
+    let matches = matchRoutes(dataRoutes, location, basename); // SSR supports HEAD requests while SPA doesn't
 
-    if (!validRequestMethods.has(request.method)) {
-      throw createRouterErrorResponse(null, {
-        status: 405,
-        statusText: "Method Not Allowed"
+    if (!isValidMethod(method) && method !== "head") {
+      throw getInternalRouterError(405, {
+        method
       });
     } else if (!matches) {
-      throw createRouterErrorResponse(null, {
-        status: 404,
-        statusText: "Not Found"
+      throw getInternalRouterError(404, {
+        pathname: location.pathname
       });
     }
 
     let match = routeId ? matches.find(m => m.route.id === routeId) : getTargetMatch(matches, location);
 
-    if (!match) {
-      throw createRouterErrorResponse(null, {
-        status: 404,
-        statusText: "Not Found"
+    if (routeId && !match) {
+      throw getInternalRouterError(403, {
+        pathname: location.pathname,
+        routeId
+      });
+    } else if (!match) {
+      // This should never hit I don't think?
+      throw getInternalRouterError(404, {
+        pathname: location.pathname
       });
     }
 
@@ -11303,7 +11380,7 @@ function unstable_createStaticHandler(routes) {
     invariant(request.signal, "query()/queryRoute() requests must contain an AbortController signal");
 
     try {
-      if (validActionMethods.has(request.method)) {
+      if (isSubmissionMethod(request.method.toLowerCase())) {
         let result = await submit(request, matches, routeMatch || getTargetMatch(matches, location), routeMatch != null);
         return result;
       }
@@ -11339,17 +11416,22 @@ function unstable_createStaticHandler(routes) {
     let result;
 
     if (!actionMatch.route.action) {
+      let error = getInternalRouterError(405, {
+        method: request.method,
+        pathname: createURL(request.url).pathname,
+        routeId: actionMatch.route.id
+      });
+
       if (isRouteRequest) {
-        throw createRouterErrorResponse(null, {
-          status: 405,
-          statusText: "Method Not Allowed"
-        });
+        throw error;
       }
 
-      result = getMethodNotAllowedResult(request.url);
+      result = {
+        type: ResultType.error,
+        error
+      };
     } else {
-      result = await callLoaderOrAction("action", request, actionMatch, matches, undefined, // Basename not currently supported in static handlers
-      true, isRouteRequest);
+      result = await callLoaderOrAction("action", request, actionMatch, matches, basename, true, isRouteRequest);
 
       if (request.signal.aborted) {
         let method = isRouteRequest ? "queryRoute" : "query";
@@ -11378,20 +11460,7 @@ function unstable_createStaticHandler(routes) {
       // Note: This should only be non-Response values if we get here, since
       // isRouteRequest should throw any Response received in callLoaderOrAction
       if (isErrorResult(result)) {
-        let boundaryMatch = findNearestBoundary(matches, actionMatch.route.id);
-        return {
-          matches: [actionMatch],
-          loaderData: {},
-          actionData: null,
-          errors: {
-            [boundaryMatch.route.id]: result.error
-          },
-          // Note: statusCode + headers are unused here since queryRoute will
-          // return the raw Response or value
-          statusCode: 500,
-          loaderHeaders: {},
-          actionHeaders: {}
-        };
+        throw result.error;
       }
 
       return {
@@ -11440,9 +11509,18 @@ function unstable_createStaticHandler(routes) {
   }
 
   async function loadRouteData(request, matches, routeMatch, pendingActionError) {
-    let isRouteRequest = routeMatch != null;
+    let isRouteRequest = routeMatch != null; // Short circuit if we have no loaders to run (queryRoute())
+
+    if (isRouteRequest && !(routeMatch != null && routeMatch.route.loader)) {
+      throw getInternalRouterError(400, {
+        method: request.method,
+        pathname: createURL(request.url).pathname,
+        routeId: routeMatch == null ? void 0 : routeMatch.route.id
+      });
+    }
+
     let requestMatches = routeMatch ? [routeMatch] : getLoaderMatchesUntilBoundary(matches, Object.keys(pendingActionError || {})[0]);
-    let matchesToLoad = requestMatches.filter(m => m.route.loader); // Short circuit if we have no loaders to run
+    let matchesToLoad = requestMatches.filter(m => m.route.loader); // Short circuit if we have no loaders to run (query())
 
     if (matchesToLoad.length === 0) {
       return {
@@ -11454,8 +11532,7 @@ function unstable_createStaticHandler(routes) {
       };
     }
 
-    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, undefined, // Basename not currently supported in static handlers
-    true, isRouteRequest))]);
+    let results = await Promise.all([...matchesToLoad.map(match => callLoaderOrAction("loader", request, match, matches, basename, true, isRouteRequest))]);
 
     if (request.signal.aborted) {
       let method = isRouteRequest ? "queryRoute" : "query";
@@ -11474,14 +11551,6 @@ function unstable_createStaticHandler(routes) {
     return _extends({}, context, {
       matches
     });
-  }
-
-  function createRouterErrorResponse(body, init) {
-    return new Response(body, _extends({}, init, {
-      headers: _extends({}, init.headers, {
-        "X-Remix-Router-Error": "yes"
-      })
-    }));
   }
 
   return {
@@ -11508,8 +11577,13 @@ function getStaticContextFromError(routes, context, error) {
   });
 
   return newContext;
+}
+
+function isSubmissionNavigation(opts) {
+  return opts != null && "formData" in opts;
 } // Normalize navigation options by converting formMethod=GET formData objects to
 // URLSearchParams so they behave identically to links with query params
+
 
 function normalizeNavigateOptions(to, opts, isFetcher) {
   if (isFetcher === void 0) {
@@ -11518,14 +11592,23 @@ function normalizeNavigateOptions(to, opts, isFetcher) {
 
   let path = typeof to === "string" ? to : createPath(to); // Return location verbatim on non-submission navigations
 
-  if (!opts || !("formMethod" in opts) && !("formData" in opts)) {
+  if (!opts || !isSubmissionNavigation(opts)) {
     return {
       path
+    };
+  }
+
+  if (opts.formMethod && !isValidMethod(opts.formMethod)) {
+    return {
+      path,
+      error: getInternalRouterError(405, {
+        method: opts.formMethod
+      })
     };
   } // Create a Submission on non-GET navigations
 
 
-  if (opts.formMethod != null && opts.formMethod !== "get") {
+  if (opts.formMethod && isSubmissionMethod(opts.formMethod)) {
     return {
       path,
       submission: {
@@ -11534,13 +11617,6 @@ function normalizeNavigateOptions(to, opts, isFetcher) {
         formEncType: opts && opts.formEncType || "application/x-www-form-urlencoded",
         formData: opts.formData
       }
-    };
-  } // No formData to flatten for GET submission
-
-
-  if (!opts.formData) {
-    return {
-      path
     };
   } // Flatten submission onto URLSearchParams for GET submissions
 
@@ -11560,31 +11636,13 @@ function normalizeNavigateOptions(to, opts, isFetcher) {
   } catch (e) {
     return {
       path,
-      error: new ErrorResponse(400, "Bad Request", "Cannot submit binary form data using GET")
+      error: getInternalRouterError(400)
     };
   }
 
   return {
     path: createPath(parsedPath)
   };
-}
-
-function getLoaderRedirect(state, redirect) {
-  let {
-    formMethod,
-    formAction,
-    formEncType,
-    formData
-  } = state.navigation;
-  let navigation = {
-    state: "loading",
-    location: createLocation(state.location, redirect.location),
-    formMethod: formMethod || undefined,
-    formAction: formAction || undefined,
-    formEncType: formEncType || undefined,
-    formData: formData || undefined
-  };
-  return navigation;
 } // Filter out all routes below any caught error as they aren't going to
 // render so we don't need to load them
 
@@ -11685,6 +11743,10 @@ function shouldRevalidateLoader(currentLocation, currentMatch, submission, locat
 }
 
 async function callLoaderOrAction(type, request, match, matches, basename, isStaticRequest, isRouteRequest) {
+  if (basename === void 0) {
+    basename = "/";
+  }
+
   if (isStaticRequest === void 0) {
     isStaticRequest = false;
   }
@@ -11710,6 +11772,7 @@ async function callLoaderOrAction(type, request, match, matches, basename, isSta
       request,
       params: match.params
     }), abortPromise]);
+    invariant(result !== undefined, "You defined " + (type === "action" ? "an action" : "a loader") + " for route " + ("\"" + match.route.id + "\" but didn't return anything from your `" + type + "` ") + "function. Please return a value or `null`.");
   } catch (e) {
     resultType = ResultType.error;
     result = e;
@@ -11720,25 +11783,30 @@ async function callLoaderOrAction(type, request, match, matches, basename, isSta
   if (result instanceof Response) {
     let status = result.status; // Process redirects
 
-    if (status >= 300 && status <= 399) {
+    if (redirectStatusCodes.has(status)) {
       let location = result.headers.get("Location");
-      invariant(location, "Redirects returned/thrown from loaders/actions must have a Location header"); // Support relative routing in redirects
+      invariant(location, "Redirects returned/thrown from loaders/actions must have a Location header"); // Check if this an external redirect that goes to a new origin
 
-      let activeMatches = matches.slice(0, matches.indexOf(match) + 1);
-      let routePathnames = getPathContributingMatches(activeMatches).map(match => match.pathnameBase);
-      let requestPath = createURL(request.url).pathname;
-      let resolvedLocation = resolveTo(location, routePathnames, requestPath);
-      invariant(createPath(resolvedLocation), "Unable to resolve redirect location: " + result.headers.get("Location")); // Prepend the basename to the redirect location if we have one
+      let external = createURL(location).origin !== createURL("/").origin; // Support relative routing in internal redirects
 
-      if (basename) {
-        let path = resolvedLocation.pathname;
-        resolvedLocation.pathname = path === "/" ? basename : joinPaths([basename, path]);
-      }
+      if (!external) {
+        let activeMatches = matches.slice(0, matches.indexOf(match) + 1);
+        let routePathnames = getPathContributingMatches(activeMatches).map(match => match.pathnameBase);
+        let requestPath = createURL(request.url).pathname;
+        let resolvedLocation = resolveTo(location, routePathnames, requestPath);
+        invariant(createPath(resolvedLocation), "Unable to resolve redirect location: " + location); // Prepend the basename to the redirect location if we have one
 
-      location = createPath(resolvedLocation); // Don't process redirects in the router during static requests requests.
+        if (basename) {
+          let path = resolvedLocation.pathname;
+          resolvedLocation.pathname = path === "/" ? basename : joinPaths([basename, path]);
+        }
+
+        location = createPath(resolvedLocation);
+      } // Don't process redirects in the router during static requests requests.
       // Instead, throw the Response and let the server handle it with an HTTP
       // redirect.  We also update the Location header in place in this flow so
       // basename and relative routing is taken into account
+
 
       if (isStaticRequest) {
         result.headers.set("Location", location);
@@ -11749,7 +11817,8 @@ async function callLoaderOrAction(type, request, match, matches, basename, isSta
         type: ResultType.redirect,
         status,
         location,
-        revalidate: result.headers.get("X-Remix-Revalidate") !== null
+        revalidate: result.headers.get("X-Remix-Revalidate") !== null,
+        external
       };
     } // For SSR single-route requests, we want to hand Responses back directly
     // without unwrapping.  We do this with the QueryRouteResponse wrapper
@@ -11977,10 +12046,10 @@ function findNearestBoundary(matches, routeId) {
   return eligibleMatches.reverse().find(m => m.route.hasErrorBoundary === true) || matches[0];
 }
 
-function getShortCircuitMatches(routes, status, statusText) {
+function getShortCircuitMatches(routes) {
   // Prefer a root layout route if present, otherwise shim in a route object
   let route = routes.find(r => r.index || !r.path || r.path === "/") || {
-    id: "__shim-" + status + "-route__"
+    id: "__shim-error-route__"
   };
   return {
     matches: [{
@@ -11989,26 +12058,45 @@ function getShortCircuitMatches(routes, status, statusText) {
       pathnameBase: "",
       route
     }],
-    route,
-    error: new ErrorResponse(status, statusText, null)
+    route
   };
 }
 
-function getNotFoundMatches(routes) {
-  return getShortCircuitMatches(routes, 404, "Not Found");
-}
+function getInternalRouterError(status, _temp) {
+  let {
+    pathname,
+    routeId,
+    method,
+    message
+  } = _temp === void 0 ? {} : _temp;
+  let statusText = "Unknown Server Error";
+  let errorMessage = "Unknown @remix-run/router error";
 
-function getMethodNotAllowedMatches(routes) {
-  return getShortCircuitMatches(routes, 405, "Method Not Allowed");
-}
+  if (status === 400) {
+    statusText = "Bad Request";
 
-function getMethodNotAllowedResult(path) {
-  let href = typeof path === "string" ? path : createPath(path);
-  console.warn("You're trying to submit to a route that does not have an action.  To " + "fix this, please add an `action` function to the route for " + ("[" + href + "]"));
-  return {
-    type: ResultType.error,
-    error: new ErrorResponse(405, "Method Not Allowed", "")
-  };
+    if (method && pathname && routeId) {
+      errorMessage = "You made a " + method + " request to \"" + pathname + "\" but " + ("did not provide a `loader` for route \"" + routeId + "\", ") + "so there is no way to handle the request.";
+    } else {
+      errorMessage = "Cannot submit binary form data using GET";
+    }
+  } else if (status === 403) {
+    statusText = "Forbidden";
+    errorMessage = "Route \"" + routeId + "\" does not match URL \"" + pathname + "\"";
+  } else if (status === 404) {
+    statusText = "Not Found";
+    errorMessage = "No route matches URL \"" + pathname + "\"";
+  } else if (status === 405) {
+    statusText = "Method Not Allowed";
+
+    if (method && pathname && routeId) {
+      errorMessage = "You made a " + method.toUpperCase() + " request to \"" + pathname + "\" but " + ("did not provide an `action` for route \"" + routeId + "\", ") + "so there is no way to handle the request.";
+    } else if (method) {
+      errorMessage = "Invalid request method \"" + method.toUpperCase() + "\"";
+    }
+  }
+
+  return new ErrorResponse(status || 500, statusText, new Error(errorMessage), true);
 } // Find any returned redirect errors, starting from the lowest match
 
 
@@ -12057,6 +12145,14 @@ function isRedirectResponse(result) {
 
 function isQueryRouteResponse(obj) {
   return obj && obj.response instanceof Response && (obj.type === ResultType.data || ResultType.error);
+}
+
+function isValidMethod(method) {
+  return validRequestMethods.has(method);
+}
+
+function isSubmissionMethod(method) {
+  return validActionMethods.has(method);
 }
 
 async function resolveDeferredResults(currentMatches, matchesToLoad, results, signal, isFetcher, currentLoaderData) {
@@ -14226,6 +14322,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 __webpack_require__(/*! ./components/App */ "./resources/js/components/App.js");
+__webpack_require__(/*! ./components/Header */ "./resources/js/components/Header.js");
+__webpack_require__(/*! ./components/Footer */ "./resources/js/components/Footer.js");
+__webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.js");
 __webpack_require__(/*! ./pages/register/Inscription */ "./resources/js/pages/register/Inscription.js");
 __webpack_require__(/*! ./pages/register/InscriptionClient */ "./resources/js/pages/register/InscriptionClient.js");
 __webpack_require__(/*! ./pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
@@ -14285,8 +14384,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/register/Inscription */ "./resources/js/pages/register/Inscription.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Footer */ "./resources/js/components/Footer.js");
@@ -14297,7 +14396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
 /* harmony import */ var _pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/register/DetailClient */ "./resources/js/pages/register/DetailClient.js");
 /* harmony import */ var _ListeVoitures__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ListeVoitures */ "./resources/js/components/ListeVoitures.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -14314,40 +14414,109 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Routes, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Routes, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/voiture/liste",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_11__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_12__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          path: "/home",
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_11__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/register",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/voiture/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/inscriptionClient",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/ModifierProfil/:profil",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_13__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "/detailProfil/:profil",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(App, {})
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.BrowserRouter, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(App, {})
   }), document.getElementById('app'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/CardVoiture.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/CardVoiture.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var _img_com_soon_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./img/com-soon.png */ "./resources/js/components/img/com-soon.png");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+var CardVoiture = function CardVoiture(_ref) {
+  var size = _ref.size,
+    width = _ref.width,
+    height = _ref.height;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    className: "card px-0",
+    style: {
+      width: width,
+      height: height
+    },
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+      className: "text-decoration-none",
+      to: "/voiture/:id",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+        src: _img_com_soon_png__WEBPACK_IMPORTED_MODULE_0__["default"],
+        style: {
+          width: size
+        },
+        alt: "Voiture blanche"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "card-body",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h5", {
+          className: "card-title fw-bold",
+          children: "Hyunda\xEF Santa Fe 2013"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "card-text text-black d-flex justify-content-between",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "",
+            children: "110 430 km"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "fw-bold fs-4",
+            children: "12 500$"
+          })]
+        })]
+      })]
+    })
+  });
+};
+CardVoiture.defaultProps = {
+  size: '100%',
+  width: '18rem',
+  height: '25rem'
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardVoiture);
 
 /***/ }),
 
@@ -14362,18 +14531,277 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
 
 var Footer = function Footer() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("footer", {
-    className: "d-flex justify-content-center",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
-      className: "h6 fw-4",
-      children: "Copyright @ 2022 - Ecom App "
+    className: "container-fluid bg-primary pt-5 pb-3",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+      className: " container-sm",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+        className: "row",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "col-md-4 footer-column text-start",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+            className: "nav flex-column",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "footer-title",
+                children: "LOGO"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                className: "nav-link",
+                to: "/about",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "header.a_propos"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                className: "nav-link",
+                to: "/",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "footer.contactez_nous"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("li", {
+              className: "nav-item",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+                className: "footer-title",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "footer.nous_suivre"
+                }), " :"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col-md-4 box",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+                  className: "list-inline social-buttons d-flex",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                    className: "list-inline-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                      to: "/",
+                      children: "Twitter"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                    className: "list-inline-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                      to: "#",
+                      children: "Facebook"
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                    className: "list-inline-item",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                      to: "#",
+                      children: "LinkedIn"
+                    })
+                  })]
+                })
+              })]
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "col-md-4 footer-column",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+            className: "nav flex-column",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+                className: "nav-link",
+                to: "/",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "footer.politiques_de_ventes"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", {
+                className: "footer-title",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "footer.s_inscrire_infolettre"
+                }), " :"]
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+              className: "col-md-8",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
+                type: "email",
+                className: "form-control my-3",
+                placeholder: "Email",
+                id: "email"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+                type: "submit",
+                className: "btn btn-outline-light btn-block",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                  id: "footer.envoyer"
+                })
+              })]
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "col-md-4 footer-column",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "footer-title",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+              id: "footer.partenaires"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "container text-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "row row-cols-2",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: "Ford"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: "Hyundai"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: "Citroen"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "col",
+                children: "Honda"
+              })]
+            })
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "row text-center mt-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "col-md-12 box",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+            className: "copyright quick-links",
+            children: "Copyright \xA9 Auto app 2022"
+          })
+        })
+      })]
     })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Footer);
+
+/***/ }),
+
+/***/ "./resources/js/components/FormFilter.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/FormFilter.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* pour changement de langue */
+
+
+
+var FormFilter = function FormFilter(_ref) {
+  var size = _ref.size,
+    color = _ref.color;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("form", {
+    className: "card p-5",
+    style: {
+      width: size
+    },
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "mb-3 text-center",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+        className: "fs-5 fw-bold",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          id: "home.titre_filtre"
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "mb-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+        className: "form-select",
+        style: {
+          backgroundColor: color
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          selected: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            id: "home.titre_filtre"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "1",
+          children: "One"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "2",
+          children: "Two"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "3",
+          children: "Three"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "mb-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+        className: "form-select",
+        style: {
+          backgroundColor: color
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          selected: true,
+          children: "Choisissez un mod\xE8le"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "1",
+          children: "One"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "2",
+          children: "Two"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "3",
+          children: "Three"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "mb-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("select", {
+        className: "form-select",
+        style: {
+          backgroundColor: color
+        },
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          selected: true,
+          children: "Choisissez une ann\xE9e"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "1",
+          children: "One"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "2",
+          children: "Two"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", {
+          value: "3",
+          children: "Three"
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+        type: "submit",
+        "class": "btn btn-primary btn-block",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          id: "home.form_rechercher"
+        })
+      })
+    })]
+  });
+};
+FormFilter.defaultProps = {
+  size: '25rem',
+  color: '#d9d9d9'
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormFilter);
 
 /***/ }),
 
@@ -14406,55 +14834,79 @@ var Header = function Header() {
   var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_1__.Context);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("header", {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("nav", {
-      className: "navbar navbar-expand-lg bg-primary bg-gradient",
+      className: "position-fixed top-0 navbar navbar-expand-lg container-fluid py-3",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "container-fluid flex-header",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "flex",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-            className: "navbar-brand",
-            to: "/home",
-            children: "Ecom App"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            className: "navbar-toggler",
-            type: "button",
-            "data-bs-toggle": "collapse",
-            "data-bs-target": "#navbarNavAltMarkup",
-            "aria-controls": "navbarNavAltMarkup",
-            "aria-expanded": "false",
-            "aria-label": "Toggle navigation",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-              className: "navbar-toggler-icon"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-            className: "collapse navbar-collapse",
-            id: "navbarNavAltMarkup",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-              className: "navbar-nav",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+        className: "container-sm",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          className: "navbar-brand",
+          to: "/home",
+          children: "LOGO"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "navbar-toggler",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "navbar-toggler-icon"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+            className: "navbar-nav me-auto mb-2 mb-lg-0",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 className: "nav-link active",
-                "aria-current": "page",
                 to: "/home",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
                   id: "header.accueil"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
                 className: "nav-link active",
                 "aria-current": "page",
-                to: "/voiture/liste",
+                to: "/products",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
                   id: "header.voitures"
                 })
-              })]
-            })
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-          className: "flex",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            type: "button",
-            className: "btn btn-primary",
-            onClick: context.selectLanguage,
-            children: context.locale
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                className: "nav-link active",
+                "aria-current": "page",
+                to: "/home",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  id: "header.a_propos"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                className: "nav-link active",
+                "aria-current": "page",
+                to: "/inscriptionClient",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  id: "header.s_inscrire"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+                className: "btn btn-outline-dark",
+                "aria-current": "page",
+                to: "/login",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  id: "header.connexion"
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                type: "button",
+                className: "btn btn-primary btn-lang",
+                onClick: context.selectLanguage,
+                children: context.locale
+              })
+            })]
           })
         })]
       })
@@ -14462,6 +14914,55 @@ var Header = function Header() {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+
+/***/ }),
+
+/***/ "./resources/js/components/Home.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Home.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _FormFilter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormFilter */ "./resources/js/components/FormFilter.js");
+/* harmony import */ var _CardVoiture__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardVoiture */ "./resources/js/components/CardVoiture.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var _img_com_soon_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./img/com-soon.png */ "./resources/js/components/img/com-soon.png");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+var Home = function Home() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
+    className: "container my-5 py-5",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "d-flex justify-content-between mb-5 py-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FormFilter__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+        className: "col-sm-8 rounded",
+        src: _img_com_soon_png__WEBPACK_IMPORTED_MODULE_2__["default"],
+        alt: "Voiture blanche"
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "py-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          id: "home.voiture_recent"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "row d-flex justify-content-between py-3 px-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_CardVoiture__WEBPACK_IMPORTED_MODULE_1__["default"], {})
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Home);
 
 /***/ }),
 
@@ -14842,12 +15343,11 @@ var DetailClient = function DetailClient() {
       setError(error);
     });
   }, []);
-  console.log(profil);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "container m-5",
+    className: "container p-4 m-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      className: " font-weight-bold text-center m-4 p-3",
-      children: "Modifier Client"
+      className: " font-weight-bold text-center mt-5 py-5",
+      children: "Detail Profil"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "col-md-12",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
@@ -15102,7 +15602,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -15110,6 +15611,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -15174,150 +15676,177 @@ var InscriptionClient = function InscriptionClient() {
       console.log(message);
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
-    className: "form px-5 border-opacity-25 rounded",
-    onSubmit: onSubmit,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      className: "title-form font-weight-bold text-center m-4 p-3",
-      children: "Devenir Client"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "courriel",
-        className: "form-label",
-        children: "Courriel"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "email",
-        name: "courriel",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCourriel(e.target.value);
-        }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "container p-4 m-3",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+      className: "form px-5 border-opacity-25 rounded bg-light",
+      onSubmit: onSubmit,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+        className: " font-weight-bold text-center text-dark mt-5 py-5",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          id: "titre.form_inscription"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "courriel",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "courriel.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "email",
+          name: "courriel",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCourriel(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "nom",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "nom.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "nom",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setNom(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "prenom",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "prenom.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "prenom",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setPrenom(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "anniversaire",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "anniversaire.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "date",
+          name: "anniversaire",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setAnniversaire(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "adresse",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "adresse.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "adresse",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setAdresse(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "code_postal",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "codePostal.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "code_postal",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCodePostal(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "ville",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "ville.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "ville",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setVille(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "telephone",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "telephone.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "telephone",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setTelephone(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "cellulaire",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "cellulaire.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "cellulaire",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCellulaire(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          type: "submit",
+          className: "btn btn-primary",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "submit.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          className: "btn btn-primary m-3",
+          to: "/",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            id: "back.form_inscription"
+          })
+        })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "nom",
-        className: "form-label",
-        children: "Nom"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "nom",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setNom(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "prenom",
-        className: "form-label",
-        children: "Prenom"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "prenom",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setPrenom(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "anniversaire",
-        className: "form-label",
-        children: "Date de naissance"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "date",
-        name: "anniversaire",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setAnniversaire(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "adresse",
-        className: "form-label",
-        children: "Adresse"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "adresse",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setAdresse(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "code_postal",
-        className: "form-label",
-        children: "Code postale"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "code_postal",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCodePostal(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "ville",
-        className: "form-label",
-        children: "Ville"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "ville",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setVille(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "telephone",
-        className: "form-label",
-        children: "Telephone"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "telephone",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setTelephone(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "cellulaire",
-        className: "form-label",
-        children: "Cellulaire"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "cellulaire",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCellulaire(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3 ",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        children: "Modifier"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-        className: "btn btn-primary m-3",
-        to: "/",
-        children: "Retour"
-      })]
-    })]
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InscriptionClient);
@@ -15420,150 +15949,153 @@ var ModificationClient = function ModificationClient() {
       console.log(res.data);
     });
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
-    className: "form px-5 border-opacity-25 rounded",
-    onSubmit: onSubmit,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
-      className: "title-form font-weight-bold text-center m-4 p-3",
-      children: "Modifier Client"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "courriel",
-        className: "form-label",
-        children: "Courriel"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "email",
-        name: "courriel",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCourriel(e.target.value);
-        }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+    className: "container p-4 m-3",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+      className: "form px-5 border-opacity-25 rounded bg-light m-5",
+      onSubmit: onSubmit,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h1", {
+        className: "title-form font-weight-bold text-center text-dark mt-5 py-5",
+        children: "Modifier Client"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "courriel",
+          className: "form-label",
+          children: "Courriel"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "email",
+          name: "courriel",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCourriel(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "nom",
+          className: "form-label",
+          children: "Nom"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "nom",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setNom(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "prenom",
+          className: "form-label",
+          children: "Prenom"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "prenom",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setPrenom(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "anniversaire",
+          className: "form-label",
+          children: "Date de naissance"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "date",
+          name: "anniversaire",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setAnniversaire(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "adresse",
+          className: "form-label",
+          children: "Adresse"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "adresse",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setAdresse(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "code_postal",
+          className: "form-label",
+          children: "Code postale"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "code_postal",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCodePostal(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "ville",
+          className: "form-label",
+          children: "Ville"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "ville",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setVille(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "telephone",
+          className: "form-label",
+          children: "Telephone"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "telephone",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setTelephone(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
+          htmlFor: "cellulaire",
+          className: "form-label",
+          children: "Cellulaire"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+          type: "text",
+          name: "cellulaire",
+          className: "form-control",
+          onChange: function onChange(e) {
+            return setCellulaire(e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "mb-3 ",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
+          type: "submit",
+          className: "btn btn-primary",
+          children: "Modifier"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
+          className: "btn btn-primary m-3",
+          to: "/",
+          children: "Retour"
+        })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "nom",
-        className: "form-label",
-        children: "Nom"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "nom",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setNom(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "prenom",
-        className: "form-label",
-        children: "Prenom"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "prenom",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setPrenom(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "anniversaire",
-        className: "form-label",
-        children: "Date de naissance"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "date",
-        name: "anniversaire",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setAnniversaire(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "adresse",
-        className: "form-label",
-        children: "Adresse"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "adresse",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setAdresse(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "code_postal",
-        className: "form-label",
-        children: "Code postale"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "code_postal",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCodePostal(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "ville",
-        className: "form-label",
-        children: "Ville"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "ville",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setVille(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "telephone",
-        className: "form-label",
-        children: "Telephone"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "telephone",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setTelephone(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("label", {
-        htmlFor: "cellulaire",
-        className: "form-label",
-        children: "Cellulaire"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
-        type: "text",
-        name: "cellulaire",
-        className: "form-control",
-        onChange: function onChange(e) {
-          return setCellulaire(e.target.value);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "mb-3 ",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-        type: "submit",
-        className: "btn btn-primary",
-        children: "Modifier"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
-        className: "btn btn-primary m-3",
-        to: "/",
-        children: "Retour"
-      })]
-    })]
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModificationClient);
@@ -20840,8 +21372,9 @@ __webpack_require__.r(__webpack_exports__);
 // Imports
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n.box-app {\r\n    font-family: 'Poppins', sans-serif;\r\n    height: 100vh;\r\n}\r\n\r\nnav {\r\n  background-color: #F5F5F5;\r\n  z-index: 3;\r\n}\r\n\r\na.nav-link.active:hover {\r\n  color: #0D6EFD;\r\n}\r\n\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\nfooter .nav-link, \r\nfooter a {\r\n  color: white;\r\n  border-bottom: 2px solid;\r\n  text-decoration: none;\r\n}\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\na.nav-link, \r\nspan.nav-link,\r\n.nav-item {\r\n  padding: 0;\r\n  margin: 0.35em 5px 0.35em 0;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n}\r\n\r\n.btn-lang {\r\n  text-transform: uppercase;\r\n}\r\n\r\n.nav-link:hover {\r\n  color: black;\r\n}\r\n\r\n.btn:focus {\r\n  outline: none;\r\n}\r\n\r\n.btn:active {\r\n  transform: scale(0.98);\r\n}\r\n\r\n.btn-block {\r\n  display: block;\r\n  width: 100%;\r\n  margin: 0;\r\n}\r\n\r\n.list-group-item {\r\n  border: none;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20865,7 +21398,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".flex-header{\n    display: flex;\n    justify-content: space-between;\n}\n\n.flex{\n    display: flex;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".flex-header{\r\n    display: flex;\r\n    justify-content: space-between;\r\n}\r\n\r\n.flex{\r\n    display: flex;\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20889,7 +21422,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\n\n.details-wrapper{\n    display: flex;\n    flex-direction: row; \n    width: 90%;\n    height: auto;\n    justify-content:space-around;\n    margin: auto; \n}\n\n.details-title-container{\n    margin: 50px 0px 30px 50px;\n    font-size: 28px;\n    font-weight: bold;\n    color :#0D6EFD;\n}\n\n/* 1er colonne img */\n.details-container-left-img{\n    text-align: center;\n    width: 40%;\n    height: auto;\n    justify-content: center;\n    align-self: flex-start;\n    position: sticky;\n    top: 10px;\n}\n\n/* 2e colonne*/\n.details-wrapper-left{\n    display: flex;\n    flex-direction: row;\n    width: 10%;\n    \n}\n\n.details-container-middle{\n    display: flex;\n    flex-direction: column;\n    \n}\n\n/* 3e colonne*/\n.details-container-right{\n    display: flex;\n    flex-direction: column;\n    width: 10%;\n    \n}\n\n/* 4e colonne */\n.detail-container-achat{\n    display: flex;\n    flex-direction: column;\n    width: 20%;\n}\n\n.details-infos-left{\n    display: flex;\n    flex-direction: column;   \n}\n\n.details-img{\n    margin: 0 15px 0 20px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n\n.details-list-title{\n    color :#0D6EFD;\n    font-weight: bold;\n    margin: 5px 5px 5px 5px;\n}\n\n.details-list{\n    margin: 5px 5px 5px 5px;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\r\n\r\n.details-wrapper{\r\n    display: flex;\r\n    flex-direction: row; \r\n    width: 90%;\r\n    height: auto;\r\n    justify-content:space-around;\r\n    margin: auto; \r\n}\r\n\r\n.details-title-container{\r\n    margin: 50px 0px 30px 50px;\r\n    font-size: 28px;\r\n    font-weight: bold;\r\n    color :#0D6EFD;\r\n}\r\n\r\n/* 1er colonne img */\r\n.details-container-left-img{\r\n    text-align: center;\r\n    width: 40%;\r\n    height: auto;\r\n    justify-content: center;\r\n    align-self: flex-start;\r\n    position: sticky;\r\n    top: 10px;\r\n}\r\n\r\n/* 2e colonne*/\r\n.details-wrapper-left{\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 10%;\r\n    \r\n}\r\n\r\n.details-container-middle{\r\n    display: flex;\r\n    flex-direction: column;\r\n    \r\n}\r\n\r\n/* 3e colonne*/\r\n.details-container-right{\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 10%;\r\n    \r\n}\r\n\r\n/* 4e colonne */\r\n.detail-container-achat{\r\n    display: flex;\r\n    flex-direction: column;\r\n    width: 20%;\r\n}\r\n\r\n.details-infos-left{\r\n    display: flex;\r\n    flex-direction: column;   \r\n}\r\n\r\n.details-img{\r\n    margin: 0 15px 0 20px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.details-list-title{\r\n    color :#0D6EFD;\r\n    font-weight: bold;\r\n    margin: 5px 5px 5px 5px;\r\n}\r\n\r\n.details-list{\r\n    margin: 5px 5px 5px 5px;\r\n}\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -66651,7 +67184,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @remix-run/router */ "./node_modules/@remix-run/router/dist/router.js");
 /**
- * React Router DOM v6.4.3
+ * React Router DOM v6.4.4
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -66844,32 +67377,61 @@ const _excluded = ["onClick", "relative", "reloadDocument", "replace", "state", 
 ////////////////////////////////////////////////////////////////////////////////
 
 function createBrowserRouter(routes, opts) {
-  var _window;
-
   return (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     basename: opts == null ? void 0 : opts.basename,
     history: (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createBrowserHistory)({
       window: opts == null ? void 0 : opts.window
     }),
-    hydrationData: (opts == null ? void 0 : opts.hydrationData) || ((_window = window) == null ? void 0 : _window.__staticRouterHydrationData),
+    hydrationData: (opts == null ? void 0 : opts.hydrationData) || parseHydrationData(),
     routes: (0,react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_enhanceManualRouteObjects)(routes)
   }).initialize();
 }
 function createHashRouter(routes, opts) {
-  var _window2;
-
   return (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createRouter)({
     basename: opts == null ? void 0 : opts.basename,
     history: (0,react_router__WEBPACK_IMPORTED_MODULE_1__.createHashHistory)({
       window: opts == null ? void 0 : opts.window
     }),
-    hydrationData: (opts == null ? void 0 : opts.hydrationData) || ((_window2 = window) == null ? void 0 : _window2.__staticRouterHydrationData),
+    hydrationData: (opts == null ? void 0 : opts.hydrationData) || parseHydrationData(),
     routes: (0,react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_enhanceManualRouteObjects)(routes)
   }).initialize();
+}
+
+function parseHydrationData() {
+  var _window;
+
+  let state = (_window = window) == null ? void 0 : _window.__staticRouterHydrationData;
+
+  if (state && state.errors) {
+    state = _extends({}, state, {
+      errors: deserializeErrors(state.errors)
+    });
+  }
+
+  return state;
+}
+
+function deserializeErrors(errors) {
+  if (!errors) return null;
+  let entries = Object.entries(errors);
+  let serialized = {};
+
+  for (let [key, val] of entries) {
+    // Hey you!  If you change this, please change the corresponding logic in
+    // serializeErrors in react-router-dom/server.tsx :)
+    if (val && val.__type === "RouteErrorResponse") {
+      serialized[key] = new react_router__WEBPACK_IMPORTED_MODULE_1__.ErrorResponse(val.status, val.statusText, val.data, val.internal === true);
+    } else {
+      serialized[key] = val;
+    }
+  }
+
+  return serialized;
 }
 /**
  * A `<Router>` for use in web browsers. Provides the cleanest URLs.
  */
+
 
 function BrowserRouter(_ref) {
   let {
@@ -67037,7 +67599,10 @@ const NavLink = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(funct
   });
   let location = (0,react_router__WEBPACK_IMPORTED_MODULE_2__.useLocation)();
   let routerState = react__WEBPACK_IMPORTED_MODULE_0__.useContext(react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_DataRouterStateContext);
-  let toPathname = path.pathname;
+  let {
+    navigator
+  } = react__WEBPACK_IMPORTED_MODULE_0__.useContext(react_router__WEBPACK_IMPORTED_MODULE_2__.UNSAFE_NavigationContext);
+  let toPathname = navigator.encodeLocation ? navigator.encodeLocation(path).pathname : path.pathname;
   let locationPathname = location.pathname;
   let nextLocationPathname = routerState && routerState.navigation && routerState.navigation.location ? routerState.navigation.location.pathname : null;
 
@@ -67143,7 +67708,7 @@ const FormImpl = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((_re
 });
 
 if (true) {
-  Form.displayName = "Form";
+  FormImpl.displayName = "FormImpl";
 }
 /**
  * This component will emulate the browser's scroll restoration on location
@@ -67614,7 +68179,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _remix_run_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @remix-run/router */ "./node_modules/@remix-run/router/dist/router.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /**
- * React Router v6.4.3
+ * React Router v6.4.4
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -67951,7 +68516,7 @@ function useNavigationType() {
   return react__WEBPACK_IMPORTED_MODULE_1__.useContext(LocationContext).navigationType;
 }
 /**
- * Returns true if the URL for the given "to" value matches the current URL.
+ * Returns a PathMatch object if the given pattern matches the current URL.
  * This is useful for components that need to know "active" state, e.g.
  * <NavLink>.
  *
@@ -68096,6 +68661,9 @@ function useRoutes(routes, locationArg) {
   !useInRouterContext() ?  true ? (0,_remix_run_router__WEBPACK_IMPORTED_MODULE_0__.invariant)(false, // TODO: This error is probably because they somehow have 2 versions of the
   // router loaded. We can help them understand how to avoid that.
   "useRoutes() may be used only in the context of a <Router> component.") : 0 : void 0;
+  let {
+    navigator
+  } = react__WEBPACK_IMPORTED_MODULE_1__.useContext(NavigationContext);
   let dataRouterStateContext = react__WEBPACK_IMPORTED_MODULE_1__.useContext(DataRouterStateContext);
   let {
     matches: parentMatches
@@ -68157,8 +68725,10 @@ function useRoutes(routes, locationArg) {
 
   let renderedMatches = _renderMatches(matches && matches.map(match => Object.assign({}, match, {
     params: Object.assign({}, parentParams, match.params),
-    pathname: (0,_remix_run_router__WEBPACK_IMPORTED_MODULE_0__.joinPaths)([parentPathnameBase, match.pathname]),
-    pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : (0,_remix_run_router__WEBPACK_IMPORTED_MODULE_0__.joinPaths)([parentPathnameBase, match.pathnameBase])
+    pathname: (0,_remix_run_router__WEBPACK_IMPORTED_MODULE_0__.joinPaths)([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
+    navigator.encodeLocation ? navigator.encodeLocation(match.pathname).pathname : match.pathname]),
+    pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : (0,_remix_run_router__WEBPACK_IMPORTED_MODULE_0__.joinPaths)([parentPathnameBase, // Re-encode pathnames that were decoded inside matchRoutes
+    navigator.encodeLocation ? navigator.encodeLocation(match.pathnameBase).pathname : match.pathnameBase])
   })), parentMatches, dataRouterStateContext || undefined); // When a user passes in a `locationArg`, the associated routes need to
   // be wrapped in a new `LocationContext.Provider` in order for `useLocation`
   // to use the scoped location instead of the global location.
@@ -68507,6 +69077,7 @@ function RouterProvider(_ref) {
   let navigator = react__WEBPACK_IMPORTED_MODULE_1__.useMemo(() => {
     return {
       createHref: router.createHref,
+      encodeLocation: router.encodeLocation,
       go: n => router.navigate(n),
       push: (to, state, opts) => router.navigate(to, {
         state,
@@ -74037,7 +74608,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Latest car","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Back"}');
 
 /***/ }),
 
@@ -74048,7 +74619,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars"}'
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Voitures récentes","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour"}');
 
 /***/ })
 

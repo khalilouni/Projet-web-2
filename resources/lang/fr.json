@@ -16,5 +16,17 @@
   "home.form_modele" : "Choisissez un modèle",
   "home.form_annee" : "Choisissez une année",
   "home.form_rechercher" : "Rechercher",
-  "home.voiture_recent" : "Voitures récentes"
+  "home.voiture_recent" : "Voitures récentes",
+  "titre.form_inscription" : "S'abonner",
+  "courriel.form_inscription" : "Courriel",
+  "nom.form_inscription" : "Nom",
+  "prenom.form_inscription" : "Prenom",
+  "anniversaire.form_inscription" : "Date d'anniversaire",
+  "adresse.form_inscription" : "Votre adresse",
+  "codePostal.form_inscription" : "Code Postale",
+  "ville.form_inscription" : "Ville",
+  "telephone.form_inscription" : "Telephone",
+  "cellulaire.form_inscription" : "Cellulaire",
+  "submit.form_inscription" : "S'abonner",
+  "back.form_inscription" : "Retour"
 }

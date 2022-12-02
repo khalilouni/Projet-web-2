@@ -1,7 +1,7 @@
 import FormFilter from "./FormFilter"
 import CardVoiture from "./CardVoiture"
 import {FormattedMessage} from 'react-intl'; 
-import carImage from './img/voiture-accueil.jpeg'
+import carImage from './img/com-soon.png'
 
 const Home = () => {
     return(
