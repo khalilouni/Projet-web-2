@@ -10,23 +10,34 @@ const Header = () => {
     
     return (
         <header>
-            <nav className="navbar navbar-expand-lg bg-primary bg-gradient">
-                <div className="container-fluid flex-header">
-                    <div className='flex'>
-                        <Link className="navbar-brand" to="/home">Ecom App</Link>
-                        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <nav className="position-fixed top-0 navbar navbar-expand-lg container-fluid py-3">
+                <div className="container-sm">
+                    <Link className="navbar-brand" to="/home">LOGO</Link>
+                    <button className="navbar-toggler">
                         <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div className="navbar-nav">
-                                <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.accueil"/></Link>
+                    </button>
+                    <div>
+                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li className="nav-item">
+                                <Link className="nav-link active" to="/home"><FormattedMessage id="header.accueil"/></Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/products"><FormattedMessage id="header.voitures"/></Link>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex'>
-                        {/* bouton du changement de langue */}
-                        <button type="button" className="btn btn-primary" onClick={context.selectLanguage}>{context.locale}</button>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.a_propos"/></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.s_inscrire"/></Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="btn btn-outline-dark" aria-current="page" to="/login"><FormattedMessage id="header.connexion"/></Link>
+                            </li>
+                            <li className="nav-item">
+                                {/* bouton du changement de langue */}
+                                <button type="button" className="btn btn-primary btn-lang" onClick={context.selectLanguage}>{context.locale}</button>                        
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>

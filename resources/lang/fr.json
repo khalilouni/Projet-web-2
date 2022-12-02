@@ -1,4 +1,20 @@
 {
   "header.accueil" : "Accueil" ,
-  "header.voitures" : "Voitures" 
- }
+  "header.voitures" : "Voitures",
+  "header.s_inscrire" : "S'inscrire",
+  "header.a_propos" : "À propos",
+  "header.connexion" : "Connexion",
+  "footer.contactez_nous" : "Contactez-nous",
+  "footer.nous_suivre" : "Nous suivre",
+  "footer.politiques_de_ventes" : "Politiques de ventes",
+  "footer.s_inscrire_infolettre" : "S'inscrire à l'infolettre",
+  "footer.votre_courriel" : "Votre courriel",
+  "footer.envoyer" : "Envoyer",
+  "footer.partenaires" : "Partenaires",
+  "home.titre_filtre" : "Trouver votre prochain véhicule d'occasion",
+  "home.form_marque" : "Choisissez une marque",
+  "home.form_modele" : "Choisissez un modèle",
+  "home.form_annee" : "Choisissez une année",
+  "home.form_rechercher" : "Rechercher",
+  "home.voiture_recent" : "Voitures récentes"
+}
