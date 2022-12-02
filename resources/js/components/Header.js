@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'
 import React, {useContext} from 'react';
 import {Context} from "./LangueWrapper";
 /* pour changement de langue */
-import {FormattedMessage} from 'react-intl'; 
+import {FormattedMessage} from 'react-intl';
 import '../../css/header.css';
 
 const Header = () => {
     const context = useContext(Context);
-    
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-primary bg-gradient">
@@ -20,7 +20,7 @@ const Header = () => {
                         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div className="navbar-nav">
                                 <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.accueil"/></Link>
-                                <Link className="nav-link active" aria-current="page" to="/products"><FormattedMessage id="header.voitures"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
                             </div>
                         </div>
                     </div>
