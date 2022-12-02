@@ -11,6 +11,7 @@ import '../../css/app.css';
 import InscriptionClient from '../pages/register/InscriptionClient';
 import ModificationClient from '../pages/register/ModificationClient';
 import DetailClient from '../pages/register/DetailClient';
+import ListeVoitures from "./ListeVoitures";
 
 function App() {
     return (
@@ -18,7 +19,7 @@ function App() {
         <Header/>
         <div className='container'>
           <Routes>
-            {/* <Route path="/" element={<UsersListe users = {users} />} /> */}
+            <Route path="/voiture/liste" element={<ListeVoitures  />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/inscriptionClient" element={<InscriptionClient  />} />
