@@ -51,12 +51,12 @@ const Footer = () => {
                     </div>
                     <div className="col-md-4 footer-column">
                         <span className="footer-title"><FormattedMessage id="footer.partenaires"/></span>
-                        <div class="container text-center">
-                            <div class="row row-cols-2">
-                                <div class="col">Ford</div>
-                                <div class="col">Hyundai</div>
-                                <div class="col">Citroen</div>
-                                <div class="col">Honda</div>
+                        <div className="container text-center">
+                            <div className="row row-cols-2">
+                                <div className="col">Ford</div>
+                                <div className="col">Hyundai</div>
+                                <div className="col">Citroen</div>
+                                <div className="col">Honda</div>
                             </div>
                         </div>
                     </div>

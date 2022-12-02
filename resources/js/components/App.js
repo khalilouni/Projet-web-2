@@ -12,6 +12,7 @@ import InscriptionClient from '../pages/register/InscriptionClient';
 import ModificationClient from '../pages/register/ModificationClient';
 import DetailClient from '../pages/register/DetailClient';
 import ListeVoitures from "./ListeVoitures";
+import Home from './Home';
 
 function App() {
     return (
@@ -19,7 +20,8 @@ function App() {
         <Header/>
         <div className='container'>
           <Routes>
-            <Route path="/voiture/liste" element={<ListeVoitures  />} />
+            <Route path="/voiture/liste" element={<Home  />} />
+            <Route path="/home" element={<ListeVoitures  />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/inscriptionClient" element={<InscriptionClient  />} />

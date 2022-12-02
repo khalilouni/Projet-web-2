@@ -20,12 +20,12 @@ const DetailClient = () => {
         });
         }, []);
 
-        console.log(profil);
+       
 
     return (
 
-        <div className='container m-5'>
-            <h1 className=' font-weight-bold text-center m-4 p-3'>Modifier Client</h1>
+        <div className='container p-4 m-3'>
+            <h1 className=' font-weight-bold text-center mt-5 py-5'>Detail Profil</h1>
             <div className='col-md-12'>
                 <div className="card mb-3">
                     <div className="card-body">
