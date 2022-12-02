@@ -22,20 +22,20 @@ const Header = () => {
                                 <Link className="nav-link active" to="/home"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/products"><FormattedMessage id="header.voitures"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/inscriptionClient"><FormattedMessage id="header.s_inscrire"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/register"><FormattedMessage id="header.s_inscrire"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="btn btn-outline-dark" aria-current="page" to="/login"><FormattedMessage id="header.connexion"/></Link>
                             </li>
                             <li className="nav-item">
                                 {/* bouton du changement de langue */}
-                                <button type="button" className="btn btn-primary btn-lang" onClick={context.selectLanguage}>{context.locale}</button>                        
+                                <button type="button" className="btn btn-primary btn-lang" onClick={context.selectLanguage}>{context.locale}</button>
                             </li>
                         </ul>
                     </div>

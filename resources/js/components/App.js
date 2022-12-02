@@ -20,8 +20,8 @@ function App() {
         <Header/>
         <div className='container'>
           <Routes>
-            <Route path="/voiture/liste" element={<Home  />} />
-            <Route path="/home" element={<ListeVoitures  />} />
+            <Route path="/voiture/liste" element={<ListeVoitures  />} />
+            <Route path="/home" element={<Home  />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/inscriptionClient" element={<InscriptionClient  />} />
