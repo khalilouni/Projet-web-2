@@ -28,5 +28,8 @@
   "telephone.form_inscription" : "Telephone",
   "cellulaire.form_inscription" : "Cellulaire",
   "submit.form_inscription" : "S'abonner",
-  "back.form_inscription" : "Retour"
+  "back.form_inscription" : "Retour",
+  "titre.detail_client" : "Detail de votre profil",
+  "modifier.form_inscription" : "Modifier",
+  "titre.form_modification" : "Mettre a jour votre profile"
 }

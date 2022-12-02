@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-
+import {FormattedMessage} from 'react-intl';
 
 
 const DetailClient = () => {
@@ -24,14 +24,14 @@ const DetailClient = () => {
 
     return (
 
-        <div className='container p-4 m-3'>
-            <h1 className=' font-weight-bold text-center mt-5 py-5'>Detail Profil</h1>
-            <div className='col-md-12'>
+        <div className='container p-4 m-3 '>
+            <h1 className=' font-weight-bold text-center mt-5 py-5'><FormattedMessage id="titre.detail_client"/></h1>
+            <div className='col-md-12 '>
                 <div className="card mb-3">
-                    <div className="card-body">
+                    <div className="card-body bg-light">
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Courriel :</h6>
+                            <h6 className="mb-0"><FormattedMessage id="courriel.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.courriel}
@@ -39,7 +39,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Nom :</h6>
+                            <h6 className="mb-0"><FormattedMessage id="nom.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.nom}
@@ -47,7 +47,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Prenom :</h6>
+                            <h6 className="mb-0"><FormattedMessage id="prenom.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.prenom}
@@ -55,7 +55,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Date d'anniversaire</h6>
+                            <h6 className="mb-0"><FormattedMessage id="anniversaire.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.anniversaire}
@@ -63,7 +63,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Adresse</h6>
+                            <h6 className="mb-0"><FormattedMessage id="adresse.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.adresse}
@@ -71,7 +71,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Code postal</h6>
+                            <h6 className="mb-0"><FormattedMessage id="codePostal.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.code_postal}
@@ -79,7 +79,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Telephone</h6>
+                            <h6 className="mb-0"><FormattedMessage id="telephone.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.telephone}
@@ -87,7 +87,7 @@ const DetailClient = () => {
                         </div>
                         <div className="row m-3">
                             <div className="col-sm-3">
-                            <h6 className="mb-0">Ville</h6>
+                            <h6 className="mb-0"><FormattedMessage id="ville.form_inscription"/> :</h6>
                             </div>
                             <div className="col-sm-9 text-secondary">
                             {profil.ville}
@@ -95,8 +95,8 @@ const DetailClient = () => {
                         </div>
                     </div>
                 </div>
-                <Link className='btn btn-primary m-3' to='/ModifierProfil/{profil.id}'>Modifier</Link>
-                <Link className='btn btn-primary m-3' to='/'>Retour</Link>
+                <Link className='btn btn-primary m-3' to={`/ModifierProfil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
+                <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
             </div>
         </div>
     );
