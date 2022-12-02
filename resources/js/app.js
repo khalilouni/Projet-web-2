@@ -14,6 +14,9 @@ require('./bootstrap');
 
 
 require('./components/App');
+require('./components/Header');
+require('./components/Footer');
+require('./components/Home');
 require('./pages/register/Inscription');
 require('./pages/register/InscriptionClient');
 require('./pages/register/ModificationClient');
