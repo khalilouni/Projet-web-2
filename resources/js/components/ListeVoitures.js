@@ -20,7 +20,7 @@ const ListeVoitures = () => {
         return data
     }
     return (
-        <div style={{ marginTop: '15vh'}}>
+        <div >
             <h1><FormattedMessage id="voitures.titre"/></h1>
             <div className="container">
                 <div className="row">

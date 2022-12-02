@@ -12,20 +12,20 @@ const Header = () => {
         <header>
             <nav className="position-fixed top-0 navbar navbar-expand-lg container-fluid py-3">
                 <div className="container-sm">
-                    <Link className="navbar-brand" to="/home">LOGO</Link>
+                    <Link className="navbar-brand" to="/">LOGO</Link>
                     <button className="navbar-toggler">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/home"><FormattedMessage id="header.accueil"/></Link>
+                                <Link className="nav-link active" to="/"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/home"><FormattedMessage id="header.a_propos"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/register"><FormattedMessage id="header.s_inscrire"/></Link>
