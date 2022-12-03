@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 
 
-const ModificationClient = () => {
+const ModificationClient = (props) => {
 
     const [profil, setProfil] = useState();
     let id = window.location.pathname.split('/')[2];
-
+    
+    const [error, setError] = useState();
     const [courriel,setCourriel] = useState('');
     const [nom,setNom] = useState('');
     const [prenom,setPrenom] = useState('');
@@ -24,12 +25,11 @@ const ModificationClient = () => {
     useEffect(() => {
         axios.get(`http://127.0.0.1:8000/api/v1/profil/${id}`).then((response) => {
             setProfil(response.data[0]);
-        }).catch(error => {
-            setError(error);
-        });
-      }, []);
+        })
+    }, []);
 
-     // console.log(profil.nom);
+    console.log(profil);
+    
 
       const onSubmit = (e) => {
         e.preventDefault();
@@ -48,14 +48,20 @@ const ModificationClient = () => {
         axios.put(`http://127.0.0.1:8000/api/v1/profil/${id}`, donneesClient)
          .then(res => {
              console.log(res.data);
-         })
-
+         }).catch(error => {
+            //setError(error);
+            console.log('Error', error.response.data.config);
+        })
      }
+
+
+
 
 
 
     return (
                 <div className="container p-4 m-3">
+                   
                     <form className='form px-5 border-opacity-25 rounded bg-light' onSubmit={onSubmit}>
                         <h1 className=' font-weight-bold text-center text-dark mt-5 py-5'><FormattedMessage id="titre.form_modification"/></h1>
                         <div className="mb-3">
@@ -65,6 +71,7 @@ const ModificationClient = () => {
                                 name="courriel"
                                 className="form-control"
                                 onChange={(e) => setCourriel(e.target.value)}
+                                
                             />
                         </div>
                         <div className="mb-3">

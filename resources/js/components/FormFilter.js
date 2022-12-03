@@ -40,7 +40,7 @@ const FormFilter = ({size, color}) => {
                 </select>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary btn-block"><FormattedMessage id="home.form_rechercher"/></button>
+                <button type="submit" className="btn btn-primary btn-block"><FormattedMessage id="home.form_rechercher"/></button>
             </div>
         </form>  
     )

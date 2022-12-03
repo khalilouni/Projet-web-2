@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import '../../css/voitureDetail.css';
 /* import image statique pour test affichage*/
-import soon from './img/com-soon.png'
+import soon from '../../../public/images/com-soon.png'
 
 const VoitureDetail = () => {
     let { id } = useParams();
