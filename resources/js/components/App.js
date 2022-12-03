@@ -21,7 +21,8 @@ function App() {
         <div className='container' style={{ marginTop: '15vh'}}>
           <Routes>
             <Route path="/voiture/liste" element={<ListeVoitures  />} />
-            <Route path="/home" element={<Home  />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/inscriptionClient" element={<InscriptionClient  />} />
