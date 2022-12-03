@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 /* pour changement de langue */
 import { FormattedMessage } from 'react-intl';
 import '../../css/voitureDetail.css';
-/* import image statique pour test affichage*/
-import soon from '../../../public/images/com-soon.png'
+
+/* import image statique pour test rendu affichage*/
+import test from '../../../public/images/com-soon.png'
 
 const VoitureDetail = () => {
     let { id } = useParams();
@@ -22,44 +23,85 @@ const VoitureDetail = () => {
 
     return (
         <React.Fragment>
-            <div className="details-title-container">
-                <div>{voiture && voiture.modele.constructeur.nom}-{voiture && voiture.modele.nom}-{voiture && voiture.modele.annee}</div>
-            </div>
-            
-            <div className="details-wrapper">
-                
-                <div className="details-container-left-img"> 
-                    <img src={soon} alt="image par default"/>
+            <div className="details-title">
+                <div className="details-title-container">
+                    {voiture && voiture.modele.constructeur.nom}-{voiture && voiture.modele.nom}-{voiture && voiture.modele.annee}
                 </div>
-                    
-                <div className="details-wrapper-left">
-                    <div className="details-container-middle"> 
-                        <div className = "details-infos-letf">
-                            <div className='details-list-title'>Constructeur :</div>
-                            <div className='details-list-title'>Modele :</div>
-                            <div className='details-list-title'>Année :</div>
-                            <div className='details-list-title'>Carburant :</div>
-                            <div className='details-list-title'>Transmission :</div>
-                            <div className='details-list-title'>Carrosserie :</div> 
+                <div className="details-title-container-price">
+                    $CAD {voiture && voiture.prix}
+                </div>
+                <div className='detail-container-btn'>
+                    <button type="button" className="btn btn-primary">
+                        <FormattedMessage id="voitureDetail.reserver"/>
+                    </button>
+                </div> 
+                <div className='detail-container-btn'>
+                    <button type="button" className="btn btn-primary">
+                        <FormattedMessage id="voitureDetail.acheter"/>
+                    </button>
+                </div>
+            </div>
+            <div className="detail-general-wrapper">
+                <div className="details-wrapper-left-img">
+                    <img src={test} alt="image de test"/>
+                </div>
+                <div className="detail-wrapper-right">
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.constructeur"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.modele.constructeur.nom}
                         </div>
                     </div>
-                </div>  
-                
-                <div className = "details-container-right">
-                    <div className='details-list'>{voiture && voiture.modele.constructeur.nom}</div>
-                    <div className='details-list'>{voiture && voiture.modele.nom}</div>
-                    <div className='details-list'>{voiture && voiture.modele.annee}</div>
-                    <div className='details-list'>{voiture && voiture.carburant.type}</div>
-                    <div className='details-list'>{voiture && voiture.transmission.type}</div>
-                    <div className='details-list'>{voiture && voiture.carrosserie.type}</div>   
-                </div>
-                <div className='detail-container-achat'>
-                    bouton acheter ici
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.modele"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.modele.nom} 
+                        </div>
+                    </div>
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.annee"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.modele.annee}
+                        </div>
+                    </div>
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.carburant"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.carburant.type}
+                        </div> 
+                    </div> 
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.transmission"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.transmission.type}
+                        </div>
+                    </div>
+                    <div className="detail-contour-right">
+                        <div className="detail-wrap-right">
+                            <FormattedMessage id="voitureDetail.carrosserie"/>
+                        </div>
+                        <div className="detail-wrap-left">
+                            {voiture && voiture.carrosserie.type}
+                        </div>
+                    </div>   
                 </div>
             </div>
-
         </React.Fragment>
     )
 }
 
 export default VoitureDetail
+
+
+
+ 

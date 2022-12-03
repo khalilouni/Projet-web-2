@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import {FormattedMessage} from 'react-intl';
 
 const Inscription = () => {
 
@@ -27,10 +28,10 @@ const Inscription = () => {
 
 
     return (
-        <form className='form px-5 border-opacity-25 rounded' onSubmit={surSoumettre}>
-            <h1 className='title-form font-weight-bold text-center m-4 p-3'>Création de vos données</h1>
+        <form className='form px-5 border-opacity-25 rounded' style={{ marginTop: '15vh'}} onSubmit={surSoumettre}>
+            <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="register.form_titre"/></h1>
                     <div className="mb-3">
-                        <label htmlFor="courriel" className="form-label">Courriel</label>
+                        <label htmlFor="courriel" className="form-label"><FormattedMessage id="register.form_courriel"/></label>
                         <input
                             type="email"
                             name="courriel"
@@ -39,7 +40,7 @@ const Inscription = () => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="nom" className="form-label">Nom De L'Utilisateur</label>
+                        <label htmlFor="nom" className="form-label"><FormattedMessage id="register.form_nom_utilisateur"/></label>
                         <input
                             type="text"
                             name="nom"
@@ -48,7 +49,7 @@ const Inscription = () => {
                             />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="mot-de-passe" className="form-label">Mot De Passe</label>
+                        <label htmlFor="mot-de-passe" className="form-label"><FormattedMessage id="register.form_mot_de_passe"/></label>
                         <input
                             type="password"
                             name="mot_de_passe"
@@ -58,8 +59,8 @@ const Inscription = () => {
                     </div>
 
                     <div className="mb-3 ">
-                        <button type="submit" className="btn btn-primary">S'inscrire</button>
-                        <Link className='btn btn-primary m-3' to='/'>Retour</Link>
+                        <button type="submit" className="btn btn-primary"><FormattedMessage id="register.form_bt_inscrire"/></button>
+                        <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="register.form_bt_retour"/></Link>
                     </div>
             </form>
     );

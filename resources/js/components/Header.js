@@ -12,7 +12,7 @@ const Header = () => {
         <header>
             <nav className="position-fixed top-0 navbar navbar-expand-lg container-fluid py-3">
                 <div className="container-sm">
-                    <Link className="navbar-brand" to="/home">LOGO</Link>
+                    <Link className="navbar-brand" to="/">LOGO</Link>
                     <button className="navbar-toggler">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -28,14 +28,14 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="/aPropos"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/inscriptionClient"><FormattedMessage id="header.s_inscrire"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/register"><FormattedMessage id="header.s_inscrire"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="btn btn-outline-dark" aria-current="page" to="/login"><FormattedMessage id="header.connexion"/></Link>
                             </li>
                             <li className="nav-item">
                                 {/* bouton du changement de langue */}
-                                <button type="button" className="btn btn-primary btn-lang" onClick={context.selectLanguage}>{context.locale}</button>                        
+                                <button type="button" className="btn btn-primary btn-lang" onClick={context.selectLanguage}>{context.locale}</button>
                             </li>
                         </ul>
                     </div>

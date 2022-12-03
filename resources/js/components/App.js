@@ -18,10 +18,11 @@ function App() {
     return (
       <LangueWrapper>
         <Header/>
-        <div className='container'>
+        <div className='container' style={{ marginTop: '15vh'}}>
           <Routes>
-            <Route path="/voiture/liste" element={<Home  />} />
-            <Route path="/home" element={<ListeVoitures  />} />
+            <Route path="/voiture/liste" element={<ListeVoitures  />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/inscriptionClient" element={<InscriptionClient  />} />

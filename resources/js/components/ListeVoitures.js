@@ -1,7 +1,11 @@
 import {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
+import CardVoiture from "./CardVoiture";
+import FormFilter from "./FormFilter";
+import {FormattedMessage} from "react-intl";
+
 const ListeVoitures = () => {
-    const [ voitures,setVoitures ] = useState([])
+    const [voitures, setVoitures] = useState([])
     useEffect(() => {
         const getVoitures = async () => {
             const voituresDeServeur = await fetchVoitures()
@@ -16,20 +20,23 @@ const ListeVoitures = () => {
         return data
     }
     return (
-        <div>
-            <h1>Liste de Voitures</h1>
-            <ul>
-                {voitures.map(v => <Link key={v.id} to={`/voiture/${v.id}`}><li>
-                    <span className='mx-3'>{v.modele.constructeur.nom}</span>
-                    <span className='mx-3'>{v.modele.nom}</span>
-                    <span className='mx-3'>{v.date_arrivee}</span>
-                    <span className='mx-3'>{v.prix}</span>
-                </li></Link>)}
-            </ul>
-
+        <div >
+            <h1><FormattedMessage id="voitures.titre"/></h1>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                      <FormFilter size={"22rem"} />
+                    </div>
+                    <div className="col">
+                        <div className="row"> {
+                            voitures.map(v => <div className="col" key={v.id}>
+                                <CardVoiture voiture={v}/>
+                            </div>)}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
 
 export default ListeVoitures;
-
