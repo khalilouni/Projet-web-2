@@ -42,7 +42,9 @@ const InscriptionClient = () => {
            .then(res => {
                message = res.data.message;
                console.log(message);
-           })
+           }).catch(e  => {
+            console.log(e);
+       })
 
      }
 

@@ -5,8 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import '../../css/voitureDetail.css';
 
 /* import image statique pour test rendu affichage*/
-import test from './img/voiture-test.jpg'
-
+import test from '../../../public/images/com-soon.png'
 
 const VoitureDetail = () => {
     let { id } = useParams();
