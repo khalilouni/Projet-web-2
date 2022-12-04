@@ -13,7 +13,7 @@ const FormFilter = ({size, color}) => {
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option selected>Marque</option>
+                    <option defaultValue="0">Marque</option>
                     <option defaultValue="1">Dodge</option>
                     <option defaultValue="2">BMW</option>
                     <option defaultValue="3">KIA</option>
@@ -28,7 +28,7 @@ const FormFilter = ({size, color}) => {
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option selected>Modèle</option>
+                    <option defaultValue="0">Modèle</option>
                     <option defaultValue="1">A5</option>
                     <option defaultValue="2">Corolla</option>
                     <option defaultValue="3">Civic</option>
@@ -39,7 +39,7 @@ const FormFilter = ({size, color}) => {
                 </select>
             </div>
             <div className="mb-3">
-                <label for="vol" className="form-label">Année</label>
+                <label htmlFor="vol" className="form-label">Année</label>
                 <input type="range" className="form-range" id="vol" name="vol" min="1966" max="2023"/>
             </div>
             <div>
