@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
+import {URL} from "../../constantes";
 
 
 const ModificationClient = () => {
@@ -22,7 +23,7 @@ const ModificationClient = () => {
    
    
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/api/v1/profil/${id}`).then((response) => {
+        axios.get(`${URL}/api/v1/profil/${id}`).then((response) => {
             setProfil(response.data[0]);
         }).catch(error => {
             setError(error);

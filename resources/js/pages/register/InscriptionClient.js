@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
+import {URL} from "../../constantes";
 
 
 
@@ -36,7 +37,7 @@ const InscriptionClient = () => {
 
        axios({
            method: 'post',
-           url: 'http://127.0.0.1:8000/api/v1/inscriptionClient',
+           url: `${URL}/api/v1/inscriptionClient`,
            data: donneesClient,
        })
            .then(res => {

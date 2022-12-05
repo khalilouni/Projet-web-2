@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import CardVoiture from "./CardVoiture";
 import FormFilter from "./FormFilter";
 import {FormattedMessage} from "react-intl";
+import {URL} from "../constantes";
 
 const ListeVoitures = () => {
     const [voitures, setVoitures] = useState([])
@@ -15,7 +16,7 @@ const ListeVoitures = () => {
     }, [])
 
     const fetchVoitures = async () => {
-        const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+        const res = await fetch(`${URL}/api/v1/voiture`)
         const data = await res.json()
         return data
     }

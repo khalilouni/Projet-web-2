@@ -6,6 +6,7 @@ import '../../css/voitureDetail.css';
 
 /* import image statique pour test rendu affichage*/
 import test from './img/voiture-test.jpg'
+import {URL} from "../constantes";
 
 
 const VoitureDetail = () => {
@@ -14,7 +15,7 @@ const VoitureDetail = () => {
     const [voiture, setVoiture] = useState();
 
     const getData = async () => {
-        const { data } = await axios.get(`http://localhost:8000/api/v1/voiture/${id}`);
+        const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data[0]);
     };
 
