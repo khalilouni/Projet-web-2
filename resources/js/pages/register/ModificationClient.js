@@ -1,159 +1,156 @@
 import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link,useParams } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 import {URL} from "../../constantes";
 
 
-const ModificationClient = (props) => {
+const ModificationClient = () => {
 
-    const [profil, setProfil] = useState();
-    let id = window.location.pathname.split('/')[2];
-    
-    const [error, setError] = useState();
-    const [courriel,setCourriel] = useState('');
-    const [nom,setNom] = useState('');
-    const [prenom,setPrenom] = useState('');
-    const [anniversaire,setAnniversaire] = useState('');
-    const [adresse,setAdresse] = useState('');
-    const [codePostal,setCodePostal] = useState('');
-    const [ville,setVille] = useState('');
-    const [telephone,setTelephone] = useState('');
-    const [cellulaire,setCellulaire] = useState('');
-   
-   
+    const { id } = useParams();
+    const [profil, setProfil] = useState([]);
+    const inputCourriel = useRef(null);
+    const inputNom = useRef(null);
+    const inputPrenom = useRef(null);
+    const inputAnniversaire = useRef(null);
+    const inputAdresse = useRef(null);
+    const inputCodePostal = useRef(null);
+    const inputVille = useRef(null);
+    const inputTelephone = useRef(null);
+    const inputCellulaire = useRef(null);
+
+    const getProfil = async () => {
+        const { data } = await axios.get(`http://localhost:8000/api/v1/profil/${id}`)
+        setProfil(data[0]);
+    };
+
     useEffect(() => {
-        axios.get(`${URL}/api/v1/profil/${id}`).then((response) => {
-            setProfil(response.data[0]);
-        })
+        getProfil();
     }, []);
 
-    console.log(profil);
-    
-
-      const onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        let donneesClient = {}
-        donneesClient.courriel = courriel
-        donneesClient.nom = nom
-        donneesClient.prenom = prenom
-        donneesClient.anniversaire = anniversaire
-        donneesClient.adresse = adresse
-        donneesClient.code_postal = codePostal
-        donneesClient.ville = ville
-        donneesClient.telephone = telephone
-        donneesClient.cellulaire = cellulaire
-        
 
-        axios.put(`http://127.0.0.1:8000/api/v1/profil/${id}`, donneesClient)
-         .then(res => {
-             console.log(res.data);
-         }).catch(error => {
-            //setError(error);
-            console.log('Error', error.response.data.config);
-        })
-     }
+        axios.put(`http://127.0.0.1:8000/api/v1/profil/${id}`, profil)
+            .then(res => {
+                console.log(res.data);
+            })
 
-
-
-
+    }
 
 
     return (
-                <div className="container p-4 m-3">
-                   
-                    <form className='form px-5 border-opacity-25 rounded bg-light' onSubmit={onSubmit}>
-                        <h1 className=' font-weight-bold text-center text-dark mt-5 py-5'><FormattedMessage id="titre.form_modification"/></h1>
-                        <div className="mb-3">
-                            <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
-                            <input
-                                type="email"
-                                name="courriel"
-                                className="form-control"
-                                onChange={(e) => setCourriel(e.target.value)}
-                                
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="nom" className="form-label"><FormattedMessage id="nom.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="nom"
-                                className="form-control"
-                                onChange={(e) => setNom(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="prenom" className="form-label"><FormattedMessage id="prenom.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="prenom"
-                                className="form-control"
-                                onChange={(e) => setPrenom(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="anniversaire" className="form-label"><FormattedMessage id="anniversaire.form_inscription"/></label>
-                            <input
-                                type="date"
-                                name="anniversaire"
-                                className="form-control"
-                                onChange={(e) => setAnniversaire(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="adresse" className="form-label"><FormattedMessage id="adresse.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="adresse"
-                                className="form-control"
-                                onChange={(e) => setAdresse(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="code_postal" className="form-label"><FormattedMessage id="codePostal.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="code_postal"
-                                className="form-control"
-                                onChange={(e) => setCodePostal(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="ville" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="ville"
-                                className="form-control"
-                                onChange={(e) => setVille(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="telephone"
-                                className="form-control"
-                                onChange={(e) => setTelephone(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="cellulaire" className="form-label"><FormattedMessage id="cellulaire.form_inscription"/></label>
-                            <input
-                                type="text"
-                                name="cellulaire"
-                                className="form-control"
-                                onChange={(e) => setCellulaire(e.target.value)}
-                            />
-                        </div>
-                        <div className="mb-3 ">
-                            <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
-                            <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
-                        </div> 
-                    </form>
+        <div className="container p-4 m-3">
+            <form className='form px-5 border-opacity-25 rounded bg-light' onSubmit={onSubmit}>
+                <h1 className=' font-weight-bold text-center text-dark mt-5 py-5'><FormattedMessage id="titre.form_modification"/></h1>
+                <div className="mb-3">
+                    <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
+                    <input
+                        ref={inputCourriel}
+                        type="email"
+                        name="courriel"
+                        defaultValue={profil.courriel}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,courriel:inputCourriel.current.value})}
+                    />
                 </div>
-        
+                <div className="mb-3">
+                    <label htmlFor="nom" className="form-label"><FormattedMessage id="nom.form_inscription"/></label>
+                    <input
+                        ref={inputNom}
+                        type="text"
+                        name="nom"
+                        defaultValue={profil.nom}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,nom:inputNom.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="prenom" className="form-label"><FormattedMessage id="prenom.form_inscription"/></label>
+                    <input
+                        ref={inputPrenom}
+                        type="text"
+                        name="prenom"
+                        defaultValue={profil.prenom}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,prenom:inputPrenom.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="anniversaire" className="form-label"><FormattedMessage id="anniversaire.form_inscription"/></label>
+                    <input
+                        ref={inputAnniversaire}
+                        type="date"
+                        name="anniversaire"
+                        defaultValue={profil.anniversaire}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,anniversaire:inputAnniversaire.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="adresse" className="form-label"><FormattedMessage id="adresse.form_inscription"/></label>
+                    <input
+                        ref={inputAdresse}
+                        type="text"
+                        name="adresse"
+                        defaultValue={profil.adresse}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,adresse:inputAdresse.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="code_postal" className="form-label"><FormattedMessage id="codePostal.form_inscription"/></label>
+                    <input
+                        ref={inputCodePostal}
+                        type="text"
+                        name="code_postal"
+                        defaultValue={profil.code_postal || ''}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,code_postal:inputCodePostal.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="ville" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
+                    <input
+                        ref={inputVille}
+                        type="text"
+                        name="ville"
+                        defaultValue={profil.ville || ''}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,ville:inputVille.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
+                    <input
+                        ref={inputTelephone}
+                        type="text"
+                        name="telephone"
+                        defaultValue={profil.telephone || ''}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,telephone:inputTelephone.current.value})}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="cellulaire" className="form-label"><FormattedMessage id="cellulaire.form_inscription"/></label>
+                    <input
+                        ref={inputCellulaire}
+                        type="text"
+                        name="cellulaire"
+                        defaultValue={profil.cellulaire || ''}
+                        className="form-control"
+                        onChange={(e) => setProfil({...profil,cellulaire:inputCellulaire.current.value})}
+                    />
+                </div>
+                <div className="mb-3 ">
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
+                    <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
+                </div>
+
+            </form>
+        </div>
+
     );
 }
 

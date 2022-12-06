@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react'
 /* pour changement de langue */
 import {FormattedMessage} from 'react-intl';
 
@@ -5,6 +6,33 @@ import {FormattedMessage} from 'react-intl';
 import '../../css/formFilter.css';
 
 const FormFilter = ({size, color}) => {
+    const [constructeurs, setConstructeurs] = useState([])
+    const [modeles, setModeles] = useState([])
+    useEffect(() => {
+        const getConstructeurs = async () => {
+            const data = await fetchConstructeurs()
+            setConstructeurs(data)
+        }
+
+        const getModeles = async () => {
+            const data = await fetchModeles()
+            setModeles(data)
+        }
+        getConstructeurs()
+        getModeles()
+    }, [])
+    
+    const fetchConstructeurs = async () => {
+        const res = await fetch('http://127.0.0.1:8000/api/v1/constructeur')
+        const data = await res.json()
+        return data
+    }
+
+    const fetchModeles = async () => {
+        const res = await fetch('http://127.0.0.1:8000/api/v1/modele')
+        const data = await res.json()
+        return data
+    }
     
     return (
         <form className="card p-5" style={{ width: size }}>
@@ -15,29 +43,24 @@ const FormFilter = ({size, color}) => {
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option defaultValue="0">Marque</option>
-                    <option defaultValue="1">Dodge</option>
-                    <option defaultValue="2">BMW</option>
-                    <option defaultValue="3">KIA</option>
-                    <option defaultValue="4">Audi</option>
-                    <option defaultValue="5">Wolkswagen</option>
-                    <option defaultValue="6">Mercedes</option>
-                    <option defaultValue="7">Toyota</option>
-                    <option defaultValue="8">Honda</option>
+                    <FormattedMessage id="home.form_marque">
+                        { selectOption => <option>{selectOption}</option>}
+                    </FormattedMessage>
+                    {
+                        constructeurs.map(c => <option key={c.id} value={c.id}>{c.nom}</option>)
+                    }
                 </select>
             </div>
             <div className="mb-3">
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option defaultValue="0">Modèle</option>
-                    <option defaultValue="1">A5</option>
-                    <option defaultValue="2">Corolla</option>
-                    <option defaultValue="3">Civic</option>
-                    <option defaultValue="4">Classic C</option>
-                    <option defaultValue="5">Journey</option>
-                    <option defaultValue="6">Sportage</option>
-                    <option defaultValue="7">Atlas</option>
+                    <FormattedMessage id="home.form_modele">
+                        { selectOption => <option>{selectOption}</option>}
+                    </FormattedMessage>
+                    {
+                        modeles.map(m => <option key={m.id} value={m.id}>{m.nom}</option>)
+                    }
                 </select>
             </div>
             <div className="mb-3">
