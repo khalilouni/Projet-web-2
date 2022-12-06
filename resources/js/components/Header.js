@@ -31,7 +31,7 @@ const Header = () => {
                     <div className="collapse navbar-collapse nav-spacing" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/home"><FormattedMessage id="header.accueil"/></Link>
+                                <Link className="nav-link active" to="/"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>

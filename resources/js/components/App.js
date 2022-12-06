@@ -27,6 +27,7 @@ function App() {
             <Route path="/inscriptionClient" element={<InscriptionClient/>} />
             <Route path="/ModifierProfil/:profil" element={<ModificationClient/>} />
             <Route path="/detailProfil/:profil" element={<DetailClient/>} />
+            <Route path="*" element={<Home/>} />
           </Routes>
         </div>
         <Footer/>
