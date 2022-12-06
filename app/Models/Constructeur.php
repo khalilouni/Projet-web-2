@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Constructeur extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nom'];
+
 }
