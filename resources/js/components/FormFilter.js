@@ -13,7 +13,9 @@ const FormFilter = ({size, color}) => {
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option defaultValue="0">Marque</option>
+                    <FormattedMessage id="home.form_marque">
+                        { selectOption => <option selected>{selectOption}</option>}
+                    </FormattedMessage>
                     <option defaultValue="1">Dodge</option>
                     <option defaultValue="2">BMW</option>
                     <option defaultValue="3">KIA</option>
@@ -28,7 +30,9 @@ const FormFilter = ({size, color}) => {
                 <select className="form-select" 
                     style={{backgroundColor : color}}
                 >
-                    <option defaultValue="0">Modèle</option>
+                    <FormattedMessage id="home.form_modele">
+                        { selectOption => <option selected>{selectOption}</option>}
+                    </FormattedMessage>
                     <option defaultValue="1">A5</option>
                     <option defaultValue="2">Corolla</option>
                     <option defaultValue="3">Civic</option>
