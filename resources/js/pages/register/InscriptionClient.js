@@ -14,33 +14,45 @@ class  InscriptionClient extends Component {
             prenom : '',
             adresse : '',
             telephone : '',
-            ville : '',
             code_postal : '',
             cellulaire : '',
             anniversaire : '',
+            villeId: '',
+            villes : [],
             error_courriel : '',
             error_nom : '',
             error_prenom : '',
             error_adresse : '',
             error_anniversaire : '',
-            error_ville : '',
             error_telephone : '',
             error_cellulaire : '',
             error_code_postal : '',
         }
 
+
         this.courriel = this.courriel.bind(this);
         this.nom = this.nom.bind(this);
         this.prenom = this.prenom.bind(this);
         this.telephone = this.telephone.bind(this);
-        this.ville = this.ville.bind(this);
         this.code_postal = this.code_postal.bind(this);
         this.cellulaire = this.cellulaire.bind(this);
         this.anniversaire = this.anniversaire.bind(this);
         this.adresse = this.adresse.bind(this);
+        this.villeId = this.villeId.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        axios({
+            method: 'get',
+            url: 'http://127.0.0.1:8000/api/v1/ville'
+        })
+         .then(res => {
+            this.setState({villes : res.data})
+            
+         })
+      }
+    
     courriel(e) {
         this.setState({courriel : e.target.value})
     }
@@ -52,9 +64,6 @@ class  InscriptionClient extends Component {
     }
     adresse(e) {
         this.setState({adresse : e.target.value})
-    }
-    ville(e) {
-        this.setState({ville : e.target.value})
     }
     anniversaire(e) {
         this.setState({anniversaire : e.target.value})
@@ -68,6 +77,10 @@ class  InscriptionClient extends Component {
     cellulaire(e) {
         this.setState({cellulaire : e.target.value})
     }
+    villeId(e) {
+        this.setState({villeId : e.target.value})
+    }
+   
 
     onSubmit (event) {
         event.preventDefault();
@@ -75,14 +88,14 @@ class  InscriptionClient extends Component {
             nom: this.state.nom,
             prenom : this.state.prenom,
             adresse : this.state.adresse,
-            ville: this.state.ville,
             telephone : this.state.telephone,
             cellulaire : this.state.cellulaire,
             courriel : this.state.courriel,
             anniversaire : this.state.anniversaire,
-            code_postal : this.state.code_postal
+            code_postal : this.state.code_postal,
+            villeId : this.state.villeId
         }
-        //console.log(data);
+       console.log(data);
         axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/v1/inscriptionClient',
@@ -97,7 +110,6 @@ class  InscriptionClient extends Component {
             this.setState({error_prenom : error.response.data.errors.prenom});
             this.setState({error_adresse : error.response.data.errors.adresse});
             this.setState({error_anniversaire : error.response.data.errors.anniversaire});
-            this.setState({error_ville : error.response.data.errors.ville});
             this.setState({error_code_postal : error.response.data.errors.code_postal});
             this.setState({error_telephone : error.response.data.errors.telephone});
             this.setState({error_cellulaire : error.response.data.errors.cellulaire});
@@ -177,16 +189,6 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_code_postal}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="ville" className="form-label">Ville</label>
-                    <input
-                        type="text"
-                        name="ville"
-                        className="form-control"
-                        onChange={this.ville}
-                    />
-                    <span className='text-danger'>{this.state.error_ville}</span>
-                </div>
-                <div className="mb-3">
                     <label htmlFor="telephone" className="form-label">Telephone</label>
                     <input
                         type="text"
@@ -205,6 +207,13 @@ class  InscriptionClient extends Component {
                         onChange={this.cellulaire}
                     />
                     <span className='text-danger'>{this.state.error_cellulaire}</span>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="villeId" className="form-label">Ville</label>
+                    <select name="villeId" onChange={this.villeId} className="form-select" aria-label="Default select example">
+                        <option>Choissir une ville</option>
+                        {this.state.villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}
+                    </select>
                 </div>
                 <div className="mb-3 ">
                     <button type="submit" className="btn btn-primary" onClick={this.onSubmit}>S'inscrire</button>
