@@ -1,6 +1,9 @@
 import {useState, useEffect} from 'react'
 /* pour changement de langue */
-import {FormattedMessage} from 'react-intl'; 
+import {FormattedMessage} from 'react-intl';
+
+/* css */
+import '../../css/formFilter.css';
 
 const FormFilter = ({size, color}) => {
     const [constructeurs, setConstructeurs] = useState([])
@@ -33,7 +36,6 @@ const FormFilter = ({size, color}) => {
     
     return (
         <form className="card p-5" style={{ width: size }}>
-
             <div className="mb-3 text-center">
                 <span className="fs-5 fw-bold"><FormattedMessage id="home.titre_filtre"/></span>
             </div>
@@ -66,7 +68,7 @@ const FormFilter = ({size, color}) => {
                 <input type="range" className="form-range" id="vol" name="vol" min="1966" max="2023"/>
             </div>
             <div>
-                <button type="submit" className="btn btn-primary btn-block"><FormattedMessage id="home.form_rechercher"/></button>
+                <button type="submit" className="btn btn-filter-search btn-block"><FormattedMessage id="home.form_rechercher"/></button>
             </div>
         </form>  
     )

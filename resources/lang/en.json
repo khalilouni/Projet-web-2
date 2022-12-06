@@ -1,6 +1,7 @@
 {
   "header.accueil": "Home",
   "header.voitures": "Cars",
+  
   "voitureDetail.constructeur": "Constructor",
   "voitureDetail.modele": "Model",
   "voitureDetail.annee": "Year",
@@ -9,9 +10,11 @@
   "voitureDetail.carrosserie": "Body",
   "voitureDetail.acheter": "Buy",
   "voitureDetail.reserver": "Reserve",
+
   "header.s_inscrire": "Sign up",
   "header.a_propos": "About us",
   "header.connexion": "Login",
+
   "footer.contactez_nous": "Contact us",
   "footer.nous_suivre": "Follow us",
   "footer.politiques_de_ventes": "Sales policy",
@@ -19,12 +22,14 @@
   "footer.votre_courriel": "Your email",
   "footer.envoyer": "Send",
   "footer.partenaires": "Partners",
+
   "home.titre_filtre": "Find your next pre-owned vehicle",
   "home.form_marque": "Choose a brand",
   "home.form_modele": "Choose a model",
   "home.form_annee": "Choose a year",
   "home.form_rechercher": "Search",
-  "home.voiture_recent": "Latest car",
+  "home.voiture_recent": "Our new cars",
+
   "titre.form_inscription": "Subscribe",
   "courriel.form_inscription": "Email",
   "nom.form_inscription": "First Name",

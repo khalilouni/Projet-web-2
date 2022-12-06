@@ -2,10 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 /* pour changement de langue */
 import { FormattedMessage } from 'react-intl';
+/* css */
 import '../../css/voitureDetail.css';
 
 /* import image statique pour test rendu affichage*/
-import test from '../../../public/images/com-soon.png'
+import test from './img/voiture-test.jpg'
+
+import {URL} from "../constantes";
+
 
 const VoitureDetail = () => {
     let { id } = useParams();
@@ -13,7 +17,7 @@ const VoitureDetail = () => {
     const [voiture, setVoiture] = useState();
 
     const getData = async () => {
-        const { data } = await axios.get(`http://localhost:8000/api/v1/voiture/${id}`);
+        const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data[0]);
     };
 

@@ -1,6 +1,7 @@
 import { Component, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import {URL} from "../../constantes";
 
 class  InscriptionClient extends Component {
 
