@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 /* pour changement de langue */
 import { FormattedMessage } from 'react-intl';
+/* css */
 import '../../css/voitureDetail.css';
 
 /* import image statique pour test rendu affichage*/
 import test from './img/voiture-test.jpg'
+
 import {URL} from "../constantes";
 
 

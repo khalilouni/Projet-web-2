@@ -1,11 +1,13 @@
 /* pour changement de langue */
-import {FormattedMessage} from 'react-intl'; 
+import {FormattedMessage} from 'react-intl';
+
+/* css */
+import '../../css/formFilter.css';
 
 const FormFilter = ({size, color}) => {
    
     return (
         <form className="card p-5" style={{ width: size }}>
-
             <div className="mb-3 text-center">
                 <span className="fs-5 fw-bold"><FormattedMessage id="home.titre_filtre"/></span>
             </div>
@@ -40,7 +42,7 @@ const FormFilter = ({size, color}) => {
                 </select>
             </div>
             <div>
-                <button type="submit" class="btn btn-primary btn-block"><FormattedMessage id="home.form_rechercher"/></button>
+                <button type="submit" class="btn btn-filter-search btn-block"><FormattedMessage id="home.form_rechercher"/></button>
             </div>
         </form>  
     )

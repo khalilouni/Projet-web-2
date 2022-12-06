@@ -1,8 +1,19 @@
-.flex-header{
-    display: flex;
-    justify-content: space-between;
+.nav-logo{
+    width: 280px;
+    height: auto;
 }
 
-.flex{
+.nav-btn-lang{
+    background-color: #003866;
+    color:white;
+}
+
+.nav-spacing{
     display: flex;
+    justify-content: right;
+}
+
+.nav-btn-connexion{
+    margin-left : 20px;
+    margin-right: 25px;
 }

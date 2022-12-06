@@ -1,6 +1,7 @@
 {
   "header.accueil": "Accueil",
   "header.voitures": "Voitures",
+
   "voitureDetail.constructeur": "Constructeur",
   "voitureDetail.modele": "Modele",
   "voitureDetail.annee": "Annee",
@@ -8,10 +9,12 @@
   "voitureDetail.transmission": "Transmission",
   "voitureDetail.carrosserie": "Carrosserie",
   "voitureDetail.acheter": "Acheter",
-  "voitureDetail.reserver": "Reserver",
+  "voitureDetail.reserver": "Réserver",
+
   "header.s_inscrire": "S'inscrire",
   "header.a_propos": "À propos",
   "header.connexion": "Connexion",
+
   "footer.contactez_nous": "Contactez-nous",
   "footer.nous_suivre": "Nous suivre",
   "footer.politiques_de_ventes": "Politiques de ventes",
@@ -19,12 +22,14 @@
   "footer.votre_courriel": "Votre courriel",
   "footer.envoyer": "Envoyer",
   "footer.partenaires": "Partenaires",
+
   "home.titre_filtre": "Trouver votre prochain véhicule d'occasion",
   "home.form_marque": "Choisissez une marque",
   "home.form_modele": "Choisissez un modèle",
   "home.form_annee": "Choisissez une année",
   "home.form_rechercher": "Rechercher",
-  "home.voiture_recent": "Voitures récentes",
+  "home.voiture_nouvelles": "Nos nouveautés",
+
   "titre.form_inscription": "S'abonner",
   "courriel.form_inscription": "Courriel",
   "nom.form_inscription": "Nom",

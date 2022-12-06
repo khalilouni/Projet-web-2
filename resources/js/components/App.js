@@ -18,15 +18,15 @@ function App() {
     return (
       <LangueWrapper>
         <Header/>
-        <div className='container' style={{ marginTop: '15vh'}}>
+        <div className='container' style={{ marginTop: '5vh'}}>
           <Routes>
-            <Route path="/voiture/liste" element={<ListeVoitures  />} />
-            <Route path="/home" element={<Home  />} />
-            <Route path="/register" element={<Inscription  />} />
-            <Route path="/voiture/:id" element={<VoitureDetail />} />
-            <Route path="/inscriptionClient" element={<InscriptionClient  />} />
-            <Route path="/ModifierProfil/:profil" element={<ModificationClient   />} />
-            <Route path="/detailProfil/:profil" element={<DetailClient   />} />
+            <Route path="/voiture/liste" element={<ListeVoitures/>} />
+            <Route path="/"element={<Home/>}/>
+            <Route path="/register" element={<Inscription />}/>
+            <Route path="/voiture/:id" element={<VoitureDetail/>}/>
+            <Route path="/inscriptionClient" element={<InscriptionClient/>} />
+            <Route path="/ModifierProfil/:profil" element={<ModificationClient/>} />
+            <Route path="/detailProfil/:profil" element={<DetailClient/>} />
           </Routes>
         </div>
         <Footer/>

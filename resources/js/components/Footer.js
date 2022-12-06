@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import {FormattedMessage} from 'react-intl';
 
+/* css */
+import '../../css/footer.css';
+
+/* logo */
+import logo from './img/logo.svg';
+
 const Footer = () => {
     return (
-        <footer className="container-fluid bg-primary pt-5 pb-3">
-            <div className=" container-sm">
+        <footer className="container-fluid pt-5 pb-3 footer">
+            <div className=" container-sm ">
                 <div className="row">
                     <div className="col-md-4 footer-column text-start">
                         <ul className="nav flex-column">
-                            <li className="nav-item">
-                                <span className="footer-title">LOGO</span>
-                            </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/about"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
@@ -60,11 +63,10 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>    
                 <div className="row text-center mt-5">
                     <div className="col-md-12 box">
-                        <span className="copyright quick-links">Copyright &copy; Auto app 2022</span>
+                        <span className="copyright quick-links">Copyright &copy; Véhicules occasion inc. 2022</span>
                     </div>
                 </div>
             </div>
