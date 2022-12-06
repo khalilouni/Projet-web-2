@@ -44,7 +44,9 @@ const Footer = () => {
                                 <span className="footer-title"><FormattedMessage id="footer.s_inscrire_infolettre"/> :</span>
                             </li>
                             <form className="col-md-8">
-                                <input type="email" className="form-control my-3" placeholder="Email" id="email"/>
+                                <FormattedMessage id="footer.votre_courriel">
+                                    { placeholder => <input type="email" className="form-control my-3" placeholder={placeholder} id="email"/>}
+                                </FormattedMessage>
                                 <button type="submit" className="btn btn-outline-light btn-block"><FormattedMessage id="footer.envoyer"/></button>
                             </form>
                         </ul>
