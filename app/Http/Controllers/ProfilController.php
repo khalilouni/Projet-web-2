@@ -70,6 +70,7 @@ class ProfilController extends Controller
             'profil' => $nouveauProfil,
             'message' => 'profil enregistrer avec succes'
         ], 200);
+        
     }
 
     /**

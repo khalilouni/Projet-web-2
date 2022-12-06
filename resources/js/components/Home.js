@@ -1,5 +1,5 @@
 import FormFilter from "./FormFilter"
-import CardVoiture from "./CardVoiture"
+import SelectionVoiture from "./SelectionVoiture"
 import {FormattedMessage} from 'react-intl'; 
 /* import carImage from './img/com-soon.png' */
 
@@ -20,6 +20,7 @@ const Home = () => {
                     </div> 
                 </div>
             </div>
+            <SelectionVoiture />
         </main>
     )
 }
