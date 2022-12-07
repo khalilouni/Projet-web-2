@@ -22,12 +22,12 @@ class AuthController extends Controller
     {
 
         //Obtenir les paramètres
-        $courrielDeUtilisateur = $requete->input('email');
-        $nomDeUtilisateur = $requete->input('name');
-        $motDePasse = $requete->input('password');
+        $courrielDeUtilisateur = $requete->input('courriel');
+        $nomDeUtilisateur = $requete->input('nom');
+        $motDePasse = $requete->input('motDePasse');
 
         //Vérifiez que le paramètre est vide
-        if(empty($courrielDeUtilisateur) || empty($nomDeUtilisateur) || empty($motDePasse)) {
+        if (empty($courrielDeUtilisateur) || empty($nomDeUtilisateur) || empty($motDePasse)) {
             return response()->json([
                 'errno' => 401, 'errmsg' => 'Erreur de paramètre'
             ]);
@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         //Vérifier que l'utilisateur existe
         $utilisateur = $this->obtenirParCourrielDeUtilisateur($courrielDeUtilisateur);
-        if(!is_null($utilisateur)) {
+        if (!is_null($utilisateur)) {
             return response()->json([
                 'errno' => 704, 'errmsg' => 'email de l\'utilisateur a été enregistrée.'
             ]);
@@ -52,7 +52,7 @@ class AuthController extends Controller
 
         //Retour les messages
         return response()->json([
-            'errno' => 0, 'errmsg' => 'succès de l\'inscription','data' => [
+            'errno' => 0, 'errmsg' => 'succès de l\'inscription', 'data' => [
                 'token' => '',
                 'utilisateurInfo' => [
                     'courriel' => $courrielDeUtilisateur,
@@ -61,7 +61,6 @@ class AuthController extends Controller
                 ]
             ]
         ]);
-
     }
 
 
@@ -71,9 +70,8 @@ class AuthController extends Controller
      * @param  $courriel
      * @return User | null | Model
      */
-    protected function obtenirParCourrielDeUtilisateur($courriel) {
-        return User::query()->where('email',$courriel)->first();
+    protected function obtenirParCourrielDeUtilisateur($courriel)
+    {
+        return User::query()->where('email', $courriel)->first();
     }
-
-
 }
