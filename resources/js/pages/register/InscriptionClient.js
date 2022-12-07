@@ -2,6 +2,7 @@ import { Component, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {URL} from "../../constantes";
+import {FormattedMessage} from 'react-intl';
 
 class  InscriptionClient extends Component {
 
@@ -45,11 +46,10 @@ class  InscriptionClient extends Component {
     componentDidMount() {
         axios({
             method: 'get',
-            url: 'http://127.0.0.1:8000/api/v1/ville'
+            url: `${URL}/api/v1/ville`
         })
          .then(res => {
             this.setState({villes : res.data})
-            
          })
       }
     
@@ -98,13 +98,13 @@ class  InscriptionClient extends Component {
        console.log(data);
         axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/inscriptionClient',
+            url: `${URL}/api/v1/inscriptionClient`,
             data: data,
         })
          .then(res => {
              console.log(res.data);
          }).catch(error => {
-            //const errors = error.response.data.errors;
+            
             this.setState({error_courriel : error.response.data.errors.courriel});
             this.setState({error_nom : error.response.data.errors.nom});
             this.setState({error_prenom : error.response.data.errors.prenom});
@@ -113,7 +113,7 @@ class  InscriptionClient extends Component {
             this.setState({error_code_postal : error.response.data.errors.code_postal});
             this.setState({error_telephone : error.response.data.errors.telephone});
             this.setState({error_cellulaire : error.response.data.errors.cellulaire});
-            //console.log(this.state.errors);
+            
         })
             
     }
@@ -127,9 +127,9 @@ class  InscriptionClient extends Component {
         return (
 
             <form className='form px-5 border-opacity-25 rounded'>
-                <h1 className='title-form font-weight-bold text-center m-4 p-3'>Devenir Client</h1>
+                <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="register.form_titre"/></h1>
                 <div className="mb-3">
-                    <label htmlFor="courriel" className="form-label">Courriel</label>
+                    <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
                     <input
                         type="email"
                         name="courriel"
@@ -139,7 +139,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_courriel}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="nom" className="form-label">Nom</label>
+                    <label htmlFor="nom" className="form-label"><FormattedMessage id="nom.form_inscription"/></label>
                     <input
                         type="text"
                         name="nom"
@@ -149,7 +149,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_nom}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="prenom" className="form-label">Prenom</label>
+                    <label htmlFor="prenom" className="form-label"><FormattedMessage id="prenom.form_inscription"/></label>
                     <input
                         type="text"
                         name="prenom"
@@ -159,7 +159,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_prenom}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="anniversaire" className="form-label">Date de naissance</label>
+                    <label htmlFor="anniversaire" className="form-label"><FormattedMessage id="anniversaire.form_inscription"/></label>
                     <input
                         type="date"
                         name="anniversaire"
@@ -169,7 +169,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_anniversaire}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="adresse" className="form-label">Adresse</label>
+                    <label htmlFor="adresse" className="form-label"><FormattedMessage id="adresse.form_inscription"/></label>
                     <input
                         type="text"
                         name="adresse"
@@ -179,7 +179,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_adresse}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="code_postal" className="form-label">Code postale</label>
+                    <label htmlFor="code_postal" className="form-label"><FormattedMessage id="codePostal.form_inscription"/></label>
                     <input
                         type="text"
                         name="code_postal"
@@ -189,7 +189,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_code_postal}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="telephone" className="form-label">Telephone</label>
+                    <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
                     <input
                         type="text"
                         name="telephone"
@@ -199,7 +199,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_telephone}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="cellulaire" className="form-label">Cellulaire</label>
+                    <label htmlFor="cellulaire" className="form-label"><FormattedMessage id="cellulaire.form_inscription"/></label>
                     <input
                         type="text"
                         name="cellulaire"
@@ -209,7 +209,7 @@ class  InscriptionClient extends Component {
                     <span className='text-danger'>{this.state.error_cellulaire}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="villeId" className="form-label">Ville</label>
+                    <label htmlFor="villeId" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
                     <select name="villeId" onChange={this.villeId} className="form-select" aria-label="Default select example">
                         <option>Choissir une ville</option>
                         {this.state.villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}

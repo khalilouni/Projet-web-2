@@ -15990,8 +15990,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../constantes */ "./resources/js/constantes.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -16006,6 +16007,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -16057,7 +16059,7 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
       var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'get',
-        url: 'http://127.0.0.1:8000/api/v1/ville'
+        url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/ville")
       }).then(function (res) {
         _this2.setState({
           villes: res.data
@@ -16146,12 +16148,11 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
       console.log(data);
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
-        url: 'http://127.0.0.1:8000/api/v1/inscriptionClient',
+        url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/inscriptionClient"),
         data: data
       }).then(function (res) {
         console.log(res.data);
       })["catch"](function (error) {
-        //const errors = error.response.data.errors;
         _this3.setState({
           error_courriel: error.response.data.errors.courriel
         });
@@ -16176,7 +16177,6 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
         _this3.setState({
           error_cellulaire: error.response.data.errors.cellulaire
         });
-        //console.log(this.state.errors);
       });
     }
   }, {
@@ -16186,13 +16186,17 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
         className: "form px-5 border-opacity-25 rounded",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
           className: "title-form font-weight-bold text-center m-4 p-3",
-          children: "Devenir Client"
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            id: "register.form_titre"
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
           className: "mb-3",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "courriel",
             className: "form-label",
-            children: "Courriel"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "courriel.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "email",
             name: "courriel",
@@ -16207,7 +16211,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "nom",
             className: "form-label",
-            children: "Nom"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "nom.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "nom",
@@ -16222,7 +16228,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "prenom",
             className: "form-label",
-            children: "Prenom"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "prenom.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "prenom",
@@ -16237,7 +16245,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "anniversaire",
             className: "form-label",
-            children: "Date de naissance"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "anniversaire.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "date",
             name: "anniversaire",
@@ -16252,7 +16262,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "adresse",
             className: "form-label",
-            children: "Adresse"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "adresse.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "adresse",
@@ -16267,7 +16279,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "code_postal",
             className: "form-label",
-            children: "Code postale"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "codePostal.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "code_postal",
@@ -16282,7 +16296,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "telephone",
             className: "form-label",
-            children: "Telephone"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "telephone.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "telephone",
@@ -16297,7 +16313,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "cellulaire",
             className: "form-label",
-            children: "Cellulaire"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "cellulaire.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
             type: "text",
             name: "cellulaire",
@@ -16312,7 +16330,9 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
             htmlFor: "villeId",
             className: "form-label",
-            children: "Ville"
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              id: "ville.form_inscription"
+            })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
             name: "villeId",
             onChange: this.villeId,
@@ -16334,7 +16354,7 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
             className: "btn btn-primary",
             onClick: this.onSubmit,
             children: "S'inscrire"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
             className: "btn btn-primary m-3",
             to: "/",
             children: "Retour"
@@ -16398,13 +16418,17 @@ var ModificationClient = function ModificationClient() {
     _useState2 = _slicedToArray(_useState, 2),
     profil = _useState2[0],
     setProfil = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    villes = _useState4[0],
+    setVilles = _useState4[1];
   var inputCourriel = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputNom = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputPrenom = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputAnniversaire = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputAdresse = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputCodePostal = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-  var inputVille = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var inputVilleId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputTelephone = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var inputCellulaire = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var getProfil = /*#__PURE__*/function () {
@@ -16415,7 +16439,7 @@ var ModificationClient = function ModificationClient() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("http://localhost:8000/api/v1/profil/".concat(id));
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id));
             case 2:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
@@ -16431,12 +16455,20 @@ var ModificationClient = function ModificationClient() {
       return _ref.apply(this, arguments);
     };
   }();
+  var getVilles = function getVilles() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/ville")).then(function (res) {
+      setVilles(res.data);
+      console.log(res.data);
+    });
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getProfil();
+    getVilles();
   }, []);
   var onSubmit = function onSubmit(e) {
     e.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_1___default().put("http://127.0.0.1:8000/api/v1/profil/".concat(id), profil).then(function (res) {
+    console.log(profil);
+    axios__WEBPACK_IMPORTED_MODULE_1___default().put("".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id), profil).then(function (res) {
       console.log(res.data);
     });
   };
@@ -16573,26 +16605,6 @@ var ModificationClient = function ModificationClient() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "mb-3",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-          htmlFor: "ville",
-          className: "form-label",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
-            id: "ville.form_inscription"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-          ref: inputVille,
-          type: "text",
-          name: "ville",
-          defaultValue: profil.ville || '',
-          className: "form-control",
-          onChange: function onChange(e) {
-            return setProfil(_objectSpread(_objectSpread({}, profil), {}, {
-              ville: inputVille.current.value
-            }));
-          }
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "mb-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
           htmlFor: "telephone",
           className: "form-label",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -16629,6 +16641,33 @@ var ModificationClient = function ModificationClient() {
               cellulaire: inputCellulaire.current.value
             }));
           }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "mb-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+          htmlFor: "villeId",
+          className: "form-label",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
+            id: "ville.form_inscription"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+          name: "villeId",
+          ref: inputVilleId,
+          onChange: function onChange(e) {
+            return setProfil(_objectSpread(_objectSpread({}, profil), {}, {
+              villeId: inputVilleId.current.value
+            }));
+          },
+          className: "form-select",
+          "aria-label": "Default select example",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+            children: "Choissir une ville"
+          }), villes.map(function (ville) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+              value: ville.id,
+              children: ville.nom
+            }, ville.id);
+          })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "mb-3 ",
