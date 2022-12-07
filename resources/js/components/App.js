@@ -24,9 +24,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
-            <Route path="/inscriptionClient" element={<InscriptionClient  />} />
-            <Route path="/ModifierProfil/:id" element={<ModificationClient   />} />
-            <Route path="/detailProfil/:profil" element={<DetailClient   />} />
+            <Route path="/inscription-client" element={<InscriptionClient  />} />
+            <Route path="/modifier-profil/:id" element={<ModificationClient   />} />
+            <Route path="/detail-profil/:profil" element={<DetailClient   />} />
             <Route path="*" element={<Home/>} />
           </Routes>
         </div>

@@ -14436,13 +14436,13 @@ function App() {
           path: "/voiture/:id",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
-          path: "/inscriptionClient",
+          path: "/inscription-client",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
-          path: "/ModifierProfil/:id",
+          path: "/modifier-profil/:id",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
-          path: "/detailProfil/:profil",
+          path: "/detail-profil/:profil",
           element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
           path: "*",
@@ -15035,7 +15035,7 @@ var Header = function Header() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
                 className: "nav-link active",
                 "aria-current": "page",
-                to: "/inscriptionClient",
+                to: "/inscription-client",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
                   id: "header.s_inscrire"
                 })
@@ -15819,7 +15819,7 @@ var DetailClient = function DetailClient() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
         className: "btn btn-primary m-3",
-        to: "/ModifierProfil/".concat(profil.id),
+        to: "/modifier-profil/".concat(profil.id),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: "modifier.form_inscription"
         })
@@ -16148,7 +16148,7 @@ var InscriptionClient = /*#__PURE__*/function (_Component) {
       console.log(data);
       axios__WEBPACK_IMPORTED_MODULE_1___default()({
         method: 'post',
-        url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/inscriptionClient"),
+        url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/inscription-client"),
         data: data
       }).then(function (res) {
         console.log(res.data);

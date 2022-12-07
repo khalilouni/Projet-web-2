@@ -96,7 +96,7 @@ const DetailClient = () => {
                         </div>
                     </div>
                 </div>
-                <Link className='btn btn-primary m-3' to={`/ModifierProfil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
+                <Link className='btn btn-primary m-3' to={`/modifier-profil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
                 <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
             </div>
         </div>
