@@ -21964,7 +21964,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n.box-app {\r\n    font-family: 'Poppins', sans-serif;\r\n    height: 100vh;\r\n}\r\n\r\nnav {\r\n  background-color: #F5F5F5;\r\n  z-index: 3;\r\n}\r\n\r\na.nav-link.active:hover {\r\n  color: #0D6EFD;\r\n}\r\n\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\nfooter .nav-link, \r\nfooter a {\r\n  color: white;\r\n  border-bottom: 2px solid;\r\n  text-decoration: none;\r\n}\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\na.nav-link, \r\nspan.nav-link,\r\n.nav-item {\r\n  padding: 0;\r\n  margin: 0.35em 5px 0.35em 0;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n}\r\n\r\n.btn-lang {\r\n  text-transform: uppercase;\r\n}\r\n\r\n.nav-link:hover {\r\n  color: black;\r\n}\r\n\r\n.btn:focus {\r\n  outline: none;\r\n}\r\n\r\n.btn:active {\r\n  transform: scale(0.98);\r\n}\r\n\r\n.btn-block {\r\n  display: block;\r\n  width: 100%;\r\n  margin: 0;\r\n}\r\n\r\n.list-group-item {\r\n  border: none;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n.box-app {\n    font-family: 'Poppins', sans-serif;\n    height: 100vh;\n}\n\nnav {\n  background-color: #F5F5F5;\n  z-index: 3;\n}\n\na.nav-link.active:hover {\n  color: #0D6EFD;\n}\n\n\nfooter {\n  color: white;\n}\n\nfooter .nav-link, \nfooter a {\n  color: white;\n  border-bottom: 2px solid;\n  text-decoration: none;\n}\n\nfooter {\n  color: white;\n}\n\na.nav-link, \nspan.nav-link,\n.nav-item {\n  padding: 0;\n  margin: 0.35em 5px 0.35em 0;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.btn-lang {\n  text-transform: uppercase;\n}\n\n.nav-link:hover {\n  color: black;\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.btn:active {\n  transform: scale(0.98);\n}\n\n.btn-block {\n  display: block;\n  width: 100%;\n  margin: 0;\n}\n\n.list-group-item {\n  border: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -21988,7 +21988,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.footer-logo{\r\n    width: 240px;\r\n    height: auto;\r\n/* margin: 10px,10px,10px,10px; */\r\n\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer{\n    background-color: #003866;\n    color:white;\n}\n\n.footer-logo{\n    width: 240px;\n    height: auto;\n/* margin: 10px,10px,10px,10px; */\n\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22012,7 +22012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\r\n    background-color: #003866;\r\n    color:white;\r\n\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\n    background-color: #003866;\n    color:white;\n\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22036,7 +22036,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-logo{\r\n    width: 280px;\r\n    height: auto;\r\n}\r\n\r\n.nav-btn-lang{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.nav-spacing{\r\n    display: flex;\r\n    justify-content: right;\r\n}\r\n\r\n.nav-btn-connexion{\r\n    margin-left : 20px;\r\n    margin-right: 25px;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-logo{\n    width: 280px;\n    height: auto;\n}\n\n.nav-btn-lang{\n    background-color: #003866;\n    color:white;\n}\n\n.nav-spacing{\n    display: flex;\n    justify-content: right;\n}\n\n.nav-btn-connexion{\n    margin-left : 20px;\n    margin-right: 25px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22060,7 +22060,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n .flex-container {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n  }\r\n\r\n  .img-presentation-wrapper{\r\n    display: flex;\r\n    width: 60%;\r\n    height: auto;\r\n    justify-content: center;\r\n  }\r\n\r\n  .img-presentation-container{\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n\r\n  @media screen and (max-width: 600px) {\r\n    .img-presentation-wrapper{\r\n        display: flex;\r\n        width: 100%;\r\n        height: auto;\r\n        justify-content: center;\r\n      }\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n .flex-container {\n    display: flex;\n    flex-wrap: wrap;\n  }\n\n  .img-presentation-wrapper{\n    display: flex;\n    width: 60%;\n    height: auto;\n    justify-content: center;\n  }\n\n  .img-presentation-container{\n    width: 100%;\n    height: auto;\n  }\n\n  @media screen and (max-width: 600px) {\n    .img-presentation-wrapper{\n        display: flex;\n        width: 100%;\n        height: auto;\n        justify-content: center;\n      }\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22084,7 +22084,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\r\n\r\n.detail-general-wrapper{\r\n    display: flex;\r\n    flex-direction: row; \r\n    width: 100%;\r\n    height: auto;\r\n    margin: auto; \r\n}\r\n\r\n.details-title{\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 100%;\r\n    align-items: center;\r\n    margin: 15px 0px 15px 20px;\r\n    font-size: 30px;\r\n    font-weight: 700;\r\n    line-height: 28px;\r\n    font-family: \"Open Sans\", Calibri, sans-serif;\r\n}\r\n\r\n.details-title-container{\r\n    display: flex;\r\n    width: 62%;\r\n\r\n}\r\n\r\n.details-title-container-price{\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 20%;\r\n\r\n}\r\n\r\n.detail-container-btn{\r\n    display: flex;\r\n    padding: 15px 25px 10px 15px;\r\n    justify-content: flex-end;\r\n\r\n}\r\n\r\n\r\n.details-wrapper-left-img{\r\n    width: 100%;\r\n    height: auto; \r\n    -o-object-fit: cover; \r\n       object-fit: cover;\r\n}\r\n\r\n.detail-wrapper-right{\r\n    width: 60%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: column; \r\n    border-radius: 4px;\r\n    border: 1px solid #eee;\r\n}\r\n\r\n.detail-contour-right{\r\n    width: 60%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: auto;\r\n    margin-top: 10px;\r\n    border-radius: 4px;\r\n    border: 1px solid #eee;\r\n}\r\n\r\n.detail-wrap-right{\r\n    width: 30%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    margin: 10px 25px 10px 25px;\r\n}\r\n\r\n.detail-wrap-left{\r\n    width: 30%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-end;\r\n    margin: 10px 25px 10px 25px;\r\n}\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\n\n.detail-general-wrapper{\n    display: flex;\n    flex-direction: row; \n    width: 100%;\n    height: auto;\n    margin: auto; \n}\n\n.details-title{\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n    align-items: center;\n    margin: 15px 0px 15px 20px;\n    font-size: 30px;\n    font-weight: 700;\n    line-height: 28px;\n    font-family: \"Open Sans\", Calibri, sans-serif;\n}\n\n.details-title-container{\n    display: flex;\n    width: 62%;\n\n}\n\n.details-title-container-price{\n    display: flex;\n    flex-direction: row;\n    width: 20%;\n\n}\n\n.detail-container-btn{\n    display: flex;\n    padding: 15px 25px 10px 15px;\n    justify-content: flex-end;\n\n}\n\n\n.details-wrapper-left-img{\n    width: 100%;\n    height: auto; \n    -o-object-fit: cover; \n       object-fit: cover;\n}\n\n.detail-wrapper-right{\n    width: 60%;\n    height: auto;\n    display: flex;\n    flex-direction: column; \n    border-radius: 4px;\n    border: 1px solid #eee;\n}\n\n.detail-contour-right{\n    width: 60%;\n    display: flex;\n    flex-direction: row;\n    height: auto;\n    margin-top: 10px;\n    border-radius: 4px;\n    border: 1px solid #eee;\n}\n\n.detail-wrap-right{\n    width: 30%;\n    height: auto;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-start;\n    margin: 10px 25px 10px 25px;\n}\n\n.detail-wrap-left{\n    width: 30%;\n    height: auto;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    margin: 10px 25px 10px 25px;\n}\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
