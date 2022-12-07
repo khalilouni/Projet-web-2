@@ -98,7 +98,7 @@ class  InscriptionClient extends Component {
        console.log(data);
         axios({
             method: 'post',
-            url: `${URL}/api/v1/inscriptionClient`,
+            url: `${URL}/api/v1/inscription-client`,
             data: data,
         })
          .then(res => {
