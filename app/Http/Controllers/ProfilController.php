@@ -108,6 +108,7 @@ class ProfilController extends Controller
     public function update(Request $request, $id)
     {
         
+        
         $Profil = Profil::find($id);
 
         $request->validate([

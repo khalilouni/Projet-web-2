@@ -10,29 +10,41 @@ const ModificationClient = () => {
 
     const { id } = useParams();
     const [profil, setProfil] = useState([]);
+    const [villes, setVilles] = useState([]);
     const inputCourriel = useRef(null);
     const inputNom = useRef(null);
     const inputPrenom = useRef(null);
     const inputAnniversaire = useRef(null);
     const inputAdresse = useRef(null);
     const inputCodePostal = useRef(null);
-    const inputVille = useRef(null);
+    const inputVilleId = useRef(null);
     const inputTelephone = useRef(null);
     const inputCellulaire = useRef(null);
 
     const getProfil = async () => {
-        const { data } = await axios.get(`http://localhost:8000/api/v1/profil/${id}`)
+        
+        const { data } = await axios.get(`${URL}/api/v1/profil/${id}`)
         setProfil(data[0]);
+        
+    };
+
+    const getVilles =  () => {
+        axios.get(`${URL}/api/v1/ville`)
+        .then(res => {
+            setVilles(res.data)
+            console.log(res.data);  
+        })
     };
 
     useEffect(() => {
         getProfil();
+        getVilles();
     }, []);
 
     const onSubmit = (e) => {
         e.preventDefault();
-
-        axios.put(`http://127.0.0.1:8000/api/v1/profil/${id}`, profil)
+        console.log(profil);
+        axios.put(`${URL}/api/v1/profil/${id}`, profil)
             .then(res => {
                 console.log(res.data);
             })
@@ -110,17 +122,8 @@ const ModificationClient = () => {
                         onChange={(e) => setProfil({...profil,code_postal:inputCodePostal.current.value})}
                     />
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="ville" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
-                    <input
-                        ref={inputVille}
-                        type="text"
-                        name="ville"
-                        defaultValue={profil.ville || ''}
-                        className="form-control"
-                        onChange={(e) => setProfil({...profil,ville:inputVille.current.value})}
-                    />
-                </div>
+                
+                
                 <div className="mb-3">
                     <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
                     <input
@@ -142,6 +145,14 @@ const ModificationClient = () => {
                         className="form-control"
                         onChange={(e) => setProfil({...profil,cellulaire:inputCellulaire.current.value})}
                     />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="villeId" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
+                    <select name="villeId" ref={inputVilleId}  onChange={(e) => setProfil({...profil,villeId:inputVilleId.current.value})} className="form-select" aria-label="Default select example">
+                        <option>Choissir une ville</option>
+                        {villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}
+                        
+                    </select>
                 </div>
                 <div className="mb-3 ">
                     <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
