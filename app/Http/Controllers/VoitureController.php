@@ -42,10 +42,11 @@ class VoitureController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $prixVente = $request->prix + ($request->prix)/4;
+
         $nouvelleVoiture = Voiture::create([
             'date_arrivee' => $request->date_arrivee,
-            'prix' => $request->prix,
+            'prix' => $prixVente,
             'modeleId' => $request->nom_modele,
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
@@ -98,6 +99,7 @@ class VoitureController extends Controller
      */
     public function update(Request $request, Voiture $voiture)
     {
+       
         $request->validate([
             'date_arrivee' => 'required|date_format:m/d/Y',
             'prix' => 'required',
