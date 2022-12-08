@@ -38,7 +38,7 @@ class ProfilController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
 
             'courriel' => 'required|email',
@@ -48,9 +48,9 @@ class ProfilController extends Controller
             'adresse' => 'required',
             'code_postal' => 'required',
             'villeId' => 'required',
-            'telephone' => 'required|numeric|digits:10',
-            'cellulaire' => 'numeric|digits:10|nullable',
-            
+            'telephone' => 'required',
+            'cellulaire' => 'digits:10|nullable',
+
         ]);
 
         $nouveauProfil = Profil::create([
@@ -65,13 +65,13 @@ class ProfilController extends Controller
             'cellulaire' => $request->cellulaire,
             'userId' => 3,
             'courriel' => $request->courriel
-        ]); 
+        ]);
 
         return response()->json([
             'profil' => $nouveauProfil,
             'message' => 'profil enregistrer avec succes'
         ], 200);
-        
+
     }
 
     /**
@@ -107,8 +107,8 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        
+
+
         $Profil = Profil::find($id);
 
         $request->validate([
@@ -122,7 +122,7 @@ class ProfilController extends Controller
             'villeId' => 'required',
             'telephone' => 'required|numeric|digits:10',
             'cellulaire' => 'numeric|digits:10|nullable',
-            
+
         ]);
 
         $Profil->update([
@@ -137,9 +137,9 @@ class ProfilController extends Controller
             'cellulaire' => $request->cellulaire,
             'userId' => 3,
             'courriel' => $request->courriel
-            
-        ]); 
-       
+
+        ]);
+
         return response()->json($Profil);
 
     }
@@ -154,7 +154,7 @@ class ProfilController extends Controller
     {
         $profil->delete();
         return response()->json($profil);
-        
-        
+
+
     }
 }
