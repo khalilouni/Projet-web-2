@@ -42,23 +42,24 @@ class VoitureController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'date_arrivee' => 'required|date_format:m/d/Y',
-            'prix' => 'required',
-            'modeleId' => 'required',
-            'transmissionId' => 'required',
-            'carburantId' => 'required',
-            'carrosserieId' => 'required',
-        ]);
+        
         $nouvelleVoiture = Voiture::create([
-
             'date_arrivee' => $request->date_arrivee,
             'prix' => $request->prix,
-            'modeleId' => $request->modeleId,
+            'modeleId' => $request->nom_modele,
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
-            'carrosserieId' => $request->carrosserieId,
+            'carrosserieId' => $request->carroserieId,
         ]);
+
+        return response()->json([
+            'voiture' => $nouvelleVoiture,
+            'message' => 'voiture enregistrer avec succes'
+        ], 200);
+
+
+
+
     }
 
     /**

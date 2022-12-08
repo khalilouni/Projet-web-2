@@ -14328,6 +14328,7 @@ __webpack_require__(/*! ./components/Home */ "./resources/js/components/Home.js"
 __webpack_require__(/*! ./pages/register/Inscription */ "./resources/js/pages/register/Inscription.js");
 __webpack_require__(/*! ./pages/register/InscriptionClient */ "./resources/js/pages/register/InscriptionClient.js");
 __webpack_require__(/*! ./pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
+__webpack_require__(/*! ./pages/register/AjoutVoiture */ "./resources/js/pages/register/AjoutVoiture.js");
 __webpack_require__(/*! ./pages/register/DetailClient */ "./resources/js/pages/register/DetailClient.js");
 
 /***/ }),
@@ -14384,8 +14385,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/register/Inscription */ "./resources/js/pages/register/Inscription.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Footer */ "./resources/js/components/Footer.js");
@@ -14396,8 +14397,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
 /* harmony import */ var _pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/register/DetailClient */ "./resources/js/pages/register/DetailClient.js");
 /* harmony import */ var _ListeVoitures__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ListeVoitures */ "./resources/js/components/ListeVoitures.js");
-/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _pages_register_AjoutVoiture__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../pages/register/AjoutVoiture */ "./resources/js/pages/register/AjoutVoiture.js");
+/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -14415,47 +14417,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
       className: "container",
       style: {
         marginTop: '5vh'
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Routes, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Routes, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/voiture/liste",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_11__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_11__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_12__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/register",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/voiture/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
+          path: "/ajout-voiture",
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_register_AjoutVoiture__WEBPACK_IMPORTED_MODULE_12__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/inscription-client",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/modifier-profil/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/detail-profil/:profil",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "*",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_12__["default"], {})
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_13__["default"], {})
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(App, {})
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.BrowserRouter, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(App, {})
   }), document.getElementById('app'));
 }
 
@@ -15645,6 +15651,295 @@ var URL = 'http://localhost:8000';
 
 /***/ }),
 
+/***/ "./resources/js/pages/register/AjoutVoiture.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/pages/register/AjoutVoiture.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
+/* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../constantes */ "./resources/js/constantes.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var AjoutVoiture = function AjoutVoiture() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    modeles = _useState2[0],
+    setModeles = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    transmissions = _useState4[0],
+    setTransmissions = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    carroseries = _useState6[0],
+    setCarroseries = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    carburants = _useState8[0],
+    setCarburants = _useState8[1];
+  var getModele = function getModele() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/modele")).then(function (res) {
+      setModeles(res.data);
+    });
+  };
+  var getTransmission = function getTransmission() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/transmission")).then(function (res) {
+      setTransmissions(res.data);
+      //console.log(res.data);
+    });
+  };
+
+  var getCarroserie = function getCarroserie() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/carrosserie")).then(function (res) {
+      setCarroseries(res.data);
+      //console.log(res.data);
+    });
+  };
+
+  var getCarburant = function getCarburant() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/carburant")).then(function (res) {
+      setCarburants(res.data);
+      //console.log(res.data);
+    });
+  };
+
+  var initialValues = {
+    date_arrivee: '',
+    prix: '',
+    carroserieId: '',
+    nom_modele: '',
+    transmissionId: '',
+    carburantId: ''
+  };
+  var validationSchema = yup__WEBPACK_IMPORTED_MODULE_3__.object({
+    date_arrivee: yup__WEBPACK_IMPORTED_MODULE_3__.date().required('voiture.form_date_arrivee_required'),
+    prix: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('voiture.form_prix_required'),
+    carroserieId: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('voiture.form_carroserieId_required'),
+    nom_modele: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('voiture.form_nom_modele_required'),
+    transmissionId: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('voiture.form_transmissionId_required'),
+    carburantId: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('voiture.form_carburantId_required')
+  });
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getModele();
+    getTransmission();
+    getCarroserie();
+    getCarburant();
+  }, []);
+  var onSubmit = function onSubmit(valeurs) {
+    console.log(valeurs);
+    axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      method: 'post',
+      url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/voiture"),
+      data: valeurs
+    }).then(function (res) {
+      console.log(res.data);
+    });
+  };
+  var formik = (0,formik__WEBPACK_IMPORTED_MODULE_2__.useFormik)({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: onSubmit
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+    className: "form px-5 border-opacity-25 rounded",
+    style: {
+      margin: '15vh'
+    },
+    onSubmit: formik.handleSubmit,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+      className: "title-form font-weight-bold text-center m-4 p-3",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        id: "ajout_voiture.form_titre"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "date_arrivee",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_date"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", _objectSpread({
+        type: "date",
+        name: "date_arrivee",
+        className: "form-control"
+      }, formik.getFieldProps('date_arrivee'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.date_arrivee && formik.errors.date_arrivee ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.date_arrivee
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "prix",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_prix"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", _objectSpread(_objectSpread({
+        type: "numeric"
+      }, formik.getFieldProps('prix')), {}, {
+        className: "form-control"
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.prix && formik.errors.prix ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.prix
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "carroserieId",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_carrosserie"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('carroserieId')), {}, {
+        className: "form-select",
+        "aria-label": "Default select example",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          children: "Type carroserie"
+        }), carroseries.map(function (carroserie) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: carroserie.id,
+            children: carroserie.type
+          }, carroserie.id);
+        })]
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.carroserieId && formik.errors.carroserieId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.carroserieId
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "nom_modele",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_modele"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('nom_modele')), {}, {
+        className: "form-select",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          children: "Choissir un modele"
+        }), modeles.map(function (modele) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: modele.id,
+            children: modele.nom
+          }, modele.id);
+        })]
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.nom_modele && formik.errors.nom_modele ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.nom_modele
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "transmissionId",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_transmission"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('transmissionId')), {}, {
+        className: "form-select",
+        "aria-label": "Default select example",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          children: "Choissir un type de transmission"
+        }), transmissions.map(function (transmission) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: transmission.id,
+            children: transmission.type
+          }, transmission.id);
+        })]
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.transmissionId && formik.errors.transmissionId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.transmissionId
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+        htmlFor: "carburantId",
+        className: "form-label",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_carburant"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('carburantId')), {}, {
+        className: "form-select",
+        "aria-label": "Default select example",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+          children: "Choissir un type de carburant"
+        }), carburants.map(function (carburant) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
+            value: carburant.id,
+            children: carburant.type
+          }, carburant.id);
+        })]
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "text-danger",
+        children: formik.touched.carburantId && formik.errors.carburantId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: formik.errors.carburantId
+        }) : ''
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "mb-3 ",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+        type: "submit",
+        className: "btn btn-primary",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "ajout_voiture.form_label_btn_ajout"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+        className: "btn btn-primary m-3",
+        to: "/",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          id: "register.form_bt_retour"
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AjoutVoiture);
+
+/***/ }),
+
 /***/ "./resources/js/pages/register/DetailClient.js":
 /*!*****************************************************!*\
   !*** ./resources/js/pages/register/DetailClient.js ***!
@@ -16052,319 +16347,6 @@ var InscriptionClient = function InscriptionClient() {
       console.log(error);
     });
   }, []);
-  /*
-          this.courriel = this.courriel.bind(this);
-          this.nom = this.nom.bind(this);
-          this.prenom = this.prenom.bind(this);
-          this.telephone = this.telephone.bind(this);
-          this.code_postal = this.code_postal.bind(this);
-          this.cellulaire = this.cellulaire.bind(this);
-          this.anniversaire = this.anniversaire.bind(this);
-          this.adresse = this.adresse.bind(this);
-          this.villeId = this.villeId.bind(this);
-          this.onSubmit = this.onSubmit.bind(this);*/
-
-  /* componentDidMount() {
-       axios({
-           method: 'get',
-           url: `${URL}/api/v1/ville`
-       })
-        .then(res => {
-           this.setState({villes : res.data})
-        })
-     }
-  */
-  /* courriel(e) {
-       this.setState({courriel : e.target.value})
-   }
-   nom(e) {
-       this.setState({nom : e.target.value})
-   }
-   prenom(e) {
-       this.setState({prenom : e.target.value})
-   }
-   adresse(e) {
-       this.setState({adresse : e.target.value})
-   }
-   anniversaire(e) {
-       this.setState({anniversaire : e.target.value})
-   }
-   code_postal(e) {
-       this.setState({code_postal : e.target.value})
-   }
-   telephone(e) {
-       this.setState({telephone : e.target.value})
-   }
-   cellulaire(e) {
-       this.setState({cellulaire : e.target.value})
-   }
-   villeId(e) {
-       this.setState({villeId : e.target.value})
-   }*/
-
-  /*onSubmit (event) {
-      event.preventDefault();
-<<<<<<< HEAD
-      var data = {
-        nom: this.state.nom,
-        prenom: this.state.prenom,
-        adresse: this.state.adresse,
-        telephone: this.state.telephone,
-        cellulaire: this.state.cellulaire,
-        courriel: this.state.courriel,
-        anniversaire: this.state.anniversaire,
-        code_postal: this.state.code_postal,
-        villeId: this.state.villeId
-      };
-      console.log(data);
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
-        method: 'post',
-        url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/inscription-client"),
-        data: data
-      }).then(function (res) {
-        console.log(res.data);
-      })["catch"](function (error) {
-        _this3.setState({
-          error_courriel: error.response.data.errors.courriel
-        });
-        _this3.setState({
-          error_nom: error.response.data.errors.nom
-        });
-        _this3.setState({
-          error_prenom: error.response.data.errors.prenom
-        });
-        _this3.setState({
-          error_adresse: error.response.data.errors.adresse
-        });
-        _this3.setState({
-          error_anniversaire: error.response.data.errors.anniversaire
-        });
-        _this3.setState({
-          error_code_postal: error.response.data.errors.code_postal
-        });
-        _this3.setState({
-          error_telephone: error.response.data.errors.telephone
-        });
-        _this3.setState({
-          error_cellulaire: error.response.data.errors.cellulaire
-        });
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-        className: "form px-5 border-opacity-25 rounded",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-          className: "title-form font-weight-bold text-center m-4 p-3",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-            id: "register.form_titre"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "courriel",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "courriel.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "email",
-            name: "courriel",
-            className: "form-control",
-            onChange: this.courriel
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_courriel
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "nom",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "nom.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "nom",
-            className: "form-control",
-            onChange: this.nom
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_nom
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "prenom",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "prenom.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "prenom",
-            className: "form-control",
-            onChange: this.prenom
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_prenom
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "anniversaire",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "anniversaire.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "date",
-            name: "anniversaire",
-            className: "form-control",
-            onChange: this.anniversaire
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_anniversaire
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "adresse",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "adresse.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "adresse",
-            className: "form-control",
-            onChange: this.adresse
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_adresse
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "code_postal",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "codePostal.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "code_postal",
-            className: "form-control",
-            onChange: this.code_postal
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_code_postal
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "telephone",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "telephone.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "telephone",
-            className: "form-control",
-            onChange: this.telephone
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_telephone
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "cellulaire",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "cellulaire.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-            type: "text",
-            name: "cellulaire",
-            className: "form-control",
-            onChange: this.cellulaire
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            className: "text-danger",
-            children: this.state.error_cellulaire
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-            htmlFor: "villeId",
-            className: "form-label",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-              id: "ville.form_inscription"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-            name: "villeId",
-            onChange: this.villeId,
-            className: "form-select",
-            "aria-label": "Default select example",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-              children: "Choissir une ville"
-            }), this.state.villes.map(function (ville) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                value: ville.id,
-                children: ville.nom
-              }, ville.id);
-            })]
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          className: "mb-3 ",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            type: "submit",
-            className: "btn btn-primary",
-            onClick: this.onSubmit,
-            children: "S'inscrire"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-            className: "btn btn-primary m-3",
-            to: "/",
-            children: "Retour"
-          })]
-=======
-      const data = {
-          nom: this.state.nom,
-          prenom : this.state.prenom,
-          adresse : this.state.adresse,
-          telephone : this.state.telephone,
-          cellulaire : this.state.cellulaire,
-          courriel : this.state.courriel,
-          anniversaire : this.state.anniversaire,
-          code_postal : this.state.code_postal,
-          villeId : this.state.villeId
-      }
-     console.log(data);
-      axios({
-          method: 'post',
-          url: `${URL}/api/v1/inscriptionClient`,
-          data: data,
-      })
-       .then(res => {
-           console.log(res.data);
-       }).catch(error => {
-  
-          this.setState({error_courriel : error.response.data.errors.courriel});
-          this.setState({error_nom : error.response.data.errors.nom});
-          this.setState({error_prenom : error.response.data.errors.prenom});
-          this.setState({error_adresse : error.response.data.errors.adresse});
-          this.setState({error_anniversaire : error.response.data.errors.anniversaire});
-          this.setState({error_code_postal : error.response.data.errors.code_postal});
-          this.setState({error_telephone : error.response.data.errors.telephone});
-          this.setState({error_cellulaire : error.response.data.errors.cellulaire});
-  
-      })
-  
-  }*/
-
   var initialValues = {
     courriel: '',
     nom: '',
@@ -16554,9 +16536,6 @@ var InscriptionClient = function InscriptionClient() {
           id: "ville.form_inscription"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("select", _objectSpread(_objectSpread({
-        /*name="villeId" onChange={this.villeId}
-        className="form-select"
-        aria-label="Default select example"*/
         className: "form-select"
       }, formik.getFieldProps('villeId')), {}, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("option", {
@@ -16566,7 +16545,6 @@ var InscriptionClient = function InscriptionClient() {
             value: ville.id,
             children: ville.nom
           }, ville.id);
->>>>>>> 9297bd3 (Gestion des erreurs(traduction des erreurs) pour le profil client)
         })]
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
         className: "text-danger",
@@ -22231,7 +22209,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n.box-app {\n    font-family: 'Poppins', sans-serif;\n    height: 100vh;\n}\n\nnav {\n  background-color: #F5F5F5;\n  z-index: 3;\n}\n\na.nav-link.active:hover {\n  color: #0D6EFD;\n}\n\n\nfooter {\n  color: white;\n}\n\nfooter .nav-link, \nfooter a {\n  color: white;\n  border-bottom: 2px solid;\n  text-decoration: none;\n}\n\nfooter {\n  color: white;\n}\n\na.nav-link, \nspan.nav-link,\n.nav-item {\n  padding: 0;\n  margin: 0.35em 5px 0.35em 0;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.btn-lang {\n  text-transform: uppercase;\n}\n\n.nav-link:hover {\n  color: black;\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.btn:active {\n  transform: scale(0.98);\n}\n\n.btn-block {\n  display: block;\n  width: 100%;\n  margin: 0;\n}\n\n.list-group-item {\n  border: none;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n.box-app {\r\n    font-family: 'Poppins', sans-serif;\r\n    height: 100vh;\r\n}\r\n\r\nnav {\r\n  background-color: #F5F5F5;\r\n  z-index: 3;\r\n}\r\n\r\na.nav-link.active:hover {\r\n  color: #0D6EFD;\r\n}\r\n\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\nfooter .nav-link, \r\nfooter a {\r\n  color: white;\r\n  border-bottom: 2px solid;\r\n  text-decoration: none;\r\n}\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\na.nav-link, \r\nspan.nav-link,\r\n.nav-item {\r\n  padding: 0;\r\n  margin: 0.35em 5px 0.35em 0;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n}\r\n\r\n.btn-lang {\r\n  text-transform: uppercase;\r\n}\r\n\r\n.nav-link:hover {\r\n  color: black;\r\n}\r\n\r\n.btn:focus {\r\n  outline: none;\r\n}\r\n\r\n.btn:active {\r\n  transform: scale(0.98);\r\n}\r\n\r\n.btn-block {\r\n  display: block;\r\n  width: 100%;\r\n  margin: 0;\r\n}\r\n\r\n.list-group-item {\r\n  border: none;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22255,7 +22233,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".footer{\n    background-color: #003866;\n    color:white;\n}\n\n.footer-logo{\n    width: 240px;\n    height: auto;\n/* margin: 10px,10px,10px,10px; */\n\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".footer{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.footer-logo{\r\n    width: 240px;\r\n    height: auto;\r\n/* margin: 10px,10px,10px,10px; */\r\n\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22279,7 +22257,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\n    background-color: #003866;\n    color:white;\n\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\r\n    background-color: #003866;\r\n    color:white;\r\n\r\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22303,7 +22281,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".nav-logo{\n    width: 280px;\n    height: auto;\n}\n\n.nav-btn-lang{\n    background-color: #003866;\n    color:white;\n}\n\n.nav-spacing{\n    display: flex;\n    justify-content: right;\n}\n\n.nav-btn-connexion{\n    margin-left : 20px;\n    margin-right: 25px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".nav-logo{\r\n    width: 280px;\r\n    height: auto;\r\n}\r\n\r\n.nav-btn-lang{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.nav-spacing{\r\n    display: flex;\r\n    justify-content: right;\r\n}\r\n\r\n.nav-btn-connexion{\r\n    margin-left : 20px;\r\n    margin-right: 25px;\r\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22327,7 +22305,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n .flex-container {\n    display: flex;\n    flex-wrap: wrap;\n  }\n\n  .img-presentation-wrapper{\n    display: flex;\n    width: 60%;\n    height: auto;\n    justify-content: center;\n  }\n\n  .img-presentation-container{\n    width: 100%;\n    height: auto;\n  }\n\n  @media screen and (max-width: 600px) {\n    .img-presentation-wrapper{\n        display: flex;\n        width: 100%;\n        height: auto;\n        justify-content: center;\n      }\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n .flex-container {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n  }\r\n\r\n  .img-presentation-wrapper{\r\n    display: flex;\r\n    width: 60%;\r\n    height: auto;\r\n    justify-content: center;\r\n  }\r\n\r\n  .img-presentation-container{\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n\r\n  @media screen and (max-width: 600px) {\r\n    .img-presentation-wrapper{\r\n        display: flex;\r\n        width: 100%;\r\n        height: auto;\r\n        justify-content: center;\r\n      }\r\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -22351,7 +22329,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\n\n.detail-general-wrapper{\n    display: flex;\n    flex-direction: row; \n    width: 100%;\n    height: auto;\n    margin: auto; \n}\n\n.details-title{\n    display: flex;\n    flex-direction: row;\n    width: 100%;\n    align-items: center;\n    margin: 15px 0px 15px 20px;\n    font-size: 30px;\n    font-weight: 700;\n    line-height: 28px;\n    font-family: \"Open Sans\", Calibri, sans-serif;\n}\n\n.details-title-container{\n    display: flex;\n    width: 62%;\n\n}\n\n.details-title-container-price{\n    display: flex;\n    flex-direction: row;\n    width: 20%;\n\n}\n\n.detail-container-btn{\n    display: flex;\n    padding: 15px 25px 10px 15px;\n    justify-content: flex-end;\n\n}\n\n\n.details-wrapper-left-img{\n    width: 100%;\n    height: auto; \n    -o-object-fit: cover; \n       object-fit: cover;\n}\n\n.detail-wrapper-right{\n    width: 60%;\n    height: auto;\n    display: flex;\n    flex-direction: column; \n    border-radius: 4px;\n    border: 1px solid #eee;\n}\n\n.detail-contour-right{\n    width: 60%;\n    display: flex;\n    flex-direction: row;\n    height: auto;\n    margin-top: 10px;\n    border-radius: 4px;\n    border: 1px solid #eee;\n}\n\n.detail-wrap-right{\n    width: 30%;\n    height: auto;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-start;\n    margin: 10px 25px 10px 25px;\n}\n\n.detail-wrap-left{\n    width: 30%;\n    height: auto;\n    display: flex;\n    flex-direction: row;\n    justify-content: flex-end;\n    margin: 10px 25px 10px 25px;\n}\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* css de la page details */\r\n\r\n.detail-general-wrapper{\r\n    display: flex;\r\n    flex-direction: row; \r\n    width: 100%;\r\n    height: auto;\r\n    margin: auto; \r\n}\r\n\r\n.details-title{\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 100%;\r\n    align-items: center;\r\n    margin: 15px 0px 15px 20px;\r\n    font-size: 30px;\r\n    font-weight: 700;\r\n    line-height: 28px;\r\n    font-family: \"Open Sans\", Calibri, sans-serif;\r\n}\r\n\r\n.details-title-container{\r\n    display: flex;\r\n    width: 62%;\r\n\r\n}\r\n\r\n.details-title-container-price{\r\n    display: flex;\r\n    flex-direction: row;\r\n    width: 20%;\r\n\r\n}\r\n\r\n.detail-container-btn{\r\n    display: flex;\r\n    padding: 15px 25px 10px 15px;\r\n    justify-content: flex-end;\r\n\r\n}\r\n\r\n\r\n.details-wrapper-left-img{\r\n    width: 100%;\r\n    height: auto; \r\n    -o-object-fit: cover; \r\n       object-fit: cover;\r\n}\r\n\r\n.detail-wrapper-right{\r\n    width: 60%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: column; \r\n    border-radius: 4px;\r\n    border: 1px solid #eee;\r\n}\r\n\r\n.detail-contour-right{\r\n    width: 60%;\r\n    display: flex;\r\n    flex-direction: row;\r\n    height: auto;\r\n    margin-top: 10px;\r\n    border-radius: 4px;\r\n    border: 1px solid #eee;\r\n}\r\n\r\n.detail-wrap-right{\r\n    width: 30%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    margin: 10px 25px 10px 25px;\r\n}\r\n\r\n.detail-wrap-left{\r\n    width: 30%;\r\n    height: auto;\r\n    display: flex;\r\n    flex-direction: row;\r\n    justify-content: flex-end;\r\n    margin: 10px 25px 10px 25px;\r\n}\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -91478,7 +91456,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Back","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","voitures.titre":"Car list"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Back","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","voitures.titre":"Car list","voiture.form_date_arrivee_required":"Enter date construction of car","voiture.form_prix_required":"Enter the purchase price of the car","voiture.form_carroserieId_required":"Choose a body type","voiture.form_nom_modele_required":"Choose a model","voiture.form_transmissionId_required":"Choose a transmission type","voiture.form_carburantId_required":"Choose a type of fuel","ajout_voiture.form_titre":"Add a car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Purchase price","ajout_voiture.form_label_carrosserie":"Body type","ajout_voiture.form_label_modele":"Choose a model","ajout_voiture.form_label_transmission":"Choose a transmission","ajout_voiture.form_label_carburant":"Choose a fuel","ajout_voiture.form_label_btn_ajout":"Add car"}');
 
 /***/ }),
 
@@ -91489,7 +91467,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","voitures.titre":"Liste De Voitures"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","voitures.titre":"Liste De Voitures","voiture.form_date_arrivee_required":"Entrer la date de mise en marcher","voiture.form_prix_required":"Enter le prix d\'achat de la voiture","voiture.form_carroserieId_required":"Choisissez un type de carrosserie","voiture.form_nom_modele_required":"Choisissez un modele","voiture.form_transmissionId_required":"Choisissez un type de transmission","voiture.form_carburantId_required":"Choisissez un type de carburant","ajout_voiture.form_titre":"Ajouter une voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix d\'achat","ajout_voiture.form_label_carrosserie":"Type de carrosserie","ajout_voiture.form_label_modele":"Choissir un modele","ajout_voiture.form_label_transmission":"Chosir une transmission","ajout_voiture.form_label_carburant":"Chosir un carburant","ajout_voiture.form_label_btn_ajout":"Ajouter voiture"}');
 
 /***/ })
 
