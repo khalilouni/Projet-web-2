@@ -1,227 +1,173 @@
-import { Component, useState } from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import {useNavigate, Link} from 'react-router-dom'
+import {FormattedMessage} from 'react-intl'
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
 import {URL} from "../../constantes";
-import {FormattedMessage} from 'react-intl';
 
-class  InscriptionClient extends Component {
+const InscriptionClient = () => {
 
-    constructor(props) {
-        super(props);
+    const navigate = useNavigate()
+    let [villId, setVilleId] = useState('')
+    let [villes, setVilles] = useState([])
 
-        this.state = {
-            courriel : '',
-            nom : '',
-            prenom : '',
-            adresse : '',
-            telephone : '',
-            code_postal : '',
-            cellulaire : '',
-            anniversaire : '',
-            villeId: '',
-            villes : [],
-            error_courriel : '',
-            error_nom : '',
-            error_prenom : '',
-            error_adresse : '',
-            error_anniversaire : '',
-            error_telephone : '',
-            error_cellulaire : '',
-            error_code_postal : '',
-        }
+    useEffect(() => {
+        axios.get(`${URL}/api/v1/ville`).then((res) => {
+            setVilles(res.data)
+        }).catch(error => {
+            console.log(error)
+        });
+    }, []);
 
 
-        this.courriel = this.courriel.bind(this);
-        this.nom = this.nom.bind(this);
-        this.prenom = this.prenom.bind(this);
-        this.telephone = this.telephone.bind(this);
-        this.code_postal = this.code_postal.bind(this);
-        this.cellulaire = this.cellulaire.bind(this);
-        this.anniversaire = this.anniversaire.bind(this);
-        this.adresse = this.adresse.bind(this);
-        this.villeId = this.villeId.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+const initialValues = {
+    courriel: '',
+    nom: '',
+    prenom: '',
+    anniversaire: '',
+    adresse: '',
+    code_postal: '',
+    telephone: '',
+    cellulaire: '',
+    villeId: '',
+}
 
-    componentDidMount() {
-        axios({
-            method: 'get',
-            url: `${URL}/api/v1/ville`
+const validationSchema = Yup.object({
+    courriel: Yup.string().email('profil.form_courriel_invalide').required('profil.form_courriel_required'),
+    nom: Yup.string().max(35, 'profil.form_nom_invalide').required('profil.form_nom_required'),
+    prenom: Yup.string().max(35, 'profil.form_prenom_invalide').required('profil.form_prenom_required'),
+    anniversaire: Yup.date().max(new Date(Date.now() - 567648000000), 'profil.form_anniversaire_invalide').required('profil.form_anniversaire_required'),
+    adresse: Yup.string().required('profil.form_adresse_required').min(6, 'profil.form_adresse_invalide'),
+    code_postal: Yup.string().required('profil.form_code_postal_required').matches(/^[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d$/i, 'profil.form_code_postal_format_invalide'),
+    telephone: Yup.string().required('profil.form_telephone_required').min(10,'profil.form_telephone_invalide').max(10,'profil.form_telephone_invalide'),
+    cellulaire: Yup.string().nullable().min(10,'profil.form_cellulaire_invalide').max(10,'profil.form_cellulaire_invalide'),
+    villeId: Yup.string().required('profil.from_ville_required')
+});
+
+const onSubmit = valeurs => {
+    axios({
+        method: 'post',
+        url: `${URL}/api/v1/inscriptionClient`,
+        data: valeurs
+    })
+        .then(res => {
+            navigate(`/detailProfil/${res.data.profil.id}`)
+
         })
-         .then(res => {
-            this.setState({villes : res.data})
-         })
-      }
-    
-    courriel(e) {
-        this.setState({courriel : e.target.value})
-    }
-    nom(e) {
-        this.setState({nom : e.target.value})
-    }
-    prenom(e) {
-        this.setState({prenom : e.target.value})
-    }
-    adresse(e) {
-        this.setState({adresse : e.target.value})
-    }
-    anniversaire(e) {
-        this.setState({anniversaire : e.target.value})
-    }
-    code_postal(e) {
-        this.setState({code_postal : e.target.value})
-    }
-    telephone(e) {
-        this.setState({telephone : e.target.value})
-    }
-    cellulaire(e) {
-        this.setState({cellulaire : e.target.value})
-    }
-    villeId(e) {
-        this.setState({villeId : e.target.value})
-    }
-   
+}
 
-    onSubmit (event) {
-        event.preventDefault();
-        const data = {
-            nom: this.state.nom,
-            prenom : this.state.prenom,
-            adresse : this.state.adresse,
-            telephone : this.state.telephone,
-            cellulaire : this.state.cellulaire,
-            courriel : this.state.courriel,
-            anniversaire : this.state.anniversaire,
-            code_postal : this.state.code_postal,
-            villeId : this.state.villeId
-        }
-       console.log(data);
-        axios({
-            method: 'post',
-            url: `${URL}/api/v1/inscription-client`,
-            data: data,
-        })
-         .then(res => {
-             console.log(res.data);
-         }).catch(error => {
-            
-            this.setState({error_courriel : error.response.data.errors.courriel});
-            this.setState({error_nom : error.response.data.errors.nom});
-            this.setState({error_prenom : error.response.data.errors.prenom});
-            this.setState({error_adresse : error.response.data.errors.adresse});
-            this.setState({error_anniversaire : error.response.data.errors.anniversaire});
-            this.setState({error_code_postal : error.response.data.errors.code_postal});
-            this.setState({error_telephone : error.response.data.errors.telephone});
-            this.setState({error_cellulaire : error.response.data.errors.cellulaire});
-            
-        })
-            
-    }
+const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit
+})
 
-    
-   
 
-    
+return (
 
-    render ()   {
-        return (
-
-            <form className='form px-5 border-opacity-25 rounded'>
-                <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="register.form_titre"/></h1>
-                <div className="mb-3">
-                    <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
-                    <input
-                        type="email"
-                        name="courriel"
-                        className="form-control"
-                        onChange={this.courriel}
-                    />
-                    <span className='text-danger'>{this.state.error_courriel}</span>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="nom" className="form-label"><FormattedMessage id="nom.form_inscription"/></label>
-                    <input
-                        type="text"
-                        name="nom"
-                        className="form-control"
-                        onChange={this.nom}
-                    />
-                    <span className='text-danger'>{this.state.error_nom}</span>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="prenom" className="form-label"><FormattedMessage id="prenom.form_inscription"/></label>
-                    <input
-                        type="text"
-                        name="prenom"
-                        className="form-control"
-                        onChange={this.prenom}
-                    />
-                    <span className='text-danger'>{this.state.error_prenom}</span>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="anniversaire" className="form-label"><FormattedMessage id="anniversaire.form_inscription"/></label>
-                    <input
-                        type="date"
-                        name="anniversaire"
-                        className="form-control"
-                        onChange={this.anniversaire}
-                    />
-                    <span className='text-danger'>{this.state.error_anniversaire}</span>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="adresse" className="form-label"><FormattedMessage id="adresse.form_inscription"/></label>
-                    <input
-                        type="text"
-                        name="adresse"
-                        className="form-control"
-                        onChange={this.adresse}
-                    />
-                    <span className='text-danger'>{this.state.error_adresse}</span>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="code_postal" className="form-label"><FormattedMessage id="codePostal.form_inscription"/></label>
-                    <input
-                        type="text"
-                        name="code_postal"
-                        className="form-control"
-                        onChange={this.code_postal}
-                    />
-                    <span className='text-danger'>{this.state.error_code_postal}</span>
-                </div>
-                <div className="mb-3">
+    <form className='form px-5 border-opacity-25 rounded' onSubmit={formik.handleSubmit}>
+        <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="register.form_titre"/>
+        </h1>
+        <div className="mb-3">
+            <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
+            <input
+                type="text"
+                className="form-control"
+                {...formik.getFieldProps('courriel')}
+            />
+            <span className='text-danger'>{formik.touched.courriel && formik.errors.courriel ?
+                <FormattedMessage id={formik.errors.courriel}/> : ''}</span>
+        </div>
+        <div className="mb-3">
+            <label htmlFor="nom" className="form-label"><FormattedMessage id="nom.form_inscription"/></label>
+            <input
+                type="text"
+                className="form-control"
+                {...formik.getFieldProps('nom')}
+            />
+            <span className='text-danger'>{formik.touched.nom && formik.errors.nom ?
+                <FormattedMessage id={formik.errors.nom}/> : ''}</span>
+        </div>
+        <div className="mb-3">
+            <label htmlFor="prenom" className="form-label"><FormattedMessage id="prenom.form_inscription"/></label>
+            <input
+                type="text"
+                className="form-control"
+                {...formik.getFieldProps('prenom')}
+            />
+            <span className='text-danger'>{formik.touched.prenom && formik.errors.prenom ?
+                <FormattedMessage id={formik.errors.prenom}/> : ''}</span>
+        </div>
+        <div className="mb-3">
+            <label htmlFor="anniversaire" className="form-label"><FormattedMessage id="anniversaire.form_inscription"/></label>
+            <input
+                type="date"
+                className="form-control"
+                {...formik.getFieldProps('anniversaire')}
+            />
+            <span className='text-danger'>{formik.touched.anniversaire && formik.errors.anniversaire ?
+                <FormattedMessage id={formik.errors.anniversaire}/> : ''}</span>
+        </div>
+        <div className="mb-3">
+            <label htmlFor="adresse" className="form-label"><FormattedMessage id="adresse.form_inscription"/></label>
+            <input
+                type="text"
+                className="form-control"
+                {...formik.getFieldProps('adresse')}
+            />
+            <span className='text-danger'>{formik.touched.adresse && formik.errors.adresse ?
+                <FormattedMessage id={formik.errors.adresse}/> : ''}</span>
+        </div>
+        <div className="mb-3">
+            <label htmlFor="code_postal" className="form-label"><FormattedMessage
+                id="codePostal.form_inscription"/></label>
+            <input
+                type="text"
+                className="form-control"
+                {...formik.getFieldProps('code_postal')}
+            />
+            <span className='text-danger'>{formik.touched.code_postal && formik.errors.code_postal ?
+                <FormattedMessage id={formik.errors.code_postal}/> : ''}</span>
+        </div>
+       <div className="mb-3">
                     <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
                     <input
                         type="text"
-                        name="telephone"
                         className="form-control"
-                        onChange={this.telephone}
+                        {...formik.getFieldProps('telephone')}
                     />
-                    <span className='text-danger'>{this.state.error_telephone}</span>
+           <span className='text-danger'>{formik.touched.telephone && formik.errors.telephone ?
+               <FormattedMessage id={formik.errors.telephone}/> : ''}</span>
                 </div>
-                <div className="mb-3">
+         <div className="mb-3">
                     <label htmlFor="cellulaire" className="form-label"><FormattedMessage id="cellulaire.form_inscription"/></label>
                     <input
                         type="text"
-                        name="cellulaire"
                         className="form-control"
-                        onChange={this.cellulaire}
+                        {...formik.getFieldProps('cellulaire')}
                     />
-                    <span className='text-danger'>{this.state.error_cellulaire}</span>
+             <span className='text-danger'>{formik.touched.cellulaire && formik.errors.cellulaire ?
+                 <FormattedMessage id={formik.errors.cellulaire}/> : ''}</span>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="villeId" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
-                    <select name="villeId" onChange={this.villeId} className="form-select" aria-label="Default select example">
-                        <option>Choissir une ville</option>
-                        {this.state.villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}
-                    </select>
-                </div>
-                <div className="mb-3 ">
-                    <button type="submit" className="btn btn-primary" onClick={this.onSubmit}>S'inscrire</button>
-                    <Link className='btn btn-primary m-3' to='/'>Retour</Link>
-                </div> 
-            </form>
-        );
-    } 
+        <div className="mb-3">
+            <label htmlFor="villeId" className="form-label"><FormattedMessage id="ville.form_inscription"/></label>
+            <select
+                className="form-select"
+                {...formik.getFieldProps('villeId')}
+            >
+                <option>Choissir une ville</option>
+                {villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}
+            </select>
+            <span className='text-danger'>{formik.touched.villeId && formik.errors.villeId ?
+                <FormattedMessage id={formik.errors.villeId}/> : ''}</span>
+        </div>
+        <div className="mb-3 ">
+            <button type="submit" className="btn btn-primary"><FormattedMessage id="submit.form_inscription" /></button>
+            <Link className='btn btn-primary m-3' to='/register'><FormattedMessage id="back.form_inscription" /></Link>
+        </div>
+    </form>
+)
 }
 
 export default InscriptionClient;
