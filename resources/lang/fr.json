@@ -69,5 +69,19 @@
     "profil.form_telephone_invalide": "Votre numéro de téléphone doit comporter dix chiffres",
     "profil.form_cellulaire_invalide": "Votre numéro de cellulaire doit comporter dix chiffres",
     "profil.from_ville_required": "Saisissez votre ville",
-    "voitures.titre": "Liste De Voitures"
+    "voitures.titre": "Liste De Voitures",
+    "voiture.form_date_arrivee_required": "Entrer la date de mise en marcher",
+    "voiture.form_prix_required": "Enter le prix d'achat de la voiture",
+    "voiture.form_carroserieId_required": "Choisissez un type de carrosserie",
+    "voiture.form_nom_modele_required" : "Choisissez un modele",
+    "voiture.form_transmissionId_required" : "Choisissez un type de transmission",
+    "voiture.form_carburantId_required" : "Choisissez un type de carburant",
+    "ajout_voiture.form_titre" : "Ajouter une voiture",
+    "ajout_voiture.form_label_date" : "Date de construction",
+    "ajout_voiture.form_label_prix" : "Prix d'achat",
+    "ajout_voiture.form_label_carrosserie" : "Type de carrosserie",
+    "ajout_voiture.form_label_modele" : "Choissir un modele",
+    "ajout_voiture.form_label_transmission" : "Chosir une transmission",
+    "ajout_voiture.form_label_carburant" : "Chosir un carburant",
+    "ajout_voiture.form_label_btn_ajout" : "Ajouter voiture"
 }

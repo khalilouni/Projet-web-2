@@ -69,5 +69,19 @@
     "profil.form_telephone_invalide": "Your telephone number should be 10 digits",
     "profil.form_cellulaire_invalide": "Your cellphone number should be 10 digits",
     "profil.from_ville_required": "Enter your city name",
-    "voitures.titre": "Car list"
+    "voitures.titre": "Car list",
+    "voiture.form_date_arrivee_required": "Enter date construction of car",
+    "voiture.form_prix_required": "Enter the purchase price of the car",
+    "voiture.form_carroserieId_required": "Choose a body type",
+    "voiture.form_nom_modele_required" : "Choose a model",
+    "voiture.form_transmissionId_required" : "Choose a transmission type",
+    "voiture.form_carburantId_required" : "Choose a type of fuel",
+    "ajout_voiture.form_titre" : "Add a car",
+    "ajout_voiture.form_label_date" : "Construction date",
+    "ajout_voiture.form_label_prix" : "Purchase price",
+    "ajout_voiture.form_label_carrosserie" : "Body type",
+    "ajout_voiture.form_label_modele" : "Choose a model",
+    "ajout_voiture.form_label_transmission" : "Choose a transmission",
+    "ajout_voiture.form_label_carburant" : "Choose a fuel",
+    "ajout_voiture.form_label_btn_ajout" : "Add car"
 }
