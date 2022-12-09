@@ -83,5 +83,9 @@
     "ajout_voiture.form_label_modele" : "Choose a model",
     "ajout_voiture.form_label_transmission" : "Choose a transmission",
     "ajout_voiture.form_label_carburant" : "Choose a fuel",
-    "ajout_voiture.form_label_btn_ajout" : "Add car"
+    "ajout_voiture.form_label_btn_ajout" : "Add car",
+    "ajout_voiture_success" : "Add car success !",
+    "modifier_voiture.form_titre" : "Update car",
+    "modification_voiture_success" : "Update Succes !",
+    "modifier_voiture.form_label_btn_modifier" : "Update"
 }

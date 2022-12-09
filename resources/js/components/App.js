@@ -13,6 +13,7 @@ import ModificationClient from '../pages/register/ModificationClient';
 import DetailClient from '../pages/register/DetailClient';
 import ListeVoitures from "./ListeVoitures";
 import AjoutVoiture from "../pages/register/AjoutVoiture";
+import ModifierVoiture from "../pages/register/ModifierVoiture";
 import Home from './Home';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/register" element={<Inscription  />} />
             <Route path="/voiture/:id" element={<VoitureDetail />} />
             <Route path="/ajout-voiture" element={<AjoutVoiture />} />
+            <Route path="/modifier-voiture/:id" element={<ModifierVoiture />} />
             <Route path="/inscription-client" element={<InscriptionClient  />} />
             <Route path="/modifier-profil/:id" element={<ModificationClient   />} />
             <Route path="/detail-profil/:profil" element={<DetailClient   />} />

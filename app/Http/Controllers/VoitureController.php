@@ -97,27 +97,24 @@ class VoitureController extends Controller
      * @param \App\Models\Voiture $voiture
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Voiture $voiture)
+    public function update(Request $request,  $id)
     {
        
-        $request->validate([
-            'date_arrivee' => 'required|date_format:m/d/Y',
-            'prix' => 'required',
-            'modeleId' => 'required',
-            'transmissionId' => 'required',
-            'carburantId' => 'required',
-            'carrosserieId' => 'required',
-        ]);
-        $voiture->update([
+        $voiture = Voiture::find($id);
 
+        $voiture->update([
             'date_arrivee' => $request->date_arrivee,
             'prix' => $request->prix,
-            'modeleId' => $request->modeleId,
+            'modeleId' => $request->nom_modele,
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
-            'carrosserieId' => $request->carrosserieId,
-
+            'carrosserieId' => $request->carroserieId,
         ]);
+
+        return response()->json([
+            'voiture' => $voiture,
+            'message' => 'voiture modifier avec succes'
+        ], 200);
     }
 
     /**

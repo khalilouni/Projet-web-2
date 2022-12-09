@@ -77,11 +77,15 @@
     "voiture.form_transmissionId_required" : "Choisissez un type de transmission",
     "voiture.form_carburantId_required" : "Choisissez un type de carburant",
     "ajout_voiture.form_titre" : "Ajouter une voiture",
+    "ajout_voiture_success" : "Nouvelle voiture ajouter !",
     "ajout_voiture.form_label_date" : "Date de construction",
     "ajout_voiture.form_label_prix" : "Prix d'achat",
     "ajout_voiture.form_label_carrosserie" : "Type de carrosserie",
     "ajout_voiture.form_label_modele" : "Choissir un modele",
     "ajout_voiture.form_label_transmission" : "Chosir une transmission",
     "ajout_voiture.form_label_carburant" : "Chosir un carburant",
-    "ajout_voiture.form_label_btn_ajout" : "Ajouter voiture"
+    "ajout_voiture.form_label_btn_ajout" : "Ajouter voiture",
+    "modifier_voiture.form_titre" : "Mettre a jour voiture",
+    "modification_voiture_success" : "Modifier avec success !",
+    "modifier_voiture.form_label_btn_modifier" : "Mettre a jour"
 }

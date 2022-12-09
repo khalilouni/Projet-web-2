@@ -1,18 +1,28 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import {useNavigate, Link} from 'react-router-dom'
+import { Link, useParams} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import {URL} from "../../constantes";
 import { ToastContainer, toast } from 'react-toastify';
 
-const AjoutVoiture = () => {
+const ModifierVoiture = () => {
 
 const [modeles, setModeles] = useState([]);
 const [transmissions, setTransmissions] = useState([]);
 const [carroseries, setCarroseries] = useState([]);
 const [carburants, setCarburants] = useState([]);
+const [voiture, setVoiture] = useState([]);
+
+
+const { id } = useParams();
+
+
+const getVoiture = async () => {
+    const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
+        setVoiture(data[0]);
+};
 
   const  getModele = () => {
         axios.get(`${URL}/api/v1/modele`)
@@ -25,21 +35,21 @@ const [carburants, setCarburants] = useState([]);
         axios.get(`${URL}/api/v1/transmission`)
         .then(res => {
             setTransmissions(res.data);
-            
+           
         })
     }
     const  getCarroserie = () => {
         axios.get(`${URL}/api/v1/carrosserie`)
         .then(res => {
             setCarroseries(res.data);
-            
+           
         })
     }
     const  getCarburant = () => {
         axios.get(`${URL}/api/v1/carburant`)
         .then(res => {
             setCarburants(res.data);
-           
+        
         })
     }
     const initialValues = {
@@ -64,22 +74,24 @@ const [carburants, setCarburants] = useState([]);
         getTransmission();
         getCarroserie();
         getCarburant();
+        getVoiture();
     }, []);
 
     const onSubmit = valeurs => {
         
         axios({
-            method: 'post',
-            url: `${URL}/api/v1/voiture`,
+            method: 'put',
+            url: `${URL}/api/v1/voiture/${id}`,
             data: valeurs
         }).then(res => {
             if (res.status == 200) {
-                toast.success(<FormattedMessage id={"ajout_voiture_success"} /> , {
+                console.log(res.data.message);
+                toast.success(<FormattedMessage id={"modification_voiture_success"} /> , {
                     position: toast.POSITION.TOP_CENTER
                 })
             }
+            
         })
-
     }
 
     const formik = useFormik({
@@ -90,8 +102,8 @@ const [carburants, setCarburants] = useState([]);
 
     return (
         <form className='form px-5 border-opacity-25 rounded bg-light' style={{ margin: '15vh' }} onSubmit={formik.handleSubmit}>
-            <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="ajout_voiture.form_titre" /></h1>
-            <ToastContainer />  
+            <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="modifier_voiture.form_titre" /></h1>
+            <ToastContainer />
                 <div className="mb-3">
                     <label htmlFor="date_arrivee" className="form-label"><FormattedMessage id="ajout_voiture.form_label_date" /></label>
                     <input
@@ -153,7 +165,7 @@ const [carburants, setCarburants] = useState([]);
                 </div>
 
                 <div className="mb-3 ">
-                    <button type="submit" className="btn btn-primary"><FormattedMessage id="ajout_voiture.form_label_btn_ajout" /></button>
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier_voiture.form_label_btn_modifier" /></button>
                     <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="register.form_bt_retour" /></Link>
                 </div>
         </form>
@@ -162,4 +174,4 @@ const [carburants, setCarburants] = useState([]);
 
 }
 
-export default AjoutVoiture;
+export default ModifierVoiture;

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import {useNavigate, Link, useParams} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 import {URL} from "../../constantes";
 
@@ -9,7 +9,7 @@ import {URL} from "../../constantes";
 const DetailClient = () => {
 
     const [profil, setProfil] = useState({});
-    let id = window.location.pathname.split('/')[2];
+    const { id } = useParams();
    
         
     
