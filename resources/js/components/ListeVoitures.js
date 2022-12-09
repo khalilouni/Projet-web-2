@@ -1,38 +1,112 @@
 import {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
 import CardVoiture from "./CardVoiture";
 import FormFilter from "./FormFilter";
 import {FormattedMessage} from "react-intl";
-import {URL} from "../constantes";
 
 const ListeVoitures = () => {
+
     const [voitures, setVoitures] = useState([])
+    const [voituresFiltrees, setVoituresFiltrees] = useState(voitures)
+    const [selectConstructeurs, setSelectConstructeurs] = useState('')
+    const [selectModeles, setSelectModeles] = useState('')
+    const [selectAnnees, setSelectAnnees] = useState('')
+
     useEffect(() => {
-        const getVoitures = async () => {
-            const voituresDeServeur = await fetchVoitures()
-            setVoitures(voituresDeServeur)
+        const getConstructeurs = async () => {
+            const res = await fetch('http://127.0.0.1:8000/api/v1/constructeur')
+            const data = await res.json()
+            setSelectConstructeurs(await data)
         }
-        getVoitures()
+
+        getConstructeurs()
     }, [])
 
-    const fetchVoitures = async () => {
-        const res = await fetch(`${URL}/api/v1/voiture`)
-        const data = await res.json()
-        return data
+    const filtrerParConstructeurs = (data) => {
+        if (!selectConstructeurs) {
+            return data;
+        }
+
+        const dataFiltrees = data.filter(
+            (voiture) => voiture.modele.constructeur.nom.split(" ").indexOf(selectConstructeurs) !== -1
+          );
+          return dataFiltrees;
     }
+
+    const filtrerParModeles = (data) => {
+        if (!selectModeles) {
+            return data;
+        }
+
+        const dataFiltrees = data.filter(
+            (voiture) => voiture.modele.nom.split(" ").indexOf(selectModeles) !== -1
+          );
+          return dataFiltrees;
+    }
+
+    const filtrerParAnnees = (data) => {
+        if (!selectAnnees) {
+            return data;
+        }
+
+        const dataFiltrees = data.filter(
+            (voiture) => voiture.modele.annee.toString().split(" ").indexOf(selectAnnees) !== -1
+          );
+          return dataFiltrees;
+    }
+
+    const handleConstructeurChange = (event) => {
+        setSelectConstructeurs(event.target.value);
+    };
+
+    const handleModeleChange = (event) => {
+        setSelectModeles(event.target.value);
+    };
+
+    const handleAnneeChange = (event) => {
+        setSelectAnnees(event.target.value);
+    };
+
+    useEffect(() => {
+        const getVoitures = async () => {
+            const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+            const data = await res.json()
+            setVoitures(await data)
+        }
+        getVoitures()
+
+        let dataFiltrees = filtrerParConstructeurs(voitures)
+        dataFiltrees = filtrerParModeles(dataFiltrees)
+        dataFiltrees = filtrerParAnnees(dataFiltrees)
+        setVoituresFiltrees(dataFiltrees)
+
+    }, [selectConstructeurs, selectModeles, selectAnnees])
+
     return (
         <div >
             <h1><FormattedMessage id="voitures.titre"/></h1>
             <div className="container">
                 <div className="row">
                     <div className="col">
-                      <FormFilter size={"22rem"} />
+                        <FormFilter 
+                            size={"22rem"} 
+                            selectConstructeurs={selectConstructeurs}
+                            selectModeles={selectModeles}
+                            selectAnnees={selectAnnees}
+                            handleConstructeurChange={handleConstructeurChange}
+                            handleModeleChange={handleModeleChange}
+                            handleAnneeChange={handleAnneeChange}
+                        />
                     </div>
                     <div className="col">
-                        <div className="row"> {
-                            voitures.map(v => <div className="col" key={v.id}>
-                                <CardVoiture voiture={v}/>
-                            </div>)}</div>
+                        <div className="row"> 
+                            {
+                                voituresFiltrees.map((voiture, index)=> (
+                                    <div className="col" key={index}>
+                                        <CardVoiture voiture={voiture}/>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
