@@ -1,0 +1,41 @@
+
+.wrap-list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto; 
+
+}
+.container-list{
+    margin-top:40px;
+    display: flex;
+    width: 100%;
+    height: auto;   
+}
+
+/* gauche */
+.container-list-left{
+    display: flex;
+    width: 30%;
+    height: auto; 
+
+}
+.container-list-left-filter{
+    display: flex;
+    width: 30%;
+    height: auto; 
+
+}
+
+
+/* droite */
+.container-list-right{
+    display: flex;
+    width: 70%;
+    height: auto; 
+}
+
+.container-list-right-card{
+    display: flex;
+
+}

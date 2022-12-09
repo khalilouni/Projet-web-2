@@ -87,5 +87,10 @@
     "ajout_voiture_success" : "Add car success !",
     "modifier_voiture.form_titre" : "Update car",
     "modification_voiture_success" : "Update Succes !",
-    "modifier_voiture.form_label_btn_modifier" : "Update"
+    "modifier_voiture.form_label_btn_modifier" : "Update",
+    "home.confiance-title": "Buy your vehicle with complete peace of mind thanks to our contract of trust!",
+    "home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.",
+    "home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.",
+    "home.confiance-texte-3":"- Assistance with financing is offered by our employees.",
+    "home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com."
 }

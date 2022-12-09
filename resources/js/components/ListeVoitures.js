@@ -82,12 +82,11 @@ const ListeVoitures = () => {
     }, [selectConstructeurs, selectModeles, selectAnnees])
 
     return (
-        <div >
-            <h1><FormattedMessage id="voitures.titre"/></h1>
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                        <FormFilter 
+        <div>
+             <div className="container">
+                <div className="d-flex flex-wrap">
+                    <div className="d-flex flex-wrap">
+                    <FormFilter 
                             size={"22rem"} 
                             selectConstructeurs={selectConstructeurs}
                             selectModeles={selectModeles}
@@ -96,17 +95,13 @@ const ListeVoitures = () => {
                             handleModeleChange={handleModeleChange}
                             handleAnneeChange={handleAnneeChange}
                         />
-                    </div>
-                    <div className="col">
-                        <div className="row"> 
-                            {
-                                voituresFiltrees.map((voiture, index)=> (
-                                    <div className="col" key={index}>
-                                        <CardVoiture voiture={voiture}/>
-                                    </div>
-                                ))
-                            }
-                        </div>
+                        {
+                            voituresFiltrees.map((voiture, index)=> (
+                                <div className="m-2" key={index}>
+                                    <CardVoiture voiture={voiture}/>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             </div>

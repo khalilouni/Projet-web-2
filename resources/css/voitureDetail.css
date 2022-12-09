@@ -1,6 +1,9 @@
 /* css de la page details */
 
-.detail-general-wrapper{
+
+
+
+/*  .detail-general-wrapper{
     display: flex;
     flex-direction: row; 
     width: 100%;
@@ -82,6 +85,55 @@
     flex-direction: row;
     justify-content: flex-end;
     margin: 10px 25px 10px 25px;
+} */
+
+.btn-reserver{
+    background-color: #003866;
+    color:white;
 }
+
+.btn-acheter{
+    background-color: #003866;
+    color:white;
+
+} 
+
+.container-title-left{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.container-title-right{ 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 24px;
+    color: #003866;
+    font-weight: bold;
+}
+
+.container-detail-right-infos-wrap-left{
+    color: #003866;
+    font-weight: bold;
+}
+
+.container-detail-left{
+    width: 500px;
+}
+
+.container-detail-right{
+    width: 400px;
+}
+
+.wrapper-detail{
+    width: 75%;
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper-detail{
+        width: 100%;
+    }
+}
+
+
 
 

@@ -22,7 +22,9 @@ const SelectionVoitures = () => {
 
     return(
         <div className="container py-3 px-5">
-            <h2><FormattedMessage id="home.voiture_recent"/></h2>
+            <div>
+                <FormattedMessage id="home.voiture_recent"/>
+            </div>
             <div className="container col py-3 px-5">
                 <div className='row'>
                     {
@@ -34,11 +36,10 @@ const SelectionVoitures = () => {
                     }
                 </div>
             </div>
+
         </div>
     )
 }
-
-
 
 export default SelectionVoitures
 

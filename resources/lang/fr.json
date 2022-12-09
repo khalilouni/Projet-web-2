@@ -87,5 +87,10 @@
     "ajout_voiture.form_label_btn_ajout" : "Ajouter voiture",
     "modifier_voiture.form_titre" : "Mettre a jour voiture",
     "modification_voiture_success" : "Modifier avec success !",
-    "modifier_voiture.form_label_btn_modifier" : "Mettre a jour"
+    "modifier_voiture.form_label_btn_modifier" : "Mettre a jour",
+    "home.confiance-title": "Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !",
+    "home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.",
+    "home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.",
+    "home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.",
+    "home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com."
 }

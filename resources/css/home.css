@@ -1,7 +1,38 @@
+.container-spacing{
+  margin-bottom: 60px;
+}
 
  .flex-container {
     display: flex;
     flex-wrap: wrap;
+
+  }
+
+  .text-wrapper{
+    display: flex;
+    align-items: center;
+    padding: 55px 12px 0px 12px;
+  }
+
+  .confiance-title{
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px ;
+  }
+
+/*   .confiance.text{
+  } */
+
+ .img-cles-wrapper{
+    display: flex;
+    width: 40%;
+    height: auto;
+    justify-content: center;
+  }
+
+  .img-cles-container{
+    width: 100%;
+    height: auto;
   }
 
   .img-presentation-wrapper{
@@ -21,6 +52,12 @@
         display: flex;
         width: 100%;
         height: auto;
+        justify-content: center;
+      }
+      .img-cles-wrapper{
+        display: flex;
+        width:100%;
+        height:auto;
         justify-content: center;
       }
   }
