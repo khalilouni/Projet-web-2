@@ -21,19 +21,17 @@ const ListeVoitures = () => {
         return data
     }
     return (
-        <div >
-            <h1><FormattedMessage id="voitures.titre"/></h1>
-            <div className="container">
-                <div className="row">
-                    <div className="col">
-                      <FormFilter size={"22rem"} />
-                    </div>
-                    <div className="col">
-                        <div className="row"> {
-                            voitures.map(v => <div className="col" key={v.id}>
-                                <CardVoiture voiture={v}/>
-                            </div>)}</div>
-                    </div>
+        <div>
+            {/*<div>
+                <h1><FormattedMessage id="voitures.titre"/></h1>
+            </div> */}
+             <div className="container">
+                <div className="d-flex flex-wrap">
+                    <div className="d-flex flex-wrap">
+                        <FormFilter size={"20rem"} />
+                        { voitures.map(v => <div className="m-2" key={v.id}>
+                            <CardVoiture voiture={v}/>
+                    </div>)}</div>
                 </div>
             </div>
         </div>

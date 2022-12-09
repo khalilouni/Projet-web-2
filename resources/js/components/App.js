@@ -18,7 +18,7 @@ function App() {
     return (
       <LangueWrapper>
         <Header/>
-        <div className='container' style={{ marginTop: '5vh'}}>
+        <div className='container w-100' style={{ marginTop: '5vh'}}>
           <Routes>
             <Route path="/voiture/liste" element={<ListeVoitures  />} />
             <Route path="/" element={<Home />} />
