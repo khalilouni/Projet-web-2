@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import {useNavigate, Link, useParams} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 import {URL} from "../../constantes";
 
@@ -9,7 +9,7 @@ import {URL} from "../../constantes";
 const DetailClient = () => {
 
     const [profil, setProfil] = useState({});
-    let id = window.location.pathname.split('/')[2];
+    const { id } = useParams();
    
         
     
@@ -96,7 +96,7 @@ const DetailClient = () => {
                         </div>
                     </div>
                 </div>
-                <Link className='btn btn-primary m-3' to={`/ModifierProfil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
+                <Link className='btn btn-primary m-3' to={`/modifier-profil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
                 <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
             </div>
         </div>

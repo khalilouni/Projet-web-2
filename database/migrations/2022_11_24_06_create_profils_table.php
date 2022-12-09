@@ -21,7 +21,6 @@ class CreateProfilsTable extends Migration
             $table->date('anniversaire');
             $table->text('adresse', 100);
             $table->string('code_postal', 100);
-            $table->string('ville', 30);
             $table->string('telephone');
             $table->string('cellulaire');
             $table->bigInteger('userId')->unsigned();

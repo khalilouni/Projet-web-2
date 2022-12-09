@@ -16,3 +16,4 @@ yarn-error.log
 /public/js/*
 /public/css/*
 /public/fonts
+/resourses/js/app.js

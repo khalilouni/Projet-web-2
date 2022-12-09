@@ -38,6 +38,7 @@ class ProfilController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
 
             'courriel' => 'required|email',
@@ -46,10 +47,10 @@ class ProfilController extends Controller
             'anniversaire' => 'required|date',
             'adresse' => 'required',
             'code_postal' => 'required',
-            'ville' => 'required',
-            'telephone' => 'required|numeric|digits:10',
-            'cellulaire' => 'numeric|digits:10|nullable',
-            
+            'villeId' => 'required',
+            'telephone' => 'required',
+            'cellulaire' => 'digits:10|nullable',
+
         ]);
 
         $nouveauProfil = Profil::create([
@@ -59,18 +60,18 @@ class ProfilController extends Controller
             'anniversaire' => $request->anniversaire,
             'adresse' => $request->adresse,
             'code_postal' => $request->code_postal,
-            'ville' => $request->ville,
+            'villeId' => $request->villeId,
             'telephone' => $request->telephone,
             'cellulaire' => $request->cellulaire,
             'userId' => 3,
             'courriel' => $request->courriel
-        ]); 
+        ]);
 
         return response()->json([
             'profil' => $nouveauProfil,
             'message' => 'profil enregistrer avec succes'
         ], 200);
-        
+
     }
 
     /**
@@ -106,7 +107,8 @@ class ProfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
+
         $Profil = Profil::find($id);
 
         $request->validate([
@@ -117,10 +119,10 @@ class ProfilController extends Controller
             'anniversaire' => 'required|date',
             'adresse' => 'required',
             'code_postal' => 'required',
-            'ville' => 'required',
+            'villeId' => 'required',
             'telephone' => 'required|numeric|digits:10',
             'cellulaire' => 'numeric|digits:10|nullable',
-            
+
         ]);
 
         $Profil->update([
@@ -130,15 +132,14 @@ class ProfilController extends Controller
             'anniversaire' => $request->anniversaire,
             'adresse' => $request->adresse,
             'code_postal' => $request->code_postal,
-            'ville' => $request->ville,
+            'villeId' => $request->villeId,
             'telephone' => $request->telephone,
             'cellulaire' => $request->cellulaire,
             'userId' => 3,
             'courriel' => $request->courriel
-            
-        ]); 
 
-       
+        ]);
+
         return response()->json($Profil);
 
     }
@@ -153,7 +154,7 @@ class ProfilController extends Controller
     {
         $profil->delete();
         return response()->json($profil);
-        
-        
+
+
     }
 }

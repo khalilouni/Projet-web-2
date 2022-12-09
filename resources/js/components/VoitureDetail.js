@@ -13,6 +13,7 @@ import {URL} from "../constantes";
 
 
 const VoitureDetail = () => {
+    
     let { id } = useParams();
 
     const [voiture, setVoiture] = useState();

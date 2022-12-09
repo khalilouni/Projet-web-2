@@ -38,7 +38,7 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="/aPropos"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/inscriptionClient"><FormattedMessage id="header.s_inscrire"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/inscription-client"><FormattedMessage id="header.s_inscrire"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page" to="/login"><FormattedMessage id="header.connexion"/></Link>
