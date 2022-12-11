@@ -35,6 +35,8 @@ Route::group(['prefix' => 'v1'], function() {
 });
 
 Route::post('v1/register', [AuthController::class,'inscrire'])->name('inscrire');
+Route::post('v1/login', [AuthController::class,'login'])->name('login');
+Route::get('v1/user', [AuthController::class,'utilisateur'])->name('utilisateur');
 Route::post('v1/inscription-client', [ProfilController::class,'store'])->name('inscrire.client');
 
 

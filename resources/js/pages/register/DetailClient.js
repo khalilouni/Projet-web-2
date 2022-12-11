@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import {useNavigate, Link, useParams} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 import {URL} from "../../constantes";
 
@@ -9,10 +9,10 @@ import {URL} from "../../constantes";
 const DetailClient = () => {
 
     const [profil, setProfil] = useState({});
-    const { id } = useParams();
-   
-        
-    
+    let id = window.location.pathname.split('/')[2];
+
+
+
     useEffect(() => {
         axios.get(`${URL}/api/v1/profil/${id}`).then((response) => {
             setProfil(response.data[0]);
@@ -21,7 +21,7 @@ const DetailClient = () => {
         });
         }, []);
 
-       
+
 
     return (
 
@@ -97,7 +97,7 @@ const DetailClient = () => {
                     </div>
                 </div>
                 <Link className='btn btn-primary m-3' to={`/modifier-profil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
-                <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
+                <Link className='btn btn-primary m-3' to='/connexion'><FormattedMessage id="back.form_inscription"/></Link>
             </div>
         </div>
     );

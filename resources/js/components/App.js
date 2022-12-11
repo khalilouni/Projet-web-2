@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route,BrowserRouter } from 'react-router-dom'
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import Inscription from '../pages/register/Inscription'
 import Header from './Header';
 import Footer from './Footer';
@@ -12,35 +12,35 @@ import InscriptionClient from '../pages/register/InscriptionClient';
 import ModificationClient from '../pages/register/ModificationClient';
 import DetailClient from '../pages/register/DetailClient';
 import ListeVoitures from "./ListeVoitures";
-import AjoutVoiture from "../pages/register/AjoutVoiture";
-import ModifierVoiture from "../pages/register/ModifierVoiture";
 import Home from './Home';
+import Connexion from "../pages/register/Connexion";
+import ClientIndex from "../pages/client/ClientIndex";
 
 function App() {
     return (
-      <LangueWrapper>
-        <Header/>
-        <div className='container w-100' style={{ marginTop: '5vh'}}>
-          <Routes>
-            <Route path="/voiture/liste" element={<ListeVoitures  />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Inscription  />} />
-            <Route path="/voiture/:id" element={<VoitureDetail />} />
-            <Route path="/ajout-voiture" element={<AjoutVoiture />} />
-            <Route path="/modifier-voiture/:id" element={<ModifierVoiture />} />
-            <Route path="/inscription-client" element={<InscriptionClient  />} />
-            <Route path="/modifier-profil/:id" element={<ModificationClient   />} />
-            <Route path="/detail-profil/:profil" element={<DetailClient   />} />
-            <Route path="*" element={<Home/>} />
-          </Routes>
-        </div>
-        <Footer/>
-      </LangueWrapper>
+        <LangueWrapper>
+            <Header/>
+            <div className='container' style={{marginTop: '5vh'}}>
+                <Routes>
+                    <Route path="/voiture/liste" element={<ListeVoitures/>}/>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/register" element={<Inscription/>}/>
+                    <Route path="/connexion" element={<Connexion/>}/>
+                    <Route path="/voiture/:id" element={<VoitureDetail/>}/>
+                    <Route path="/inscription-client/:id" element={<InscriptionClient/>}/>
+                    <Route path="/modifier-profil/:id" element={<ModificationClient/>}/>
+                    <Route path="/detail-profil/:profil" element={<DetailClient/>}/>
+                    <Route path="/client-index" element={<ClientIndex />}/>
+                    <Route path="*" element={<Home/>}/>
+                </Routes>
+            </div>
+            <Footer/>
+        </LangueWrapper>
     );
 }
 
 export default App;
 
 if (document.getElementById('app')) {
-    ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('app'));
+    ReactDOM.render(<BrowserRouter><App/></BrowserRouter>, document.getElementById('app'));
 }

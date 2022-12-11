@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
 use Auth;
 
 
-class ProfilController extends Controller
+class ProfilController extends ApiController
 {
+    public function __construct() {
+        $this->middleware('auth:api');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +68,7 @@ class ProfilController extends Controller
             'villeId' => $request->villeId,
             'telephone' => $request->telephone,
             'cellulaire' => $request->cellulaire,
-            'userId' => 3,
+            'userId' => $request->userId,
             'courriel' => $request->courriel
         ]);
 

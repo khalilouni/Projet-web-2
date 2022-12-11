@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
@@ -10,13 +10,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
+    public function __construct() {
+        $this->middleware('auth:api',['only' => ['utilisateur'],]);
+    }
+
+
+    public function utilisateur() {
+        $utilisateur =Auth::guard('api')->user();
+        return $this->reussite($utilisateur);
+    }
+
     /**
-     * Stocke une ressource nouvellement créée dans le stockage..
+     * Enregistrer un utilisateur.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function inscrire(Request $requete)
     {
@@ -46,7 +56,6 @@ class AuthController extends Controller
         $utilisateur->email = $courrielDeUtilisateur;
         $utilisateur->name = $nomDeUtilisateur;
         $utilisateur->password = Hash::make($motDePasse);
-
         $utilisateurIp = $requete->getClientIp();
         $utilisateur->save();
 
@@ -55,12 +64,72 @@ class AuthController extends Controller
             'errno' => 0, 'errmsg' => 'succès de l\'inscription', 'data' => [
                 'token' => '',
                 'utilisateurInfo' => [
+                    'id' => $utilisateur->id,
                     'courriel' => $courrielDeUtilisateur,
                     'nomDeUtilisateur' => $nomDeUtilisateur,
                     'ipDeUtilisateur' => $utilisateurIp
                 ]
             ]
         ]);
+    }
+
+    /**
+     * Module de connexion utilisateur.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function login(Request $request) {
+
+        //Obtenir le nom d'utilisateur et le mot de passe
+        $courrielDeUtilisateur = $request->input('courriel');
+        $motDePasse = $request->input('motDePasse');
+
+        //Verification des données
+        if(empty($courrielDeUtilisateur) || empty($motDePasse)) {
+            return response()->json([
+                'errno' => 401, 'errmsg' => 'Erreur de paramètre'
+            ]);
+        }
+
+        //Vérifier que l'utilisateur existe
+        $utilisateur = $this->obtenirParCourrielDeUtilisateur($courrielDeUtilisateur);
+        if (is_null($utilisateur)) {
+            return response()->json([
+                'errno' => 704, 'errmsg' => 'L\'adresse courriel de l\'utilisateur n\'existe pas'
+            ]);
+        }
+
+        //Vérifier le mot de passe
+        $isPasse= Hash::check($motDePasse,$utilisateur->getAuthMotDePasse());
+        if(!$isPasse) {
+            return response()->json([
+                'errno' => 705, 'errmsg' => 'Le mot de passe du compte est incorrect'
+            ]);
+        }
+
+        //mettre à jour les informations de connexion
+        if(!$utilisateur->save()) {
+            return response()->json([
+                'errno' => 505, 'errmsg' => 'Échec de la mise à jour des informations de connexion'
+            ]);
+        }
+
+        //Obtenir le token
+        $token = Auth::guard('api')->login($utilisateur);
+
+        //Les données utilisateur sont assemblées et renvoyées
+        return response()->json([
+            "errno" => 0, "errmsg" => "succès de connexion","data" => [
+                "token" => $token,
+                "utilisateurInfo" => [
+                    "courriel" => $courrielDeUtilisateur,
+                    "nomDeUtilisateur" => $utilisateur->name,
+                ]
+            ]
+        ]);
+
     }
 
 

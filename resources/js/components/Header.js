@@ -20,11 +20,13 @@ const Header = () => {
                 <div className="container-fluid">
                     <Link className="navbar-brand nav-logo" to="/">
                         <img src={logo} alt="Logo" className='nav-logo'/>
-                    </Link>     
-                    
+                    </Link>
+
+
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
 
                     <div className="collapse navbar-collapse nav-spacing" id="navbarNavDropdown">
                         <ul className="navbar-nav">
@@ -41,7 +43,7 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="/inscription-client"><FormattedMessage id="header.s_inscrire"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page" to="/login"><FormattedMessage id="header.connexion"/></Link>
+                                <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page" to="/connexion"><FormattedMessage id="header.connexion"/></Link>
                             </li>
                             <li className="nav-item">
                                 {/* bouton du changement de langue */}
@@ -65,4 +67,3 @@ const Header = () => {
         )
     }
     export default Header
-    
