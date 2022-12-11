@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl';
 import {URL} from "../../constantes";
 
@@ -10,15 +10,17 @@ const DetailClient = () => {
 
     const [profil, setProfil] = useState({});
     let id = window.location.pathname.split('/')[2];
-
+    const token = localStorage.getItem('tk')
 
 
     useEffect(() => {
-        axios.get(`${URL}/api/v1/profil/${id}`).then((response) => {
-            setProfil(response.data[0]);
-        }).catch(error => {
-            setError(error);
-        });
+        axios({
+            url: `${URL}/api/v1/profil/${id}`,
+            headers: {Authorization:`${token}`},
+        })
+            .then((response) => {
+                setProfil(response.data[0]);
+        })
         }, []);
 
 
@@ -97,7 +99,7 @@ const DetailClient = () => {
                     </div>
                 </div>
                 <Link className='btn btn-primary m-3' to={`/modifier-profil/${profil.id}`}><FormattedMessage id="modifier.form_inscription"/></Link>
-                <Link className='btn btn-primary m-3' to='/connexion'><FormattedMessage id="back.form_inscription"/></Link>
+                <Link className='btn btn-primary m-3' to='/client-index'><FormattedMessage id="confirmer.form_inscription"/></Link>
             </div>
         </div>
     );

@@ -14384,22 +14384,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var _pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../pages/register/Inscription */ "./resources/js/pages/register/Inscription.js");
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Footer */ "./resources/js/components/Footer.js");
-/* harmony import */ var _VoitureDetail__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./VoitureDetail */ "./resources/js/components/VoitureDetail.js");
-/* harmony import */ var _LangueWrapper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./LangueWrapper */ "./resources/js/components/LangueWrapper.js");
-/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../css/app.css */ "./resources/css/app.css");
-/* harmony import */ var _pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/register/InscriptionClient */ "./resources/js/pages/register/InscriptionClient.js");
-/* harmony import */ var _pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
-/* harmony import */ var _pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/register/DetailClient */ "./resources/js/pages/register/DetailClient.js");
-/* harmony import */ var _ListeVoitures__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ListeVoitures */ "./resources/js/components/ListeVoitures.js");
-/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
-/* harmony import */ var _pages_register_Connexion__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../pages/register/Connexion */ "./resources/js/pages/register/Connexion.js");
-/* harmony import */ var _pages_client_ClientIndex__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../pages/client/ClientIndex */ "./resources/js/pages/client/ClientIndex.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Layout */ "./resources/js/components/Layout.js");
+/* harmony import */ var _VoitureDetail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./VoitureDetail */ "./resources/js/components/VoitureDetail.js");
+/* harmony import */ var _LangueWrapper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./LangueWrapper */ "./resources/js/components/LangueWrapper.js");
+/* harmony import */ var _css_app_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../css/app.css */ "./resources/css/app.css");
+/* harmony import */ var _pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/register/InscriptionClient */ "./resources/js/pages/register/InscriptionClient.js");
+/* harmony import */ var _pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../pages/register/ModificationClient */ "./resources/js/pages/register/ModificationClient.js");
+/* harmony import */ var _pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../pages/register/DetailClient */ "./resources/js/pages/register/DetailClient.js");
+/* harmony import */ var _ListeVoitures__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ListeVoitures */ "./resources/js/components/ListeVoitures.js");
+/* harmony import */ var _Home__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Home */ "./resources/js/components/Home.js");
+/* harmony import */ var _pages_register_Connexion__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../pages/register/Connexion */ "./resources/js/pages/register/Connexion.js");
+/* harmony import */ var _pages_client_ClientIndex__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../pages/client/ClientIndex */ "./resources/js/pages/client/ClientIndex.js");
+/* harmony import */ var _route_Auth_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../route/Auth.js */ "./resources/js/route/Auth.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -14419,53 +14422,61 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)("div", {
-      className: "container",
-      style: {
-        marginTop: '5vh'
-      },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Routes, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/voiture/liste",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_11__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_12__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/register",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/connexion",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_register_Connexion__WEBPACK_IMPORTED_MODULE_13__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/voiture/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_5__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/inscription-client/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_8__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/modifier-profil/:id",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/detail-profil/:profil",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "/client-index",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_pages_client_ClientIndex__WEBPACK_IMPORTED_MODULE_14__["default"], {})
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_16__.Route, {
-          path: "*",
-          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_12__["default"], {})
-        })]
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_route_Auth_js__WEBPACK_IMPORTED_MODULE_16__.AuthProvider, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Routes, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+          element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Layout__WEBPACK_IMPORTED_MODULE_5__["default"], {}),
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/voiture/liste",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_ListeVoitures__WEBPACK_IMPORTED_MODULE_12__["default"], {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            index: true,
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/voiture/:id",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_VoitureDetail__WEBPACK_IMPORTED_MODULE_6__["default"], {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/connexion",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_register_Connexion__WEBPACK_IMPORTED_MODULE_14__["default"], {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/register",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_register_Inscription__WEBPACK_IMPORTED_MODULE_2__["default"], {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/inscription-client/:id",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_route_Auth_js__WEBPACK_IMPORTED_MODULE_16__.RequireAuth, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_register_InscriptionClient__WEBPACK_IMPORTED_MODULE_9__["default"], {})
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/modifier-profil/:id",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_route_Auth_js__WEBPACK_IMPORTED_MODULE_16__.RequireAuth, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_register_ModificationClient__WEBPACK_IMPORTED_MODULE_10__["default"], {})
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/detail-profil/:profil",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_route_Auth_js__WEBPACK_IMPORTED_MODULE_16__.RequireAuth, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_register_DetailClient__WEBPACK_IMPORTED_MODULE_11__["default"], {})
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "/client-index",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_route_Auth_js__WEBPACK_IMPORTED_MODULE_16__.RequireAuth, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_pages_client_ClientIndex__WEBPACK_IMPORTED_MODULE_15__["default"], {})
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_18__.Route, {
+            path: "*",
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(_Home__WEBPACK_IMPORTED_MODULE_13__["default"], {})
+          })]
+        })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+    })
   });
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
 if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_17__.BrowserRouter, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_15__.jsx)(App, {})
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_19__.BrowserRouter, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_17__.jsx)(App, {})
   }), document.getElementById('app'));
 }
 
@@ -14959,13 +14970,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _LangueWrapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LangueWrapper */ "./resources/js/components/LangueWrapper.js");
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
-/* harmony import */ var _css_header_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../css/header.css */ "./resources/css/header.css");
-/* harmony import */ var _img_logo_svg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./img/logo.svg */ "./resources/js/components/img/logo.svg");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _route_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../route/Auth */ "./resources/js/route/Auth.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var _css_header_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../css/header.css */ "./resources/css/header.css");
+/* harmony import */ var _img_logo_svg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img/logo.svg */ "./resources/js/components/img/logo.svg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -14982,20 +14995,24 @@ __webpack_require__.r(__webpack_exports__);
 
 var Header = function Header() {
   var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_LangueWrapper__WEBPACK_IMPORTED_MODULE_1__.Context);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("header", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("nav", {
+  var _Auth = (0,_route_Auth__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    authed = _Auth.authed,
+    nomAuthed = _Auth.nomAuthed,
+    logout = _Auth.logout;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("header", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("nav", {
       className: "navbar navbar-expand-lg bg-light navbar-style",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "container-fluid",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
           className: "navbar-brand nav-logo",
           to: "/",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-            src: _img_logo_svg__WEBPACK_IMPORTED_MODULE_3__["default"],
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+            src: _img_logo_svg__WEBPACK_IMPORTED_MODULE_4__["default"],
             alt: "Logo",
             className: "nav-logo"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
           className: "navbar-toggler",
           type: "button",
           "data-bs-toggle": "collapse",
@@ -15003,66 +15020,81 @@ var Header = function Header() {
           "aria-controls": "navbarNavDropdown",
           "aria-expanded": "false",
           "aria-label": "Toggle navigation",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "navbar-toggler-icon"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "collapse navbar-collapse nav-spacing",
           id: "navbarNavDropdown",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("ul", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("ul", {
             className: "navbar-nav",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
                 className: "nav-link active",
                 to: "/",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "header.accueil"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
                 className: "nav-link active",
                 "aria-current": "page",
                 to: "/voiture/liste",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "header.voitures"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
                 className: "nav-link active",
                 "aria-current": "page",
-                to: "/aPropos",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                to: "/home",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "header.a_propos"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+              children: authed ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
                 className: "nav-link active",
                 "aria-current": "page",
-                to: "/inscription-client",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                to: "/client-index",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                  id: "header.client_centre"
+                }), nomAuthed]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+                className: "nav-link active",
+                "aria-current": "page",
+                to: "/register",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "header.s_inscrire"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+              children: authed ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+                className: "btn btn-outline-dark nav-btn-connexion",
+                "aria-current": "page",
+                to: "/home",
+                onClick: logout,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                  id: "header.deconnectionner"
+                })
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
                 className: "btn btn-outline-dark nav-btn-connexion",
                 "aria-current": "page",
                 to: "/connexion",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "header.connexion"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("li", {
               className: "nav-item",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                 type: "button",
                 className: "btn nav-btn-lang btn-lang",
                 onClick: context.selectLanguage,
@@ -15204,6 +15236,41 @@ var LangueWrapper = function LangueWrapper(props) {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LangueWrapper);
+
+/***/ }),
+
+/***/ "./resources/js/components/Layout.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/Layout.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.js");
+/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Footer */ "./resources/js/components/Footer.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+var Layout = function Layout() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Header__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      className: "container",
+      style: {
+        marginTop: '5vh'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Outlet, {})
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Footer__WEBPACK_IMPORTED_MODULE_1__["default"], {})]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Layout);
 
 /***/ }),
 
@@ -15666,17 +15733,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _components_LangueWrapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/LangueWrapper */ "./resources/js/components/LangueWrapper.js");
+/* harmony import */ var _route_Auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../route/Auth */ "./resources/js/route/Auth.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-var ClientIndex = function ClientIndex(_ref) {
-  var nom = _ref.nom;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("main", {
+
+
+
+var ClientIndex = function ClientIndex() {
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_components_LangueWrapper__WEBPACK_IMPORTED_MODULE_1__.Context);
+  var _Auth = (0,_route_Auth__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+    nomAuthed = _Auth.nomAuthed;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("main", {
     className: "container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("h2", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
       children: "Espace de gestion client"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("h4", {
-      children: ["Bienvenue cher ", nom]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+      children: ["Bienvenue cher ", nomAuthed]
     })]
   });
 };
@@ -15699,12 +15774,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var _route_Auth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../route/Auth.js */ "./resources/js/route/Auth.js");
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
-/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
-/* harmony import */ var react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toastify/dist/ReactToastify.css */ "./node_modules/react-toastify/dist/ReactToastify.css");
-/* harmony import */ var _client_ClientIndex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../client/ClientIndex */ "./resources/js/pages/client/ClientIndex.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var react_toastify_dist_ReactToastify_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-toastify/dist/ReactToastify.css */ "./node_modules/react-toastify/dist/ReactToastify.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -15712,6 +15787,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -15724,39 +15802,68 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 var Connexion = function Connexion() {
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+  var _Auth = (0,_route_Auth_js__WEBPACK_IMPORTED_MODULE_1__["default"])(),
+    login = _Auth.login;
   var initialValues = {
     courriel: '',
     motDePasse: ''
   };
-  var validationSchema = yup__WEBPACK_IMPORTED_MODULE_2__.object({
-    courriel: yup__WEBPACK_IMPORTED_MODULE_2__.string().email('register.form_courriel_invalide').required('register.form_courriel_required'),
-    motDePasse: yup__WEBPACK_IMPORTED_MODULE_2__.string().min(6, 'register.form_password_invalide').required('register.form_password_required')
+  var validationSchema = yup__WEBPACK_IMPORTED_MODULE_3__.object({
+    courriel: yup__WEBPACK_IMPORTED_MODULE_3__.string().email('register.form_courriel_invalide').required('register.form_courriel_required'),
+    motDePasse: yup__WEBPACK_IMPORTED_MODULE_3__.string().min(6, 'register.form_password_invalide').required('register.form_password_required')
   });
-  var onSubmit = function onSubmit(valeurs) {
-    axios__WEBPACK_IMPORTED_MODULE_0___default()({
-      method: 'post',
-      url: 'http://127.0.0.1:8000/api/v1/login',
-      data: valeurs
-    }).then(function (res) {
-      if (res.data.errno === 704) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          id: "connexion.form_courriel_inexistant"
-        }), {
-          position: react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.POSITION.TOP_CENTER
-        });
-      } else if (res.data.errno === 705) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          id: "register.form_mot_de_passe_existe"
-        }), {
-          position: react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.POSITION.TOP_CENTER
-        });
-      } else {
-        var nom = res.data.data.utilisateurInfo.nomDeUtilisateur;
-        navigate("/client-index");
-      }
-    });
-  };
-  var formik = (0,formik__WEBPACK_IMPORTED_MODULE_1__.useFormik)({
+  var onSubmit = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(valeurs) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/api/v1/login',
+                data: valeurs
+              }).then(function (res) {
+                if (res.data.errno === 704) {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                    id: "connexion.form_courriel_inexistant"
+                  }), {
+                    position: react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.POSITION.TOP_CENTER
+                  });
+                } else if (res.data.errno === 705) {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                    id: "register.form_mot_de_passe_existe"
+                  }), {
+                    position: react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.POSITION.TOP_CENTER
+                  });
+                } else {
+                  var uInfo = res.data.data.utilisateurInfo;
+                  localStorage.setItem("nomAuthed", uInfo.nomDeUtilisateur);
+                  var token = res.data.data.token;
+                  localStorage.setItem("tk", token);
+                  login(uInfo.nomDeUtilisateur);
+                  var id = uInfo.idUtilisateur;
+                  var hasProfil = uInfo.hasProfil;
+                  var nom = uInfo.nomDeUtilisateur;
+                  if (hasProfil) {
+                    navigate('/client-index');
+                  } else {
+                    navigate("/inscription-client/".concat(id));
+                  }
+                }
+              });
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function onSubmit(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
+  var formik = (0,formik__WEBPACK_IMPORTED_MODULE_2__.useFormik)({
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: onSubmit
@@ -15767,7 +15874,7 @@ var Connexion = function Connexion() {
       marginTop: '15vh'
     },
     onSubmit: formik.handleSubmit,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_3__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_4__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
       className: "title-form font-weight-bold text-center m-4 p-3",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
         id: "connexion.form_titre"
@@ -15866,11 +15973,15 @@ var DetailClient = function DetailClient() {
     profil = _useState2[0],
     setProfil = _useState2[1];
   var id = window.location.pathname.split('/')[2];
+  var token = localStorage.getItem('tk');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id)).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id),
+      headers: {
+        Authorization: "".concat(token)
+      }
+    }).then(function (response) {
       setProfil(response.data[0]);
-    })["catch"](function (error) {
-      setError(error);
     });
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -16008,9 +16119,9 @@ var DetailClient = function DetailClient() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
         className: "btn btn-primary m-3",
-        to: "/connexion",
+        to: "/client-index",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          id: "back.form_inscription"
+          id: "confirmer.form_inscription"
         })
       })]
     })]
@@ -16048,6 +16159,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -16070,25 +16184,42 @@ var Inscription = function Inscription() {
     nom: yup__WEBPACK_IMPORTED_MODULE_3__.string().max(15, 'register.form_nom_invalide').required('register.form_nom_required'),
     motDePasse: yup__WEBPACK_IMPORTED_MODULE_3__.string().min(6, 'register.form_password_invalide').required('register.form_password_required')
   });
-  var onSubmit = function onSubmit(valeurs) {
-    axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      method: 'post',
-      url: 'http://127.0.0.1:8000/api/v1/register',
-      data: valeurs
-    }).then(function (res) {
-      if (res.data.errno === 704) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          id: "register.form_courriel_existe"
-        }), {
-          position: react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.POSITION.TOP_CENTER
-        });
-      } else {
-        console.log(res.data);
-        var id = res.data.data.utilisateurInfo.id;
-        navigate("/inscription-client/".concat(id));
-      }
-    });
-  };
+  var onSubmit = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(valeurs) {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default()({
+                method: 'post',
+                url: 'http://127.0.0.1:8000/api/v1/register',
+                data: valeurs
+              }).then(function (res) {
+                if (res.data.errno === 704) {
+                  react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.error( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
+                    id: "register.form_courriel_existe"
+                  }), {
+                    position: react_toastify__WEBPACK_IMPORTED_MODULE_4__.toast.POSITION.TOP_CENTER
+                  });
+                } else {
+                  //console.log(res.data)
+                  //const id = res.data.data.utilisateurInfo.id;
+                  //navigate(`/inscription-client/${id}`)
+                  navigate('/connexion');
+                }
+              });
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+    return function onSubmit(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }();
   var formik = (0,formik__WEBPACK_IMPORTED_MODULE_2__.useFormik)({
     initialValues: initialValues,
     validationSchema: validationSchema,
@@ -16193,7 +16324,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
@@ -16228,6 +16358,7 @@ var InscriptionClient = function InscriptionClient() {
     _useState2 = _slicedToArray(_useState, 2),
     villes = _useState2[0],
     setVilles = _useState2[1];
+  var token = localStorage.getItem('tk');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/ville")).then(function (res) {
       setVilles(res.data);
@@ -16259,11 +16390,16 @@ var InscriptionClient = function InscriptionClient() {
     villeId: yup__WEBPACK_IMPORTED_MODULE_3__.string().required('profil.from_ville_required')
   });
   var onSubmit = function onSubmit(valeurs) {
+    console.log(valeurs);
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      method: 'post',
+      method: 'POST',
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/inscription-client"),
+      headers: {
+        Authorization: "".concat(token)
+      },
       data: valeurs
     }).then(function (res) {
+      console.log(res.data);
       navigate("/detail-profil/".concat(res.data.profil.id));
     });
   };
@@ -16441,21 +16577,15 @@ var InscriptionClient = function InscriptionClient() {
           id: formik.errors.villeId
         }) : ''
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "mb-3 ",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
         type: "submit",
         className: "btn btn-primary",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          id: "submit.form_inscription"
+          id: "enregistrer.form_inscription"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
-        className: "btn btn-primary m-3",
-        to: "/register",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          id: "back.form_inscription"
-        })
-      })]
+      })
     })]
   });
 };
@@ -16783,6 +16913,103 @@ var ModificationClient = function ModificationClient() {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ModificationClient);
+
+/***/ }),
+
+/***/ "./resources/js/route/Auth.js":
+/*!************************************!*\
+  !*** ./resources/js/route/Auth.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AuthProvider": () => (/* binding */ AuthProvider),
+/* harmony export */   "RequireAuth": () => (/* binding */ RequireAuth),
+/* harmony export */   "default": () => (/* binding */ AuthConsumer)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var AuthContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+function getInitialState() {
+  return !!localStorage.getItem('tk');
+}
+function getInitialNomAuthed() {
+  return localStorage.getItem('nomAuthed');
+}
+/**
+ * Hook personnalisé, la fonction renvoie la valeur de contexte, y compris l'état authentifié,
+ * la connexion, la fonction de déconnexion pour modifier l'état authentifié
+ */
+function useAuth() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getInitialState),
+    _useState2 = _slicedToArray(_useState, 2),
+    authed = _useState2[0],
+    setAuthed = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getInitialNomAuthed),
+    _useState4 = _slicedToArray(_useState3, 2),
+    nomAuthed = _useState4[0],
+    setNomAuthed = _useState4[1];
+  return {
+    authed: authed,
+    nomAuthed: nomAuthed,
+    login: function login(nom) {
+      return new Promise(function (res) {
+        setAuthed(true);
+        setNomAuthed(nom);
+        res();
+      });
+    },
+    logout: function logout() {
+      return new Promise(function (res) {
+        setAuthed(false);
+        localStorage.removeItem('tk');
+        res();
+      });
+    }
+  };
+}
+
+// Transmettez la valeur de contexte au fournisseur de contexte et renvoyez le composant pour diffuser la valeur de contexte
+function AuthProvider(_ref) {
+  var children = _ref.children;
+  var auth = useAuth();
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(AuthContext.Provider, {
+    value: auth,
+    children: children
+  });
+}
+
+// renvoie la valeur de contexte
+function AuthConsumer() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(AuthContext);
+}
+
+/**
+ * Encapsuler le composant d'interception, si connecté, renvoyer le composant enfants inclus;
+ * Non connecté, renvoyez le composant <Navigate to="/connexion" /> pour accéder à la page de connexion.
+ */
+function RequireAuth(_ref2) {
+  var children = _ref2.children;
+  var _AuthConsumer = AuthConsumer(),
+    authed = _AuthConsumer.authed;
+  console.log(authed);
+  return authed === true ? children : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Navigate, {
+    to: "/connexion",
+    replace: true
+  });
+}
 
 /***/ }),
 
@@ -91345,7 +91572,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list"}');
 
 /***/ }),
 
@@ -91356,7 +91583,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Comfirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures"}');
 
 /***/ })
 

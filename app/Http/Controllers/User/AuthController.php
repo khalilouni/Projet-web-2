@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profil;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,13 +120,23 @@ class AuthController extends ApiController
         //Obtenir le token
         $token = Auth::guard('api')->login($utilisateur);
 
+        //Vérifier que le profil de l'utilisateur existe
+        $profil = $this->obtenirParIdDeUtilisateur($utilisateur->id);
+        $hasProfil = false;
+        if (!is_null($profil)) {
+          $hasProfil = true;
+        }
+
+
         //Les données utilisateur sont assemblées et renvoyées
         return response()->json([
             "errno" => 0, "errmsg" => "succès de connexion","data" => [
                 "token" => $token,
                 "utilisateurInfo" => [
                     "courriel" => $courrielDeUtilisateur,
+                    'idUtilisateur' => $utilisateur->id,
                     "nomDeUtilisateur" => $utilisateur->name,
+                    'hasProfil' => $hasProfil
                 ]
             ]
         ]);
@@ -142,5 +153,9 @@ class AuthController extends ApiController
     protected function obtenirParCourrielDeUtilisateur($courriel)
     {
         return User::query()->where('email', $courriel)->first();
+    }
+
+    protected function obtenirParIdDeUtilisateur($id) {
+        return Profil::query()->where('userId', $id)->first();
     }
 }

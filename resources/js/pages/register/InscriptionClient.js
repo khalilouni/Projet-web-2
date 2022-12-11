@@ -11,6 +11,7 @@ const InscriptionClient = () => {
     const navigate = useNavigate()
     const { id } = useParams();
     let [villes, setVilles] = useState([])
+    const token = localStorage.getItem('tk')
 
     useEffect(() => {
         axios.get(`${URL}/api/v1/ville`).then((res) => {
@@ -46,13 +47,16 @@ const validationSchema = Yup.object({
     villeId: Yup.string().required('profil.from_ville_required')
 });
 
-const onSubmit = valeurs => {
-    axios({
-        method: 'post',
+const onSubmit = (valeurs) => {
+    console.log(valeurs)
+     axios({
+        method: 'POST',
         url: `${URL}/api/v1/inscription-client`,
+        headers: {Authorization:`${token}`},
         data: valeurs
     })
         .then(res => {
+            console.log(res.data)
             navigate(`/detail-profil/${res.data.profil.id}`)
 
         })
@@ -164,8 +168,7 @@ return (
                 <FormattedMessage id={formik.errors.villeId}/> : ''}</span>
         </div>
         <div className="mb-3 ">
-            <button type="submit" className="btn btn-primary"><FormattedMessage id="submit.form_inscription" /></button>
-            <Link className='btn btn-primary m-3' to='/register'><FormattedMessage id="back.form_inscription" /></Link>
+            <button type="submit" className="btn btn-primary"><FormattedMessage id="enregistrer.form_inscription" /></button>
         </div>
     </form>
 )

@@ -23,8 +23,8 @@ const Inscription = () => {
         motDePasse: Yup.string().min(6,'register.form_password_invalide').required('register.form_password_required')
     });
 
-    const onSubmit = valeurs => {
-        axios({
+    const onSubmit = async (valeurs) => {
+        await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/v1/register',
             data: valeurs
@@ -36,9 +36,10 @@ const Inscription = () => {
                     })
                 }
                 else {
-                    console.log(res.data)
-                    const id = res.data.data.utilisateurInfo.id;
-                    navigate(`/inscription-client/${id}`)
+                    //console.log(res.data)
+                    //const id = res.data.data.utilisateurInfo.id;
+                    //navigate(`/inscription-client/${id}`)
+                    navigate('/connexion')
                 }
             })
     }

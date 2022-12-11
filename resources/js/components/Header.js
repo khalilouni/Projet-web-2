@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import React, {useContext} from 'react';
 import {Context} from "./LangueWrapper";
+import Auth from '../route/Auth'
 
 /* pour changement de langue */
 import {FormattedMessage} from 'react-intl';
@@ -13,6 +14,8 @@ import logo from './img/logo.svg';
 
 const Header = () => {
     const context = useContext(Context);
+    const {authed,nomAuthed,logout} = Auth()
+
 
     return (
         <header>
@@ -23,7 +26,9 @@ const Header = () => {
                     </Link>
 
 
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
@@ -34,26 +39,45 @@ const Header = () => {
                                 <Link className="nav-link active" to="/"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
+                                <Link className="nav-link active" aria-current="page"
+                                      to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/aPropos"><FormattedMessage id="header.a_propos"/></Link>
+                                <Link className="nav-link active" aria-current="page"
+                                      to="/home"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page" to="/inscription-client"><FormattedMessage id="header.s_inscrire"/></Link>
+                                {authed ? <Link className="nav-link active" aria-current="page"
+                                                to="/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
+                                </Link> : <Link className="nav-link active" aria-current="page"
+                                                       to="/register"><FormattedMessage id="header.s_inscrire"/>
+                                </Link>
+                                }
+
                             </li>
                             <li className="nav-item">
-                                <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page" to="/connexion"><FormattedMessage id="header.connexion"/></Link>
+                                {authed ?
+                                    <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page"
+                                          to="/home" onClick={logout}>
+                                        <FormattedMessage id="header.deconnectionner"/>
+                                    </Link> :
+                                    <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page"
+                                          to="/connexion">
+                                        <FormattedMessage id="header.connexion"/>
+                                    </Link>
+
+                                }
                             </li>
                             <li className="nav-item">
                                 {/* bouton du changement de langue */}
-                                <button type="button" className="btn nav-btn-lang btn-lang" onClick={context.selectLanguage}>{context.locale}</button>
+                                <button type="button" className="btn nav-btn-lang btn-lang"
+                                        onClick={context.selectLanguage}>{context.locale}</button>
                             </li>
                             {/*<li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Dropdown link
                                 </a> */}
-                                {/*<ul class="dropdown-menu">
+                            {/*<ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -64,6 +88,6 @@ const Header = () => {
                 </div>
             </nav>
         </header>
-        )
-    }
-    export default Header
+    )
+}
+export default Header

@@ -1,16 +1,16 @@
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
+import Auth from '../../route/Auth.js'
 import { FormattedMessage } from 'react-intl'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'react-toastify/dist/ReactToastify.css';
-import ClientIndex from "../client/ClientIndex";
 
 const Connexion = () => {
 
     const navigate = useNavigate()
+    const {login} = Auth()
     const initialValues = {
         courriel: '',
         motDePasse: ''
@@ -21,8 +21,8 @@ const Connexion = () => {
         motDePasse: Yup.string().min(6,'register.form_password_invalide').required('register.form_password_required')
     });
 
-    const onSubmit = valeurs => {
-        axios({
+    const onSubmit = async (valeurs) => {
+      await axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/api/v1/login',
             data: valeurs
@@ -41,8 +41,20 @@ const Connexion = () => {
                 }
 
                 else {
-                    const nom =res.data.data.utilisateurInfo.nomDeUtilisateur;
-                    navigate(`/client-index`)
+                    const uInfo = res.data.data.utilisateurInfo
+                    localStorage.setItem("nomAuthed",uInfo.nomDeUtilisateur)
+                    let token =res.data.data.token
+                    localStorage.setItem("tk",token)
+
+                    login(uInfo.nomDeUtilisateur)
+
+                    const id = uInfo.idUtilisateur;
+                    const hasProfil = uInfo.hasProfil;
+                    const nom = uInfo.nomDeUtilisateur
+                    if(hasProfil) {
+                        navigate('/client-index')
+                    }
+                    else { navigate(`/inscription-client/${id}`)}
                 }
             })
     }
