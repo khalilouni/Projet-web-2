@@ -17,6 +17,7 @@ class CreateVoituresTable extends Migration
             $table->id();
             $table->date('date_arrivee');
             $table->double('prix');
+            $table->integer('kilometrage');
             $table->bigInteger('modeleId')->unsigned();
             $table->foreign('modeleId')->references('id')->on('modeles');
             $table->bigInteger('transmissionId')->unsigned();

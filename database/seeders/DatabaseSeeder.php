@@ -13,7 +13,9 @@ use App\Models\Modele;
 use App\Models\Voiture;
 use App\Models\User;
 use App\Models\Privilege;
-
+use App\Models\Province;
+use App\Models\Ville;
+use App\Models\Photo;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +29,86 @@ class DatabaseSeeder extends Seeder
         /* Faker pour créer des données dans la base de donnée */
         $faker = \Faker\Factory::create();
 
+        /* créer les provinces */
+        Province::create([
+            'id' => 1,
+            'nom' => 'Quebec',
+        ]);
+
+        Province::create([
+            'id' => 2,
+            'nom' => 'Ontario',
+        ]);
+
+        Province::create([
+            'id' => 3,
+            'nom' => 'Alberta',
+        ]);
+        Province::create([
+            'id' => 4,
+            'nom' => 'Manitoba',
+        ]);
+        
+        Province::create([
+            'id' => 5,
+            'nom' => 'Nouveau-Brunswick',
+        ]);
+
+        Province::create([
+            'id' => 6,
+            'nom' => 'Nouvelle-Ecosse',
+        ]);
+
+        Province::create([
+            'id' => 7,
+            'nom' => 'Colombie-Britannique',
+        ]);
+        Province::create([
+            'id' => 8,
+            'nom' => 'Ile-du-Prince-Edouard',
+        ]);
+        
+        Province::create([
+            'id' => 9,
+            'nom' => 'Saskatchewan',
+        ]);
+
+        Province::create([
+            'id' => 10,
+            'nom' => 'Terre-Neuve-et-Labrador',
+        ]);
+
+        /* créer les villes*/
+
+        Ville::create([
+            'id' => 1,
+            'nom' => 'Montreal',
+            'provinceId'=> 1
+        ]);
+
+        Ville::create([
+            'id' => 2,
+            'nom' => 'Laval',
+            'provinceId'=> 1
+        ]);
+
+        Ville::create([
+            'id' => 3,
+            'nom' => 'Côte-Saint-Luc',
+            'provinceId'=> 1
+        ]);
+
+        Ville::create([
+            'id' => 4,
+            'nom' => 'Deux-Montagnes',
+            'provinceId'=> 1
+        ]);
+
+        Ville::create([
+            'id' => 5,
+            'nom' => 'Joliette',
+            'provinceId'=> 1
+        ]);
 
         /* créer les privileges */
         Privilege::create([
@@ -41,6 +123,7 @@ class DatabaseSeeder extends Seeder
             'id' => 3,
             'nom' => 'client'
         ]);
+        
 
         /* créer un utilisateur */
         User::create([
@@ -128,113 +211,362 @@ class DatabaseSeeder extends Seeder
         Transmission::create([
             'type' => 'RWD'
         ]);
+        
 
         /* créer les modeles */
         Modele::create([
+            'id' => 4,
             'constructeurId' => 4,
             'nom' => 'A5',
             'annee' => 2004
         ]);
         Modele::create([
+            'id' => 7,
             'constructeurId' => 7,
             'nom' => 'Corolla',
             'annee' => 2000
         ]);
         Modele::create([
+            'id' => 2,
             'constructeurId' => 2,
             'nom' => 'M2',
             'annee' => 2018
         ]);
         Modele::create([
+            'id' => 8,
             'constructeurId' => 8,
             'nom' => 'Civic',
             'annee' => 2005
         ]);
         Modele::create([
+            'id' => 6,
             'ConstructeurId' => 6,
             'nom' => 'Classe C',
             'annee' => 2020
         ]);
         Modele::create([
+            'id' => 1,
             'constructeurId' => 1,
             'nom' => 'Journey',
             'annee' => 2015
         ]);
         Modele::create([
+            'id' => 3,
             'constructeurId' => 3,
             'nom' => 'Sportage',
             'annee' => 2017
         ]);
         Modele::create([
+            'id' => 5,
             'constructeurId' => 5,
             'nom' => 'Atlas',
             'annee' => 2021
         ]);
 
+
         /* créer les voitures */
         Voiture::create([
+            'id' => 1,
             'prix' => 25000,
             'modeleId' => 1,
+            'kilometrage' => 9300,
             'transmissionId' => 1,
             'carburantId' => 1,
             'carrosserieId' => 1,
-            'date_arrivee' => Carbon::parse('2000-01-01')
+            'date_arrivee' => Carbon::parse('2017-01-01')
         ]);
         Voiture::create([
+            'id' => 2,
             'prix' => 18000,
             'modeleId' => 2,
+            'kilometrage' => 110000,
             'transmissionId' => 2,
             'carburantId' => 2,
             'carrosserieId' => 2,
             'date_arrivee' => Carbon::parse('2022-11-04')
         ]);
         Voiture::create([
+            'id' => 3,
             'prix' => 11900,
             'modeleId' => 3,
+            'kilometrage' => 130000,
             'transmissionId' => 3,
             'carburantId' => 3,
             'carrosserieId' => 3,
             'date_arrivee' => Carbon::parse('2022-10-15')
         ]);
         Voiture::create([
+            'id' => 4,
             'prix' => 35000,
             'modeleId' => 4,
+            'kilometrage' => 8000,
             'transmissionId' => 1,
             'carburantId' => 4,
             'carrosserieId' => 4,
             'date_arrivee' => Carbon::parse('2022-09-25')
         ]);
         Voiture::create([
+            'id' => 5,
             'prix' => 15900,
             'modeleId' => 5,
+            'kilometrage' => 12000,
             'transmissionId' => 2,
             'carburantId' => 1,
             'carrosserieId' => 5,
             'date_arrivee' => Carbon::parse('2022-11-28')
         ]);
         Voiture::create([
+            'id' => 6,
             'prix' => 29500,
             'modeleId' => 6,
+            'kilometrage' => 10000,
             'transmissionId' => 3,
             'carburantId' => 2,
             'carrosserieId' => 6,
             'date_arrivee' => Carbon::parse('2022-11-25')
         ]);
         Voiture::create([
+            'id' => 7,
             'prix' => 24500,
             'modeleId' => 7,
+            'kilometrage' => 95000,
             'transmissionId' => 1,
             'carburantId' => 3,
             'carrosserieId' => 1,
             'date_arrivee' => Carbon::parse('2022-10-07')
         ]);
         Voiture::create([
+            'id' => 8,
             'prix' => 29900,
+            'kilometrage' => 15000,
             'modeleId' => 8,
             'transmissionId' => 2,
             'carburantId' => 4,
             'carrosserieId' => 2,
             'date_arrivee' => Carbon::parse('2022-09-14')
         ]);
+
+
+        /* creer les photos de la voiture dodge*/
+
+        Photo::create([
+            'path' => 'dodge-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 1,
+        ]);
+
+        Photo::create([
+            'path' => 'dodge-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 1,
+            ]);
+
+        Photo::create([
+            'path' => 'dodge-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 1,
+            ]);
+            
+        Photo::create([
+            'path' => 'dodge-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 1,
+            ]);
+
+        /* creer les photos de la voiture BMW*/
+
+        Photo::create([
+            'path' => 'bmw-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 2,
+        ]);
+
+        Photo::create([
+            'path' => 'bmw-2.jpg',
+            'primaire' => 1,
+            'voitureId' => 2,
+        ]);
+
+        Photo::create([
+            'path' => 'bmw-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 2,
+        ]);
+
+        Photo::create([
+            'path' => 'bmw-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 2,
+        ]);
+
+        /* creer les photos de la voiture KIA*/
+
+        Photo::create([
+            'path' => 'kia-primary.jpg',
+            'primaire' => 0,
+            'voitureId' => 3,
+        ]);
+
+        Photo::create([
+            'path' => 'kia-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 3,
+        ]);
+
+        Photo::create([
+            'path' => 'kia-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 3,
+        ]);
+
+        Photo::create([
+            'path' => 'kia-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 3,
+        ]);
+
+
+        /* creer les photos de la voiture audi*/
+
+        Photo::create([
+            'path' => 'audi-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 4,
+        ]);
+
+        Photo::create([
+            'path' => 'audi-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 4,
+            ]);
+
+            
+        Photo::create([
+            'path' => 'audi-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 4,
+            ]);
+
+        Photo::create([
+            'path' => 'audi-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 4,
+            ]);
+
+        /* creer les photos de la voiture volkswagen*/
+
+        Photo::create([
+            'path' => 'volkswagen-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 5,
+        ]);
+
+        Photo::create([
+            'path' => 'volkswagen-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 5,
+        ]);
+        Photo::create([
+            'path' => 'volkswagen-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 5,
+        ]);
+        Photo::create([
+            'path' => 'volkswagen-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 5,
+        ]);
+
+        /* creer les photos de la voiture mercedes*/
+
+        Photo::create([
+            'path' => 'mercedes-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 6,
+        ]);
+
+        Photo::create([
+            'path' => 'mercedes-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 6,
+        ]);
+
+        Photo::create([
+            'path' => 'mercedes-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 6,
+        ]);
+
+        Photo::create([
+            'path' => 'mercedes-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 6,
+        ]);
+
+        /* creer les photos de la voiture toyota*/
+
+        Photo::create([
+            'path' => 'toyota-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 7,
+        ]);
+
+        Photo::create([
+            'path' => 'toyota-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 7,
+        ]);
+
+        Photo::create([
+            'path' => 'toyota-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 7,
+        ]);
+
+        Photo::create([
+            'path' => 'toyota-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 7,
+        ]);
+
+        /* creer les photos de la voiture toyota*/
+
+        Photo::create([
+            'path' => 'honda-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 8,
+        ]);
+
+        Photo::create([
+            'path' => 'honda-2.jpg',
+            'primaire' => 0,
+            'voitureId' => 8,
+        ]);
+
+        Photo::create([
+            'path' => 'honda-primary.jpg',
+            'primaire' => 1,
+            'voitureId' => 8,
+        ]);
+
+        Photo::create([
+            'path' => 'honda-3.jpg',
+            'primaire' => 0,
+            'voitureId' => 8,
+        ]);
+
+        Photo::create([
+            'path' => 'honda-4.jpg',
+            'primaire' => 0,
+            'voitureId' => 8,
+        ]);
+
+
+
+
+
+
+
+
     }
 }
