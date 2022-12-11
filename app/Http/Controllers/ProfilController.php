@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Profil;
 use Illuminate\Http\Request;
-use Auth;
+use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Auth;
 
 
-class ProfilController extends Controller
+class ProfilController extends ApiController
 {
+   /* public function __construct() {
+        $this->middleware('auth:api');
+    }*/
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -34,7 +39,7 @@ class ProfilController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -63,7 +68,7 @@ class ProfilController extends Controller
             'villeId' => $request->villeId,
             'telephone' => $request->telephone,
             'cellulaire' => $request->cellulaire,
-            'userId' => 3,
+            'userId' => $request->userId,
             'courriel' => $request->courriel
         ]);
 
@@ -78,7 +83,7 @@ class ProfilController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Profil  $profil
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Profil $Profil)
     {

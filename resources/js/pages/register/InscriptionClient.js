@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import {useNavigate, Link} from 'react-router-dom'
+import {useNavigate, useParams, Link} from 'react-router-dom'
 import {FormattedMessage} from 'react-intl'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
@@ -9,8 +9,9 @@ import {URL} from "../../constantes";
 const InscriptionClient = () => {
 
     const navigate = useNavigate()
-    let [villId, setVilleId] = useState('')
+    const { id } = useParams();
     let [villes, setVilles] = useState([])
+    const token = localStorage.getItem('tk')
 
     useEffect(() => {
         axios.get(`${URL}/api/v1/ville`).then((res) => {
@@ -31,6 +32,7 @@ const initialValues = {
     telephone: '',
     cellulaire: '',
     villeId: '',
+    userId: `${id}`
 }
 
 const validationSchema = Yup.object({
@@ -45,14 +47,17 @@ const validationSchema = Yup.object({
     villeId: Yup.string().required('profil.from_ville_required')
 });
 
-const onSubmit = valeurs => {
-    axios({
-        method: 'post',
-        url: `${URL}/api/v1/inscriptionClient`,
+const onSubmit = (valeurs) => {
+    console.log(valeurs)
+     axios({
+        method: 'POST',
+        url: `${URL}/api/v1/inscription-client`,
+        headers: {Authorization:`${token}`},
         data: valeurs
     })
         .then(res => {
-            navigate(`/detailProfil/${res.data.profil.id}`)
+            console.log(res.data)
+            navigate(`/detail-profil/${res.data.profil.id}`)
 
         })
 }
@@ -163,8 +168,7 @@ return (
                 <FormattedMessage id={formik.errors.villeId}/> : ''}</span>
         </div>
         <div className="mb-3 ">
-            <button type="submit" className="btn btn-primary"><FormattedMessage id="submit.form_inscription" /></button>
-            <Link className='btn btn-primary m-3' to='/register'><FormattedMessage id="back.form_inscription" /></Link>
+            <button type="submit" className="btn btn-primary"><FormattedMessage id="enregistrer.form_inscription" /></button>
         </div>
     </form>
 )
