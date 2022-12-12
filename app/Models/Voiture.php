@@ -10,7 +10,7 @@ class Voiture extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date_arrivee', 'prix', 'modeleId', 'transmissionId', 'carburantId', 'carrosserieId'];
+    protected $fillable = ['date_arrivee', 'prix', 'modeleId', 'transmissionId', 'carburantId', 'carrosserieId', 'kilometrage'];
     
     public function modele(){
         /* ici hasOne */
