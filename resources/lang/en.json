@@ -76,5 +76,10 @@
     "profil.from_ville_required": "Enter your city name",
     "connexion.form_titre": "User Login",
     "connexion.form_courriel_inexistant": "User's email address does not exist",
-    "voitures.titre": "Car list"
+    "voitures.titre": "Car list",
+    "home.confiance-title": "Buy your vehicle with complete peace of mind thanks to our contract of trust!",
+    "home.confiance-texte-1": "- An inspection report is made on each of the vehicles offered for sale on our site.",
+    "home.confiance-texte-2": "- All our vehicles are guaranteed for 9 months from the date of purchase.",
+    "home.confiance-texte-3": "- Assistance with financing is offered by our employees.",
+    "home.confiance-texte-4": "- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com."
 }
