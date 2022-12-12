@@ -22,8 +22,9 @@ const VoitureDetail = () => {
 
     const getData = async () => {
         const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
-        setVoiture(data[0]);
-        const photos = (data[0].photos);
+        setVoiture(data);
+        console.log(data);
+        const photos = data.photos;
 
         const primaire = photos.filter(photo => photo.primaire === 1);
         setImagePrimaire(primaire[0]);
