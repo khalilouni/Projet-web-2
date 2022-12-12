@@ -104,5 +104,13 @@
     "btn.submit-paiement" :  "Commander",
     "ajout_voiture.form_titre" : "Ajouter voiture",
     "ajout_voiture.form_label_date" : "Date de construction",
-    "ajout_voiture.form_label_prix" : "Prix"
+    "ajout_voiture.form_label_prix" : "Prix",
+    "ajout_voiture.form_label_kilometrage" : "kilometrage",
+    "voiture.form_kilometrage_required" : "Entrer le Kilometrage",
+    "voiture.form_date_arrivee_required" :  "Enter date de mise en marche",
+    "voiture.form_prix_required" :  "Entrer le prix d'achat",
+    "voiture.form_carroserieId_required" :  "Veuillez choisir un type de carosserie",
+    "voiture.form_nom_modele_required" :  "Veuillez choisir un modele",
+    "voiture.form_transmissionId_required" :  "Veuillez choisir un type de transmission",
+    "voiture.form_carburantId_required" :  "Veuillez choisir un type de carburant"
 }
