@@ -11,6 +11,7 @@ use App\Http\Controllers\VilleController;
 use App\Http\Controllers\TransmissionController;
 use App\Http\Controllers\CarrosserieController;
 use App\Http\Controllers\CarburantController;
+use App\Http\Controllers\CommandeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::apiResource('transmission', TransmissionController::class);
     Route::apiResource('carrosserie', CarrosserieController::class);
     Route::apiResource('carburant', CarburantController::class);
+    Route::apiResource('commande', CommandeController::class);
 });
 
 Route::post('v1/register', [AuthController::class,'inscrire'])->name('inscrire');

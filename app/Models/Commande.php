@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Commande extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['date', 'quantite', 'userId', 'voitureId', 'modePaiementId', 'expeditionId', 'statutId'];
 }

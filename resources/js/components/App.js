@@ -16,6 +16,8 @@ import ListeVoitures from "./ListeVoitures";
 import Home from './Home';
 import Connexion from "../pages/register/Connexion";
 import ClientIndex from "../pages/client/ClientIndex";
+import AjoutVoiture from "../pages/register/AjoutVoiture";
+import NouvelleCommande from "../pages/register/PasserCommande";
 import {AuthProvider, RequireAuth} from '../route/Auth.js'
 
 function App() {
@@ -32,6 +34,9 @@ function App() {
                     <Route path="/connexion" element={<Connexion/>}/>
                     <Route path="/register" element={<Inscription/>}/>
 
+                    <Route path="/ajout-voiture" element={<AjoutVoiture />} />
+                    <Route path="/nouvelle-commande/:id" element={<NouvelleCommande />}/>
+                    
                     <Route path="/inscription-client/:id" element={
                         <RequireAuth>
                             <InscriptionClient/>
