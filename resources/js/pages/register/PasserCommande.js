@@ -18,10 +18,11 @@ const NouvelleCommande = () => {
     
 
 
-    const getData = async () => {
-        const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
-        setVoiture(data[0]);
-       
+    const getData = () => {
+        axios.get(`${URL}/api/v1/voiture/${id}`)
+        .then(res => {
+            setVoiture(res.data);
+        });
     };
     useEffect(() => {
         getData();
