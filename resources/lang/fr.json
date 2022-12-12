@@ -9,6 +9,7 @@
     "voitureDetail.carrosserie": "Carrosserie",
     "voitureDetail.acheter": "Acheter",
     "voitureDetail.reserver": "Réserver",
+    "voitureDetail.kilometrage": "Kilomètres",
     "header.s_inscrire": "S'inscrire",
     "header.a_propos": "À propos",
     "header.connexion": "Connexion",
@@ -75,5 +76,10 @@
     "profil.from_ville_required": "Saisissez votre ville",
     "connexion.form_titre": "Connexion de L'utilisateur",
     "connexion.form_courriel_inexistant": "L'adresse courriel de l'utilisateur n'existe pas",
-    "voitures.titre": "Liste De Voitures"
+    "voitures.titre": "Liste De Voitures",
+    "home.confiance-title": "Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !",
+    "home.confiance-texte-1": "- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.",
+    "home.confiance-texte-2": "- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.",
+    "home.confiance-texte-3": "- Une assistance aux financements est offerte par nos employés.",
+    "home.confiance-texte-4": "- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com."
 }

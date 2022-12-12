@@ -368,7 +368,7 @@ class DatabaseSeeder extends Seeder
             ]);
             
         Photo::create([
-            'path' => 'dodge-3.jpg',
+            'path' => 'dodge-4.jpg',
             'primaire' => 0,
             'voitureId' => 1,
             ]);
@@ -383,7 +383,7 @@ class DatabaseSeeder extends Seeder
 
         Photo::create([
             'path' => 'bmw-2.jpg',
-            'primaire' => 1,
+            'primaire' => 0,
             'voitureId' => 2,
         ]);
 
@@ -403,7 +403,7 @@ class DatabaseSeeder extends Seeder
 
         Photo::create([
             'path' => 'kia-primary.jpg',
-            'primaire' => 0,
+            'primaire' => 1,
             'voitureId' => 3,
         ]);
 
@@ -529,8 +529,7 @@ class DatabaseSeeder extends Seeder
             'voitureId' => 7,
         ]);
 
-        /* creer les photos de la voiture toyota*/
-
+        /* creer les photos de la voiture Honda*/
         Photo::create([
             'path' => 'honda-primary.jpg',
             'primaire' => 1,
@@ -540,12 +539,6 @@ class DatabaseSeeder extends Seeder
         Photo::create([
             'path' => 'honda-2.jpg',
             'primaire' => 0,
-            'voitureId' => 8,
-        ]);
-
-        Photo::create([
-            'path' => 'honda-primary.jpg',
-            'primaire' => 1,
             'voitureId' => 8,
         ]);
 

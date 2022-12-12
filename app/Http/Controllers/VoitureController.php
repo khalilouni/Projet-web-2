@@ -19,7 +19,8 @@ class VoitureController extends Controller
             'transmission',
             'carburant',
             'carrosserie',
-            'modele.constructeur')->get();
+            'modele.constructeur',
+            'photos')->get();
         return response()->json($voitures);
 
     }
@@ -69,13 +70,14 @@ class VoitureController extends Controller
      * @param \App\Models\Voiture $voiture
      * @return \Illuminate\Http\Response
      */
-    public function show(Voiture $voiture)
+    public function show($id)
     {
         $voiture = Voiture::with('modele',
             'transmission',
             'carburant',
             'carrosserie',
-            'modele.constructeur')->find($voiture);
+            'modele.constructeur',
+            'photos')->find($id);
         return response()->json($voiture);
     }
 
