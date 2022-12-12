@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 /* pour changement de langue */
 import { FormattedMessage } from 'react-intl';
 /* css */
@@ -19,7 +19,7 @@ const VoitureDetail = () => {
     const [voiture, setVoiture] = useState();
     const [imagePrimaire, setImagePrimaire] = useState();
     const [imageSecondaires, setImageSecondaires] = useState();
-
+    const [url , setUrl] = useState();
     const getData = async () => {
         const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data);
@@ -31,8 +31,9 @@ const VoitureDetail = () => {
 
         const secondaire = photos.filter(photo => photo.primaire === 0);
         setImageSecondaires(secondaire);
+        setUrl(`/nouvelle-commande/${id}`)
     };
-
+    
     useEffect(() => {
         getData();
     }, []);
@@ -153,9 +154,7 @@ const VoitureDetail = () => {
                                 </button>
                             </div>
                             <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
-                                <button type="button" className="btn btn-acheter">
-                                    <FormattedMessage id="voitureDetail.acheter"/>
-                                </button>
+                                <a className="btn btn-acheter" href={url}><FormattedMessage id="voitureDetail.acheter"/></a>
                             </div>
                         </div>
                     </div>
