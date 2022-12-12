@@ -104,5 +104,13 @@
     "btn.submit-paiement" :  "Order",
     "ajout_voiture.form_titre" : "Add car",
     "ajout_voiture.form_label_date" : "Construction date",
-    "ajout_voiture.form_label_prix" : "Price"
+    "ajout_voiture.form_label_prix" : "Price",
+    "ajout_voiture.form_label_kilometrage" : "Mileage",
+    "voiture.form_kilometrage_required" : "Enter Mileage",
+    "voiture.form_date_arrivee_required" :  "Enter start date",
+    "voiture.form_prix_required" :  "Enter purchase price",
+    "voiture.form_carroserieId_required" :  "Veuillez choisir un type de carosserie",
+    "voiture.form_nom_modele_required" :  "Please choose a body type",
+    "voiture.form_transmissionId_required" :  "Please choose a transmission type",
+    "voiture.form_carburantId_required" :  "Please choose a fuel type"
 }

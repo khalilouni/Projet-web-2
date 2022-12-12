@@ -48,7 +48,8 @@ const [carburants, setCarburants] = useState([]);
         carroserieId : '',
         nom_modele : '',
         transmissionId : '',
-        carburantId : ''
+        carburantId : '',
+        kilometrage: ''
     }
     const validationSchema = Yup.object({
         date_arrivee: Yup.date().required('voiture.form_date_arrivee_required'),
@@ -57,6 +58,7 @@ const [carburants, setCarburants] = useState([]);
         nom_modele: Yup.number().required('voiture.form_nom_modele_required'),
         transmissionId: Yup.number().required('voiture.form_transmissionId_required'),
         carburantId: Yup.number().required('voiture.form_carburantId_required'),
+        kilometrage: Yup.number().required('voiture.form_kilometrage_required'),
     });
 
     useEffect(() => {
@@ -113,6 +115,17 @@ const [carburants, setCarburants] = useState([]);
                     />
                     <span className='text-danger'>{formik.touched.prix && formik.errors.prix ?
                         <FormattedMessage id={formik.errors.prix}/> : ''}</span>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="kilometrage" className="form-label"><FormattedMessage id="ajout_voiture.form_label_kilometrage" /></label>
+                    <input
+                        type="numeric"
+                        {...formik.getFieldProps('kilometrage')}
+                        className="form-control"
+                        
+                    />
+                    <span className='text-danger'>{formik.touched.prix && formik.errors.prix ?
+                        <FormattedMessage id={formik.errors.kilometrage}/> : ''}</span>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="carroserieId" className="form-label"><FormattedMessage id="voitureDetail.carrosserie" /></label>
