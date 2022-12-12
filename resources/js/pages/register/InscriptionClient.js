@@ -52,7 +52,7 @@ const onSubmit = (valeurs) => {
      axios({
         method: 'POST',
         url: `${URL}/api/v1/inscription-client`,
-        headers: {Authorization:`${token}`},
+        headers: {Authorization:`Bearer${token}`},
         data: valeurs
     })
         .then(res => {
@@ -72,7 +72,7 @@ const formik = useFormik({
 return (
 
     <form className='form px-5 border-opacity-25 rounded' onSubmit={formik.handleSubmit}>
-        <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="register.form_titre"/>
+        <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="titre.form_inscription"/>
         </h1>
         <div className="mb-3">
             <label htmlFor="courriel" className="form-label"><FormattedMessage id="courriel.form_inscription"/></label>
