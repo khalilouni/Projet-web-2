@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
-import carImage from '../../../public/images/com-soon.png'
 
 /* css */
 import '../../css/cardsVoiture.css';
 
 const CardVoiture = ({size, width, height,voiture}) => {
+
+    const photo = voiture.photos.filter(photo => photo.primaire === 1)[0];
+    console.log(photo);
+
     return(
         <div className="card px-0" style={{ width: width, height: height}}>
             <Link className="text-decoration-none"  to={`/voiture/${voiture.id}`}>
-                <img src={carImage} style={{ width: size}} alt="Voiture blanche" />
+                <img src={`/storage/${photo.path}`} style={{ width: size}} alt="Voiture blanche" />
                 <div className="card-body">
                     <h5 className="card-title fw-bold card-font">{voiture.modele.constructeur.nom}  - {voiture.modele.nom}</h5>
                     <div className="card-text text-black d-flex justify-content-between">

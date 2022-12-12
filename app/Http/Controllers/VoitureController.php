@@ -19,7 +19,8 @@ class VoitureController extends Controller
             'transmission',
             'carburant',
             'carrosserie',
-            'modele.constructeur')->get();
+            'modele.constructeur',
+            'photos')->get();
         return response()->json($voitures);
 
     }
@@ -75,7 +76,8 @@ class VoitureController extends Controller
             'transmission',
             'carburant',
             'carrosserie',
-            'modele.constructeur')->find($voiture);
+            'modele.constructeur',
+            'photos')->find($voiture);
         return response()->json($voiture);
     }
 

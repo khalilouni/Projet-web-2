@@ -17,10 +17,19 @@ const VoitureDetail = () => {
     let { id } = useParams();
 
     const [voiture, setVoiture] = useState();
+    const [imagePrimaire, setImagePrimaire] = useState();
+    const [imageSecondaires, setImageSecondaires] = useState();
 
     const getData = async () => {
         const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data[0]);
+        const photos = (data[0].photos);
+
+        const primaire = photos.filter(photo => photo.primaire === 1);
+        setImagePrimaire(primaire[0]);
+
+        const secondaire = photos.filter(photo => photo.primaire === 0);
+        setImageSecondaires(secondaire);
     };
 
     useEffect(() => {
@@ -47,37 +56,38 @@ const VoitureDetail = () => {
                     <div className='container-detail-left p-3'>
                         {/* image primary*/}
                         <div className='container-detail-left-img-primary p-3 flex-column flex-wrap'>
-                            <img src={test} className="w-100" alt="image de test"/>
+                            {imagePrimaire && <img src={`/storage/${imagePrimaire.path}`} className="w-100" alt="image"/>}
                         </div>
 
                         {/* images secondary */}
                         <div className='container-detail-left-img-secondary w-100 p-3 d-flex justify-content-around'>
-                            {/* image2 */}
-                            <div className='container-detail-left-img-secondary-wrap justify-content-around'>
-                                <img src={test} className="w-100 p-2 " alt="image de test"/>
-                            </div> 
-
-                            {/* image3 */}
-                            <div className='container-detail-left-img-secondary-wrap justify-content-around '>
-                                <img src={test}  className="w-100 p-2 "alt="image de test"/> 
-                            </div>
-
-                            {/* image4 */}
-                            <div className='container-detail-left-img-secondary-wrap justify-content-around'>
-                                <img src={test} className="w-100 p-2 " alt="image de test"/>
-                            </div>
+                            {imageSecondaires && imageSecondaires.map((photo, index) =>(
+                                <div key={index} className='container-detail-left-img-secondary-wrap justify-content-around'>
+                                    <img src={`/storage/${photo.path}`} className="w-100 p-2 " alt="image"/>
+                                </div> 
+                            ))}
                         </div>     
                     </div>
 
                     {/* infos voiture */}
                     <div className='container-detail-right d-flex flex-column p-3'>
                         <div className='container-detail-right-infos container'>
+                            {/* kilometrage */}
+                            <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
+                                <div className='container-detail-right-infos-wrap-left w-50'>
+                                    <FormattedMessage id="voitureDetail.kilometrage"/>
+                                </div>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
+                                    {voiture && voiture.kilometrage}
+                                </div>
+                            </div>
+
                             {/* constructeur */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3 d-flex'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.constructeur"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.modele.constructeur.nom}
                                 </div>
                             </div>
