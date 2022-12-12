@@ -94,64 +94,64 @@ const VoitureDetail = () => {
                         
                                 {/* modele */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.modele"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.modele.nom}
                                 </div>
                             </div>
 
                                 {/* annee */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.annee"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.modele.annee}
                                 </div>
                             </div>
 
                                 {/*  carburant */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.carburant"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.carburant.type}
                                 </div>
                             </div>
 
                                 {/* transmission */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.transmission"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.transmission.type}
                                 </div>
                             </div>
 
                                 {/* carroserie */}
                             <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
-                                <div className='container-detail-right-infos-wrap-left w-50 p-3'>
+                                <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                     <FormattedMessage id="voitureDetail.carrosserie"/>
                                 </div>
-                                <div className='container-detail-right-infos-wrap-right w-50 p-3 d-flex justify-content-end'>
+                                <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                     {voiture && voiture.carrosserie.type}
                                 </div>
                             </div>
                         </div>
 
                         {/* boutons */}
-                        <div className='container-detail-right-btn container d-flex w-100 p-3 justify-content-between'>
+                        <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
 
-                            <div className='container-detail-right-btn-reserver container w-50 p-3 d-flex'>
+                            <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
                                 <button type="button" className="btn btn-reserver ">
                                     <FormattedMessage id="voitureDetail.reserver"/>
                                 </button>
                             </div>
-                            <div className='container-detail-right-btn-acheter container w-50 p-3 d-flex d-flex justify-content-end'>
+                            <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
                                 <button type="button" className="btn btn-acheter">
                                     <FormattedMessage id="voitureDetail.acheter"/>
                                 </button>
