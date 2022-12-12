@@ -22,17 +22,17 @@ const ModificationClient = () => {
     const inputCellulaire = useRef(null);
 
     const getProfil = async () => {
-        
+
         const { data } = await axios.get(`${URL}/api/v1/profil/${id}`)
         setProfil(data[0]);
-        
+
     };
 
     const getVilles =  () => {
         axios.get(`${URL}/api/v1/ville`)
         .then(res => {
             setVilles(res.data)
-            console.log(res.data);  
+            console.log(res.data);
         })
     };
 
@@ -122,8 +122,8 @@ const ModificationClient = () => {
                         onChange={(e) => setProfil({...profil,code_postal:inputCodePostal.current.value})}
                     />
                 </div>
-                
-                
+
+
                 <div className="mb-3">
                     <label htmlFor="telephone" className="form-label"><FormattedMessage id="telephone.form_inscription"/></label>
                     <input
@@ -151,12 +151,12 @@ const ModificationClient = () => {
                     <select name="villeId" ref={inputVilleId}  onChange={(e) => setProfil({...profil,villeId:inputVilleId.current.value})} className="form-select" aria-label="Default select example">
                         <option>Choissir une ville</option>
                         {villes.map((ville) => <option key={ville.id} value={ville.id}>{ville.nom}</option>)}
-                        
+
                     </select>
                 </div>
                 <div className="mb-3 ">
                     <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
-                    <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="back.form_inscription"/></Link>
+                    <Link className='btn btn-primary m-3' to={`/detail-profil/${profil.id}`}><FormattedMessage id="back.form_inscription"/></Link>
                 </div>
 
             </form>
