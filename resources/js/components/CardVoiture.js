@@ -9,7 +9,7 @@ const CardVoiture = ({voiture}) => {
 
     return(
         <div className="card px-0" style={{ width: '18rem', height: '25rem'}}>
-            <Link className="text-decoration-none"  to={`/app/app/voiture/${voiture.id}`}>
+            <Link className="text-decoration-none"  to={`/app/voiture/${voiture.id}`}>
                 <img src={`/storage/${photo.path}`} style={{ width: '100%'}} alt="Voiture blanche" />
                 <div className="card-body">
                     <h5 className="card-title fw-bold card-font">{voiture.modele.constructeur.nom}  - {voiture.modele.nom}</h5>
