@@ -15,10 +15,10 @@ const Footer = () => {
                     <div className="col-md-4 footer-column text-start">
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/about"><FormattedMessage id="header.a_propos"/></Link>
+                                <Link className="nav-link" to="/app/about"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/"><FormattedMessage id="footer.contactez_nous"/></Link>
+                                <Link className="nav-link" to="/app"><FormattedMessage id="footer.contactez_nous"/></Link>
                             </li>
                             <li className="nav-item">
                                 <span className="footer-title"><FormattedMessage id="footer.nous_suivre"/> :</span>
@@ -41,7 +41,7 @@ const Footer = () => {
                     <div className="col-md-4 footer-column">
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/"><FormattedMessage id="footer.politiques_de_ventes"/></Link>
+                                <Link className="nav-link" to="/app"><FormattedMessage id="footer.politiques_de_ventes"/></Link>
                             </li>
                             <li className="nav-item">
                                 <span className="footer-title"><FormattedMessage id="footer.s_inscrire_infolettre"/> :</span>
