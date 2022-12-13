@@ -81,5 +81,12 @@
     "home.confiance-texte-1": "- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.",
     "home.confiance-texte-2": "- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.",
     "home.confiance-texte-3": "- Une assistance aux financements est offerte par nos employés.",
-    "home.confiance-texte-4": "- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com."
+    "home.confiance-texte-4": "- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.",
+    "crmHeader.nos.voitures": "Nos voitures",
+    "crmHeader.ajouter.voiture": "Ajouter une voiture",
+    "header.crm": "Interface CRM",
+    "crmHeader.accueil.return.ecom": "Interface Marchande",
+    "crmHeader.journal.connexion": "Journal de connexion",
+    "crmHeader.gestion.employés": "Gestion des employés",
+    "crmHome.titre": "Bienvenu sur l'interface CRM du site Véhicules d'occasion inc. !"
 }
