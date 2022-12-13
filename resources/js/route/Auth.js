@@ -73,6 +73,6 @@ export function RequireAuth({ children }) {
     return authed === true ? (
         children
     ) : (
-        <Navigate to="/connexion" replace />
+        <Navigate to="/app/connexion" replace />
     );
 }

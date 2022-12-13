@@ -90,7 +90,7 @@ const Connexion = () => {
 
             <div className="mb-3 ">
                 <button type="submit" className="btn btn-primary"><FormattedMessage id="register.form_bt_inscrire" /></button>
-                <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="register.form_bt_retour" /></Link>
+                <Link className='btn btn-primary m-3' to='/app'><FormattedMessage id="register.form_bt_retour" /></Link>
             </div>
         </form>
     );
