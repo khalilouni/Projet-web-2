@@ -31,7 +31,7 @@ const VoitureDetail = () => {
 
         const secondaire = photos.filter(photo => photo.primaire === 0);
         setImageSecondaires(secondaire);
-        setUrl(`/nouvelle-commande/${id}`)
+        setUrl(`/app/nouvelle-commande/${id}`)
     };
     
     useEffect(() => {

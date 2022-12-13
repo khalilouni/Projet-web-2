@@ -19,6 +19,7 @@ import Connexion from "../pages/register/Connexion";
 import ClientIndex from "../pages/client/ClientIndex";
 import AjoutVoiture from "../pages/register/AjoutVoiture";
 import NouvelleCommande from "../pages/register/PasserCommande";
+import NouvellePhoto from "../pages/register/UploadPhoto";
 import {AuthProvider, RequireAuth} from '../route/Auth.js'
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
                     <Route path="/app/voiture/:id" element={<VoitureDetail/>}/>
                     <Route path="/app/connexion" element={<Connexion/>}/>
                     <Route path="/app/register" element={<Inscription/>}/>
+                    {/* upload photo toujours en test */}
+                    <Route path="/app/upload-photo" element={<NouvellePhoto />}/>
 
                     <Route path="/app/nouvelle-commande/:id" element={<NouvelleCommande />}/>
 

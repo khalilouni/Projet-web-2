@@ -7,29 +7,51 @@ const ListeVoitures = () => {
 
     const [voitures, setVoitures] = useState([])
     const [voituresFiltrees, setVoituresFiltrees] = useState(voitures)
+    // const [voituresFiltrees, setVoituresFiltrees] = useState([])
     const [selectConstructeurs, setSelectConstructeurs] = useState('')
     const [selectModeles, setSelectModeles] = useState('')
     const [selectAnnees, setSelectAnnees] = useState('')
-
+    
+    useEffect(() => {
+        const getVoitures = async () => {
+            const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+            const data = await res.json()
+            setVoitures(await data)
+        }
+        getVoitures()
+    }, [])
+    
     useEffect(() => {
         const getConstructeurs = async () => {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/constructeur')
-            const data = await res.json()
-            setSelectConstructeurs(await data)
+            const arr = []
+            await axios.get('http://127.0.0.1:8000/api/v1/constructeur')
+                .then((res) => {
+                let result = res.data;
+                console.log(result, "result")
+                result.map((voiture) => {
+                     arr.push({
+                        value: voiture.nom,
+                        label: voiture.nom
+                    });
+                     console.log(arr , "arr")
+                     return arr
+                });
+                setSelectConstructeurs(arr)
+            });
         }
-
         getConstructeurs()
     }, [])
 
     const filtrerParConstructeurs = (data) => {
         if (!selectConstructeurs) {
+            console.log(data, "data")
             return data;
         }
 
         const dataFiltrees = data.filter(
-            (voiture) => voiture.modele.constructeur.nom.split(" ").indexOf(selectConstructeurs) !== -1
-          );
-          return dataFiltrees;
+            (voiture) => voiture.modele.constructeur.nom.indexOf(selectConstructeurs) !== -1
+        );
+        return dataFiltrees;
     }
 
     const filtrerParModeles = (data) => {
@@ -38,9 +60,9 @@ const ListeVoitures = () => {
         }
 
         const dataFiltrees = data.filter(
-            (voiture) => voiture.modele.nom.split(" ").indexOf(selectModeles) !== -1
-          );
-          return dataFiltrees;
+            (voiture) => voiture.modele.nom.indexOf(selectModeles) !== -1
+        );
+        return dataFiltrees;
     }
 
     const filtrerParAnnees = (data) => {
@@ -49,9 +71,9 @@ const ListeVoitures = () => {
         }
 
         const dataFiltrees = data.filter(
-            (voiture) => voiture.modele.annee.toString().split(" ").indexOf(selectAnnees) !== -1
-          );
-          return dataFiltrees;
+            (voiture) => voiture.modele.annee.toString().indexOf(selectAnnees) !== -1
+        );
+        return dataFiltrees;
     }
 
     const handleConstructeurChange = (event) => {
@@ -67,13 +89,6 @@ const ListeVoitures = () => {
     };
 
     useEffect(() => {
-        const getVoitures = async () => {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
-            const data = await res.json()
-            setVoitures(await data)
-        }
-        getVoitures()
-
         let dataFiltrees = filtrerParConstructeurs(voitures)
         dataFiltrees = filtrerParModeles(dataFiltrees)
         dataFiltrees = filtrerParAnnees(dataFiltrees)
@@ -83,10 +98,11 @@ const ListeVoitures = () => {
 
     return (
         <div>
-             <div className="container">
-                <div className="d-flex flex-wrap">
-                    <div className="d-flex flex-wrap">
-                    <FormFilter 
+            <h1><FormattedMessage id="voitures.titre"/></h1>
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <FormFilter 
                             size={"22rem"} 
                             selectConstructeurs={selectConstructeurs}
                             selectModeles={selectModeles}
@@ -95,13 +111,17 @@ const ListeVoitures = () => {
                             handleModeleChange={handleModeleChange}
                             handleAnneeChange={handleAnneeChange}
                         />
-                        {
-                            voituresFiltrees.map((voiture, index)=> (
-                                <div className="m-2" key={index}>
-                                    <CardVoiture voiture={voiture}/>
-                                </div>
-                            ))
-                        }
+                    </div>
+                    <div className="col">
+                        <div className="row"> 
+                            {
+                                voituresFiltrees.map((voiture) => (
+                                    <div className="col" key={voiture.id}>
+                                        <CardVoiture voiture={voiture}/>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
