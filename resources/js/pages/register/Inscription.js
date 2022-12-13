@@ -39,7 +39,7 @@ const Inscription = () => {
                     //console.log(res.data)
                     //const id = res.data.data.utilisateurInfo.id;
                     //navigate(`/inscription-client/${id}`)
-                    navigate('/connexion')
+                    navigate('/app/connexion')
                 }
             })
     }
