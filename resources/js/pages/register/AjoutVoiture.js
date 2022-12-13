@@ -14,6 +14,8 @@ const [transmissions, setTransmissions] = useState([]);
 const [carroseries, setCarroseries] = useState([]);
 const [carburants, setCarburants] = useState([]);
 
+const navigate = useNavigate();
+
   const  getModele = () => {
         axios.get(`${URL}/api/v1/modele`)
         .then(res => {
@@ -79,6 +81,9 @@ const [carburants, setCarburants] = useState([]);
                 toast.success(<FormattedMessage id={"ajout_voiture_success"} /> , {
                     position: toast.POSITION.TOP_CENTER
                 })
+                setTimeout(() => {
+                    navigate("/app/voiture/liste")
+                }, 3000);
             }
         })
 

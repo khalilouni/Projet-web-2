@@ -60,7 +60,7 @@ const onSubmit = valeurs => {
                 position: toast.POSITION.TOP_CENTER
             })
             setTimeout(() => {
-                navigate("/voiture/liste")
+                navigate("/app/voiture/liste")
             }, 3000);
         }
     })
