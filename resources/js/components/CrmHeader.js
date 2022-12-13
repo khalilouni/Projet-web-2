@@ -16,7 +16,7 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-lg bg-crm navbar-style">
                 <div className="container-fluid">
-                    <Link className="navbar-brand nav-logo" to="/">
+                    <Link className="navbar-brand nav-logo" to="/crm">
                         <img src={crmlogo} alt="Logo" className='nav-logo'/>
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -35,19 +35,19 @@ const Header = () => {
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" aria-current="page"
-                                      to="/home"><FormattedMessage id="crmHeader.ajouter.voiture"/></Link>
+                                      to="/crm/ajout-voiture"><FormattedMessage id="crmHeader.ajouter.voiture"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active text-white" to="/"><FormattedMessage id="crmHeader.journal.connexion"/></Link>
+                                <Link className="nav-link active text-white" to="/crm"><FormattedMessage id="crmHeader.journal.connexion"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active text-white" to="/"><FormattedMessage id="crmHeader.gestion.employés"/></Link>
+                                <Link className="nav-link active text-white" to="/crm"><FormattedMessage id="crmHeader.gestion.employés"/></Link>
                             </li>
                             <li className="nav-item">
                                 {authed ? <Link className="nav-link active text-white" aria-current="page"
-                                                to="/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
+                                                to="/app/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
                                 </Link> : <Link className="nav-link active text-white" aria-current="page"
-                                                       to="/register"><FormattedMessage id="header.s_inscrire"/>
+                                                       to="/app/register"><FormattedMessage id="header.s_inscrire"/>
                                 </Link>
                                 }
                             </li>
@@ -55,11 +55,11 @@ const Header = () => {
                             <li className="nav-item">
                                 {authed ?
                                     <Link className="btn btn-outline-light nav-btn-connexion text-white" aria-current="page"
-                                          to="/home" onClick={logout}>
+                                          to="/crm/home" onClick={logout}>
                                         <FormattedMessage id="header.deconnectionner"/>
                                     </Link> :
                                     <Link className="btn btn-outline-dark nav-btn-connexion text-white" aria-current="page"
-                                          to="/connexion">
+                                          to="/app/connexion">
                                         <FormattedMessage id="header.connexion"/>
                                     </Link>
                                 }

@@ -11,12 +11,12 @@ import logo from './img/logo.svg';
 
 const Header = () => {
     const context = useContext(Context);
-    const {authed,nomAuthed,logout} = Auth()
+    const {authed,nomAuthed,logout, privilege} = Auth()
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-light navbar-style">
                 <div className="container-fluid">
-                    <Link className="navbar-brand nav-logo" to="/">
+                    <Link className="navbar-brand nav-logo" to="/app">
                         <img src={logo} alt="Logo" className='nav-logo'/>
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -26,36 +26,38 @@ const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse nav-spacing" id="navbarNavDropdown">
                         <ul className="navbar-nav">
+                            {privilege && (privilege == 1 || privilege == 2) && 
+                                (<li className="nav-item">
+                                    <Link className="nav-link active" to="/crm"><FormattedMessage id="header.crm"/></Link>
+                                </li>)
+                            }
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/crm"><FormattedMessage id="header.crm"/></Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link active" to="/"><FormattedMessage id="header.accueil"/></Link>
+                                <Link className="nav-link active" to="/app"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page"
-                                      to="/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
+                                      to="/app/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page"
-                                      to="/home"><FormattedMessage id="header.a_propos"/></Link>
+                                      to="/app/home"><FormattedMessage id="header.a_propos"/></Link>
                             </li>
                             <li className="nav-item">
                                 {authed ? <Link className="nav-link active" aria-current="page"
-                                                to="/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
+                                                to="/app/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
                                 </Link> : <Link className="nav-link active" aria-current="page"
-                                                       to="/register"><FormattedMessage id="header.s_inscrire"/>
+                                                       to="/app/register"><FormattedMessage id="header.s_inscrire"/>
                                 </Link>
                                 }
                             </li>
                             <li className="nav-item">
                                 {authed ?
                                     <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page"
-                                          to="/home" onClick={logout}>
+                                          to="/app/home" onClick={logout}>
                                         <FormattedMessage id="header.deconnectionner"/>
                                     </Link> :
                                     <Link className="btn btn-outline-dark nav-btn-connexion" aria-current="page"
-                                          to="/connexion">
+                                          to="/app/connexion">
                                         <FormattedMessage id="header.connexion"/>
                                     </Link>
                                 }

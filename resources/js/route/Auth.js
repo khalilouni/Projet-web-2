@@ -1,3 +1,4 @@
+import { set } from "lodash";
 import React, { useState, createContext, useContext,useEffect } from "react";
 import { Navigate } from 'react-router-dom';
 
@@ -10,6 +11,10 @@ function getInitialState() {
 function getInitialNomAuthed() {
     return localStorage.getItem('nomAuthed')
 }
+
+function getInitialPrivilegeState() {
+    return localStorage.getItem('privilege')
+}
 /**
  * Hook personnalisé, la fonction renvoie la valeur de contexte, y compris l'état authentifié,
  * la connexion, la fonction de déconnexion pour modifier l'état authentifié
@@ -17,14 +22,18 @@ function getInitialNomAuthed() {
 function useAuth() {
     const [authed, setAuthed] = useState(getInitialState);
     const [nomAuthed,setNomAuthed] = useState(getInitialNomAuthed)
+    const [privilege, setPrivilege] = useState(getInitialPrivilegeState)
 
     return {
         authed,
         nomAuthed,
-        login(nom) {
+        login(nom, privilegeId) {
             return new Promise((res) => {
                 setAuthed(true);
                 setNomAuthed(nom);
+                console.log('set privilege', privilegeId);
+                setPrivilege(privilegeId);
+                localStorage.setItem('privilege', privilegeId);
                 res();
             });
         },
@@ -32,9 +41,13 @@ function useAuth() {
             return new Promise((res) => {
                 setAuthed(false);
                 localStorage.removeItem('tk')
+                localStorage.removeItem('privilege')
+                setPrivilege(null);
                 res();
             });
-        }
+        },
+        privilege,
+        setPrivilege
     };
 }
 

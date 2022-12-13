@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Routes, Route, BrowserRouter, HashRouter} from 'react-router-dom'
+import {Routes, Route, BrowserRouter, Redirect} from 'react-router-dom'
 import Inscription from '../pages/register/Inscription'
 import Layout from './Layout'
 /* crm */
@@ -17,6 +17,8 @@ import ListeVoitures from "./ListeVoitures";
 import Home from './Home';
 import Connexion from "../pages/register/Connexion";
 import ClientIndex from "../pages/client/ClientIndex";
+import AjoutVoiture from "../pages/register/AjoutVoiture";
+import NouvelleCommande from "../pages/register/PasserCommande";
 import {AuthProvider, RequireAuth} from '../route/Auth.js'
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
         <LangueWrapper>
 
             <Routes>
+
                 <Route path="/app" element={<Layout/>}>
 
                     <Route path="/app/voiture/liste" element={<ListeVoitures/>}/>
@@ -32,6 +35,8 @@ function App() {
                     <Route path="/app/voiture/:id" element={<VoitureDetail/>}/>
                     <Route path="/app/connexion" element={<Connexion/>}/>
                     <Route path="/app/register" element={<Inscription/>}/>
+
+                    <Route path="/app/nouvelle-commande/:id" element={<NouvelleCommande />}/>
 
                     <Route path="/app/inscription-client/:id" element={
                         <RequireAuth>
@@ -60,6 +65,7 @@ function App() {
                 <Route path="/crm" element={<CrmLayout/>}>
                     <Route index element={<CrmHome/>}/>
                     <Route path="/crm/home" element={<CrmHome/>}/>
+                    <Route path="/crm/ajout-voiture" element={<AjoutVoiture />} />
                     <Route path="/crm/*" element={<CrmHome/>}/>
                 </Route>
 

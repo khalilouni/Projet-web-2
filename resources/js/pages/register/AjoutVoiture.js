@@ -48,7 +48,8 @@ const [carburants, setCarburants] = useState([]);
         carroserieId : '',
         nom_modele : '',
         transmissionId : '',
-        carburantId : ''
+        carburantId : '',
+        kilometrage: ''
     }
     const validationSchema = Yup.object({
         date_arrivee: Yup.date().required('voiture.form_date_arrivee_required'),
@@ -57,6 +58,7 @@ const [carburants, setCarburants] = useState([]);
         nom_modele: Yup.number().required('voiture.form_nom_modele_required'),
         transmissionId: Yup.number().required('voiture.form_transmissionId_required'),
         carburantId: Yup.number().required('voiture.form_carburantId_required'),
+        kilometrage: Yup.number().required('voiture.form_kilometrage_required'),
     });
 
     useEffect(() => {
@@ -115,7 +117,18 @@ const [carburants, setCarburants] = useState([]);
                         <FormattedMessage id={formik.errors.prix}/> : ''}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="carroserieId" className="form-label"><FormattedMessage id="ajout_voiture.form_label_carrosserie" /></label>
+                    <label htmlFor="kilometrage" className="form-label"><FormattedMessage id="ajout_voiture.form_label_kilometrage" /></label>
+                    <input
+                        type="numeric"
+                        {...formik.getFieldProps('kilometrage')}
+                        className="form-control"
+                        
+                    />
+                    <span className='text-danger'>{formik.touched.prix && formik.errors.prix ?
+                        <FormattedMessage id={formik.errors.kilometrage}/> : ''}</span>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="carroserieId" className="form-label"><FormattedMessage id="voitureDetail.carrosserie" /></label>
                     <select {...formik.getFieldProps('carroserieId')} className="form-select" aria-label="Default select example">
                         <option >Type carroserie</option>
                         {carroseries.map((carroserie) => <option key={carroserie.id} value={carroserie.id}>{carroserie.type}</option>)}
@@ -124,7 +137,7 @@ const [carburants, setCarburants] = useState([]);
                         <FormattedMessage id={formik.errors.carroserieId}/> : ''}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="nom_modele" className="form-label"><FormattedMessage id="ajout_voiture.form_label_modele" /></label>
+                    <label htmlFor="nom_modele" className="form-label"><FormattedMessage id="voitureDetail.modele" /></label>
                     <select {...formik.getFieldProps('nom_modele')} className="form-select">
                         <option>Choissir un modele</option>
                         {modeles.map((modele) => <option key={modele.id} value={modele.id}>{modele.nom}</option>)}
@@ -134,7 +147,7 @@ const [carburants, setCarburants] = useState([]);
                 </div>
                 
                 <div className="mb-3">
-                    <label htmlFor="transmissionId" className="form-label"><FormattedMessage id="ajout_voiture.form_label_transmission" /></label>
+                    <label htmlFor="transmissionId" className="form-label"><FormattedMessage id="voitureDetail.transmission" /></label>
                     <select {...formik.getFieldProps('transmissionId')} className="form-select" aria-label="Default select example">
                         <option>Choissir un type de transmission</option>
                         {transmissions.map((transmission) => <option key={transmission.id} value={transmission.id}>{transmission.type}</option>)}
@@ -143,7 +156,7 @@ const [carburants, setCarburants] = useState([]);
                         <FormattedMessage id={formik.errors.transmissionId}/> : ''}</span>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="carburantId" className="form-label"><FormattedMessage id="ajout_voiture.form_label_carburant" /></label>
+                    <label htmlFor="carburantId" className="form-label"><FormattedMessage id="voitureDetail.carburant" /></label>
                     <select {...formik.getFieldProps('carburantId')} className="form-select" aria-label="Default select example">
                         <option>Choissir un type de carburant</option>
                         {carburants.map((carburant) => <option key={carburant.id} value={carburant.id}>{carburant.type}</option>)}
@@ -153,7 +166,7 @@ const [carburants, setCarburants] = useState([]);
                 </div>
 
                 <div className="mb-3 ">
-                    <button type="submit" className="btn btn-primary"><FormattedMessage id="ajout_voiture.form_label_btn_ajout" /></button>
+                    <button type="submit" className="btn btn-primary"><FormattedMessage id="enregistrer.form_inscription" /></button>
                     <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="register.form_bt_retour" /></Link>
                 </div>
         </form>

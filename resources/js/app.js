@@ -22,6 +22,7 @@ require('./pages/register/InscriptionClient');
 require('./pages/register/ModificationClient');
 require('./pages/register/AjoutVoiture');
 require('./pages/register/DetailClient');
+require('./pages/register/PasserCommande');
 
 
 
