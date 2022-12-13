@@ -1,11 +1,9 @@
 import FormFilter from "./FormFilter"
 import SelectionVoiture from "./SelectionVoiture"
 import {FormattedMessage} from 'react-intl'; 
-/* import carImage from './img/com-soon.png' */
 
 /* photos*/
 import voiture from './img/voiture-presentation.png';
-
 import cles from './img/cles.jpg'
 
 /* css */

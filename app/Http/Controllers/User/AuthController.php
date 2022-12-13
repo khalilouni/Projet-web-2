@@ -136,7 +136,8 @@ class AuthController extends ApiController
                     "courriel" => $courrielDeUtilisateur,
                     'idUtilisateur' => $utilisateur->id,
                     "nomDeUtilisateur" => $utilisateur->name,
-                    'hasProfil' => $hasProfil
+                    'hasProfil' => $hasProfil,
+                    'privilege' => $utilisateur->privilegeId
                 ]
             ]
         ]);

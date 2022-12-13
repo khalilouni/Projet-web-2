@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /* Faker pour créer des données dans la base de donnée */
         $faker = \Faker\Factory::create();
 
         /* créer les provinces */
@@ -79,7 +78,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         /* créer les villes*/
-
         Ville::create([
             'id' => 1,
             'nom' => 'Montreal',
@@ -124,12 +122,25 @@ class DatabaseSeeder extends Seeder
             'nom' => 'client'
         ]);
         
-
-        /* créer un utilisateur */
+        /* créer trois utilisateurs avec des priliveleges differants */
         User::create([
             'name' => 'Alex',
             'privilegeid' => 1,
             'email' => 'alex@alex.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Tim',
+            'privilegeid' => 2,
+            'email' => 'tim@tim.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        User::create([
+            'name' => 'Emma',
+            'privilegeid' => 3,
+            'email' => 'emma@emma.com',
             'password' => Hash::make('password'),
         ]);
 

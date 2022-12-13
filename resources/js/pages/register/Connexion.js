@@ -45,16 +45,15 @@ const Connexion = () => {
                     localStorage.setItem("nomAuthed",uInfo.nomDeUtilisateur)
                     let token =res.data.data.token
                     localStorage.setItem("tk",token)
-
-                    login(uInfo.nomDeUtilisateur)
+                    login(uInfo.nomDeUtilisateur, uInfo.privilege)
 
                     const id = uInfo.idUtilisateur;
                     const hasProfil = uInfo.hasProfil;
                     const nom = uInfo.nomDeUtilisateur
                     if(hasProfil) {
-                        navigate('/client-index')
+                        navigate('/app/client-index')
                     }
-                    else { navigate(`/inscription-client/${id}`)}
+                    else { navigate(`/app/inscription-client/${id}`)}
                 }
             })
     }

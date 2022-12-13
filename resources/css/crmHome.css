@@ -1,0 +1,14 @@
+.container-img-crm-home{
+    width:100%;
+    height:auto;
+}
+
+.container-title-crm-home{
+    padding-top: 30px ;
+    padding-bottom: 30px;
+    color:#003866;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif; 
+}

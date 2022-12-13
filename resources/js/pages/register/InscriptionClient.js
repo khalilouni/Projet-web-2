@@ -57,7 +57,7 @@ const onSubmit = (valeurs) => {
     })
         .then(res => {
             console.log(res.data)
-            navigate(`/detail-profil/${res.data.profil.id}`)
+            navigate(`/app/detail-profil/${res.data.profil.id}`)
 
         })
 }
