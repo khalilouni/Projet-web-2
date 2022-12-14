@@ -16,6 +16,7 @@ use App\Models\Privilege;
 use App\Models\Province;
 use App\Models\Ville;
 use App\Models\Photo;
+use App\Models\Statut;
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,6 +28,23 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
+
+        /* créer les status */
+
+        Statut::create([
+            'id' => 1,
+            'nom' => 'Vendu',
+        ]);
+
+        Statut::create([
+            'id' => 2,
+            'nom' => 'Reserver',
+        ]);
+
+        Statut::create([
+            'id' => 3,
+            'nom' => 'Disponible',
+        ]);
 
         /* créer les provinces */
         Province::create([
@@ -284,7 +302,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 1,
             'carburantId' => 1,
             'carrosserieId' => 1,
-            'date_arrivee' => Carbon::parse('2017-01-01')
+            'date_arrivee' => Carbon::parse('2017-01-01'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 2,
@@ -294,7 +313,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 2,
             'carburantId' => 2,
             'carrosserieId' => 2,
-            'date_arrivee' => Carbon::parse('2022-11-04')
+            'date_arrivee' => Carbon::parse('2022-11-04'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 3,
@@ -304,7 +324,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 3,
             'carburantId' => 3,
             'carrosserieId' => 3,
-            'date_arrivee' => Carbon::parse('2022-10-15')
+            'date_arrivee' => Carbon::parse('2022-10-15'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 4,
@@ -314,7 +335,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 1,
             'carburantId' => 4,
             'carrosserieId' => 4,
-            'date_arrivee' => Carbon::parse('2022-09-25')
+            'date_arrivee' => Carbon::parse('2022-09-25'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 5,
@@ -324,7 +346,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 2,
             'carburantId' => 1,
             'carrosserieId' => 5,
-            'date_arrivee' => Carbon::parse('2022-11-28')
+            'date_arrivee' => Carbon::parse('2022-11-28'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 6,
@@ -334,7 +357,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 3,
             'carburantId' => 2,
             'carrosserieId' => 6,
-            'date_arrivee' => Carbon::parse('2022-11-25')
+            'date_arrivee' => Carbon::parse('2022-11-25'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 7,
@@ -344,7 +368,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 1,
             'carburantId' => 3,
             'carrosserieId' => 1,
-            'date_arrivee' => Carbon::parse('2022-10-07')
+            'date_arrivee' => Carbon::parse('2022-10-07'),
+            'statutId' => 3
         ]);
         Voiture::create([
             'id' => 8,
@@ -354,7 +379,8 @@ class DatabaseSeeder extends Seeder
             'transmissionId' => 2,
             'carburantId' => 4,
             'carrosserieId' => 2,
-            'date_arrivee' => Carbon::parse('2022-09-14')
+            'date_arrivee' => Carbon::parse('2022-09-14'),
+            'statutId' => 3
         ]);
 
 
