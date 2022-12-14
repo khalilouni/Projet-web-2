@@ -52,6 +52,7 @@ class VoitureController extends Controller
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
             'carrosserieId' => $request->carroserieId,
+            'statutId' => 3
         ]);
 
         return response()->json([

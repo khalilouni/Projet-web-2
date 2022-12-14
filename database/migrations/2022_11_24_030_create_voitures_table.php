@@ -26,6 +26,8 @@ class CreateVoituresTable extends Migration
             $table->foreign('carburantId')->references('id')->on('carburants');
             $table->bigInteger('carrosserieId')->unsigned();
             $table->foreign('carrosserieId')->references('id')->on('carrosseries');
+            $table->bigInteger('statutId')->unsigned();
+            $table->foreign('statutId')->references('id')->on('statuts');
             $table->timestamps();
         });
     }
