@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 /* pour changement de langue */
 import { FormattedMessage } from 'react-intl';
 /* css */
@@ -7,7 +7,7 @@ import '../../css/voitureDetail.css';
 
 /* import image statique pour test rendu affichage*/
 import test from './img/voiture-test.jpg'
-
+import { ToastContainer, toast } from 'react-toastify';
 
 import {URL} from "../constantes";
 
@@ -15,15 +15,45 @@ import {URL} from "../constantes";
 const VoitureDetail = () => {
     
     let { id } = useParams();
-
+    const navigate = useNavigate();
     const [voiture, setVoiture] = useState();
     const [imagePrimaire, setImagePrimaire] = useState();
     const [imageSecondaires, setImageSecondaires] = useState();
-    const [url , setUrl] = useState();
+    
+
+    const ajoutPanier = () => {
+
+        if (localStorage.voitures) {
+            
+            let panier = JSON.parse(localStorage.getItem('voitures'));
+            panier = panier.filter(voiturePanier => voiturePanier.id != voiture.id);
+            panier.push(voiture);
+            localStorage.setItem(`voitures`, JSON.stringify(panier));
+            
+            
+        }else {
+
+            console.log('vide');
+            let panier = [];
+            panier.push(voiture);
+            localStorage.setItem(`voitures`, JSON.stringify(panier));
+            
+        }
+        toast.success('hello bye' , {
+            position: toast.POSITION.TOP_CENTER
+        });
+        setTimeout(() => {
+            navigate("/app/client-index")
+        }, 3000);
+        
+
+
+    }
+
     const getData = async () => {
         const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data);
-        console.log(data);
+        
         const photos = data.photos;
 
         const primaire = photos.filter(photo => photo.primaire === 1);
@@ -41,7 +71,7 @@ const VoitureDetail = () => {
     return (
         <React.Fragment>
             <div className='wrapper-detail d-flex flex-column w-100 m-auto'>
-
+                <ToastContainer />
                 {/* titre */}
                 <div className='container-title w-100 d-flex py-3 px-5 justify-content-between'>
                     <div className='container-title-left w-50'>
@@ -153,9 +183,12 @@ const VoitureDetail = () => {
                                     <FormattedMessage id="voitureDetail.reserver"/>
                                 </button>
                             </div>
-                            <div className='container-detail-right-infos-wrap-right w-50 d-flex justify-content-end'>
-                                <a className="btn btn-acheter" href={url}><FormattedMessage id="voitureDetail.acheter"/></a>
+                            <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
+                                <button type="button" onClick={ajoutPanier} className="btn btn-reserver">
+                                    <FormattedMessage id="voitureDetail.panier"/>
+                                </button>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

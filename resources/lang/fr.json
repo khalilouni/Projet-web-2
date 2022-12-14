@@ -119,5 +119,7 @@
     "voiture.form_carroserieId_required" :  "Veuillez choisir un type de carosserie",
     "voiture.form_nom_modele_required" :  "Veuillez choisir un modele",
     "voiture.form_transmissionId_required" :  "Veuillez choisir un type de transmission",
-    "voiture.form_carburantId_required" :  "Veuillez choisir un type de carburant"
+    "voiture.form_carburantId_required" :  "Veuillez choisir un type de carburant",
+    "voitureDetail.panier" : "Ajouter au panier",
+    "panier.commander" : "Passer la commande"
 }
