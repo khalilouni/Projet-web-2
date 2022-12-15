@@ -15,8 +15,10 @@ class ConstructeurController extends Controller
     public function index()
     {
 
-        $constructeurs = Constructeur::all();
+        $constructeurs = Constructeur::all()->sortBy('nom')->values();
         return response()->json($constructeurs);
 
     }
+
+
 }

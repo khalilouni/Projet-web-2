@@ -43,6 +43,8 @@ Route::post('v1/login', [AuthController::class,'login'])->name('login');
 Route::get('v1/user', [AuthController::class,'utilisateur'])->name('utilisateur');
 Route::post('v1/inscription-client', [ProfilController::class,'store'])->name('inscrire.client');
 
+Route::get('v1/modeles/{id}', [ModeleController::class,'modelesListe'])->name('modeles.liste');
+Route::post('v1/filtre', [VoitureController::class,'filtre'])->name('filtre');
 
 
 
