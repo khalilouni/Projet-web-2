@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modele;
 use App\Models\Voiture;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class VoitureController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -23,6 +24,39 @@ class VoitureController extends Controller
             'photos')->get();
         return response()->json($voitures);
 
+    }
+
+    public function filtre(Request $request)
+    {
+        $constucteur = $request->input('constructeur');
+        $modele = $request->input('modele');
+        $annee = $request->input('annee');
+
+        if(empty($modele)) {
+            $voituresTire = Voiture::with('modele',
+                'transmission',
+                'carburant',
+                'carrosserie',
+                'modele.constructeur',
+                'photos')->where('constructeurId', $constucteur)->get();
+        }
+
+       else {
+           $voituresTire = Voiture::with('modele',
+               'transmission',
+               'carburant',
+               'carrosserie',
+               'modele.constructeur',
+               'photos')->where('modeleId', $modele)->get();
+       }
+
+
+
+        return response()->json([
+            "errno" => 0, "errmsg" => "succès de connexion","data" => [
+                "voitureInfo" => $voituresTire
+            ]
+        ]);
     }
 
     /**
@@ -39,7 +73,7 @@ class VoitureController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -102,7 +136,7 @@ class VoitureController extends Controller
      */
     public function update(Request $request,  $id)
     {
-       
+
         $voiture = Voiture::find($id);
 
         $voiture->update([
