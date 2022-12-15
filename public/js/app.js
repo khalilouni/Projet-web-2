@@ -14552,7 +14552,7 @@ var CardVoiture = function CardVoiture(_ref) {
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
       className: "text-decoration-none",
-      to: "/voiture/".concat(voiture.id),
+      to: "/app/voiture/".concat(voiture.id),
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         src: "/storage/".concat(photo.path),
         style: {
