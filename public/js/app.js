@@ -14530,22 +14530,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_cardsVoiture_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css/cardsVoiture.css */ "./resources/css/cardsVoiture.css");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
+
 /* css */
 
 
 
 var CardVoiture = function CardVoiture(_ref) {
-  var voiture = _ref.voiture;
+  var size = _ref.size,
+    width = _ref.width,
+    height = _ref.height,
+    voiture = _ref.voiture;
   var photo = voiture.photos.filter(function (photo) {
     return photo.primaire === 1;
   })[0];
-  // console.log(photo);
-
+  console.log(voiture);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "card px-0",
     style: {
-      width: '18rem',
-      height: '25rem'
+      width: width,
+      height: height
     },
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
       className: "text-decoration-none",
@@ -14553,7 +14556,7 @@ var CardVoiture = function CardVoiture(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         src: "/storage/".concat(photo.path),
         style: {
-          width: '100%'
+          width: size
         },
         alt: "Voiture blanche"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -14563,9 +14566,9 @@ var CardVoiture = function CardVoiture(_ref) {
           children: [voiture.modele.constructeur.nom, "  - ", voiture.modele.nom]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "card-text text-black d-flex justify-content-between",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
             className: "",
-            children: "110 430 km"
+            children: [voiture.kilometrage, "km"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
             className: "fw-bold fs-4",
             children: [voiture.prix, " $"]
@@ -14574,6 +14577,11 @@ var CardVoiture = function CardVoiture(_ref) {
       })]
     })
   });
+};
+CardVoiture.defaultProps = {
+  size: '100%',
+  width: '18rem',
+  height: '25rem'
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CardVoiture);
 
@@ -14867,7 +14875,7 @@ var Footer = function Footer() {
               className: "nav-item",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
                 className: "nav-link",
-                to: "/about",
+                to: "/app/about",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   id: "header.a_propos"
                 })
@@ -14876,7 +14884,7 @@ var Footer = function Footer() {
               className: "nav-item",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
                 className: "nav-link",
-                to: "/",
+                to: "/app",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   id: "footer.contactez_nous"
                 })
@@ -14923,7 +14931,7 @@ var Footer = function Footer() {
               className: "nav-item",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Link, {
                 className: "nav-link",
-                to: "/",
+                to: "/app",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
                   id: "footer.politiques_de_ventes"
                 })
@@ -15012,170 +15020,198 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
-/* harmony import */ var _css_formFilter_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css/formFilter.css */ "./resources/css/formFilter.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* pour changement de langue */
-
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _css_formFilter_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css/formFilter.css */ "./resources/css/formFilter.css");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constantes */ "./resources/js/constantes.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+ /* pour changement de langue */
 
 /* css */
 
 
 
+
+
 var FormFilter = function FormFilter(_ref) {
-  var selectConstructeurs = _ref.selectConstructeurs,
-    handleConstructeurChange = _ref.handleConstructeurChange,
-    selectModeles = _ref.selectModeles,
-    handleModeleChange = _ref.handleModeleChange,
-    selectAnnees = _ref.selectAnnees,
-    handleAnneeChange = _ref.handleAnneeChange;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+  var constructeurs = _ref.constructeurs,
+    getResultat = _ref.getResultat;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState2 = _slicedToArray(_useState, 2),
+    constructeurSelected = _useState2[0],
+    setConstructeur = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState4 = _slicedToArray(_useState3, 2),
+    modeleSelected = _useState4[0],
+    setModele = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    anneeSelected = _useState6[0],
+    setAnnee = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState8 = _slicedToArray(_useState7, 2),
+    modelesListe = _useState8[0],
+    setModeleListe = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState10 = _slicedToArray(_useState9, 2),
+    objSelected = _useState10[0],
+    setObj = _useState10[1];
+  var changeConstructeur = function changeConstructeur(e) {
+    var idConstructeur = e.target.value;
+    setConstructeur(idConstructeur);
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/v1/modeles/".concat(idConstructeur)).then(function (res) {
+      var modeles = res.data;
+      setModeleListe(modeles);
+    });
+  };
+  var changeModele = function changeModele(e) {
+    var idModele = e.target.value;
+    setModele(idModele);
+  };
+  var changeAnnee = function changeAnnee(e) {
+    var annee = e.target.value;
+    setAnnee(annee);
+  };
+  var envoyerRecherche = function envoyerRecherche(e) {
+    e.preventDefault();
+    axios__WEBPACK_IMPORTED_MODULE_2___default()({
+      method: 'POST',
+      url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_3__.URL, "/api/v1/filtre"),
+      data: {
+        constructeur: "".concat(constructeurSelected),
+        modele: "".concat(modeleSelected),
+        annee: "".concat(anneeSelected)
+      }
+    }).then(function (res) {
+      getResultat(res.data.data.voitureInfo);
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
     className: "card p-5",
     style: {
       width: '25rem'
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    onSubmit: envoyerRecherche,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "mb-3 text-center",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
         className: "fs-5 fw-bold",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
           id: "home.titre_filtre"
         })
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "mb-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
         className: "form-select",
         style: {
           backgroundColor: '#d9d9d9'
         },
-        value: selectConstructeurs,
-        onChange: handleConstructeurChange,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        value: constructeurSelected,
+        onChange: function onChange(e) {
+          return changeConstructeur(e);
+        },
+        name: "constructeur",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
           id: "home.form_marque",
           children: function children(selectOption) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-              value: "",
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               children: selectOption
             });
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "BMW",
-          children: "BMW"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Dodge",
-          children: "Dodge"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "KIA",
-          children: "KIA"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Audi",
-          children: "Audi"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Volkswagen",
-          children: "Volkswagen"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Mercedes",
-          children: "Mercedes"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Toyota",
-          children: "Toyota"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Honda",
-          children: "Honda"
+        }), constructeurs.map(function (c, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+            value: c.id,
+            children: c.nom
+          }, index);
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "mb-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
         className: "form-select",
         style: {
           backgroundColor: '#d9d9d9'
         },
-        value: selectModeles,
-        onChange: handleModeleChange,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        value: modeleSelected,
+        onChange: function onChange(e) {
+          return changeModele(e);
+        },
+        name: "modele",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
           id: "home.form_modele",
           children: function children(selectOption) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               value: "",
               children: selectOption
             });
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "A5",
-          children: "A5"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Corolla",
-          children: "Corolla"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "M2",
-          children: "M2"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Civic",
-          children: "Civic"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Classe C",
-          children: "Classe C"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Journey",
-          children: "Journey"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Sportage",
-          children: "Sportage"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-          value: "Atlas",
-          children: "Atlas"
-        })]
+        }), modelesListe !== null ? modelesListe.map(function (m, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+            value: m.id,
+            children: m.nom
+          }, index);
+        }) : null]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "mb-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
         className: "form-select",
         style: {
           backgroundColor: '#d9d9d9'
         },
-        value: selectAnnees,
-        onChange: handleAnneeChange,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        value: anneeSelected,
+        onChange: function onChange(e) {
+          return changeAnnee(e);
+        },
+        name: "annee",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
           id: "home.form_annee",
           children: function children(selectOption) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
               value: "",
               children: selectOption
             });
           }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2021",
           children: "2021"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2020",
           children: "2020"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2018",
           children: "2018"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2017",
           children: "2017"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2015",
           children: "2015"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2005",
           children: "2005"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2004",
           children: "2004"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
           value: "2000",
           children: "2000"
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
         type: "submit",
         className: "btn btn-filter-search btn-block",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
           id: "home.form_rechercher"
         })
       })
@@ -15366,6 +15402,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/* import carImage from './img/com-soon.png' */
 
 /* photos*/
 
@@ -15380,16 +15417,16 @@ var Home = function Home() {
     className: "container container-spacing",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "container-bandeau-filtres",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "d-flex justify-content-between mb-5 py-3 flex-container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_FormFilter__WEBPACK_IMPORTED_MODULE_0__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "img-presentation-wrapper",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
             className: "col-sm-8 rounded img-presentation-container",
             src: _img_voiture_presentation_png__WEBPACK_IMPORTED_MODULE_2__["default"],
             alt: "Voiture de pr\xE9sentation"
           })
-        })]
+        })
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "card mb-3",
@@ -15570,8 +15607,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _CardVoiture__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardVoiture */ "./resources/js/components/CardVoiture.js");
 /* harmony import */ var _FormFilter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormFilter */ "./resources/js/components/FormFilter.js");
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15588,28 +15627,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var ListeVoitures = function ListeVoitures() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
     voitures = _useState2[0],
     setVoitures = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(voitures),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState4 = _slicedToArray(_useState3, 2),
-    voituresFiltrees = _useState4[0],
-    setVoituresFiltrees = _useState4[1];
-  // const [voituresFiltrees, setVoituresFiltrees] = useState([])
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    selectConstructeurs = _useState6[0],
-    setSelectConstructeurs = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    selectModeles = _useState8[0],
-    setSelectModeles = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState10 = _slicedToArray(_useState9, 2),
-    selectAnnees = _useState10[0],
-    setSelectAnnees = _useState10[1];
+    selectConstructeurs = _useState4[0],
+    setSelectConstructeurs = _useState4[1];
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var getVoitures = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -15646,115 +15673,42 @@ var ListeVoitures = function ListeVoitures() {
     getVoitures();
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var getConstructeurs = /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var arr;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                arr = [];
-                _context2.next = 3;
-                return axios.get('http://127.0.0.1:8000/api/v1/constructeur').then(function (res) {
-                  var result = res.data;
-                  console.log(result, "result");
-                  result.map(function (voiture) {
-                    arr.push({
-                      value: voiture.nom,
-                      label: voiture.nom
-                    });
-                    console.log(arr, "arr");
-                    return arr;
-                  });
-                  setSelectConstructeurs(arr);
-                });
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-      return function getConstructeurs() {
-        return _ref2.apply(this, arguments);
-      };
-    }();
-    getConstructeurs();
+    axios__WEBPACK_IMPORTED_MODULE_3___default().get('http://127.0.0.1:8000/api/v1/constructeur').then(function (res) {
+      setSelectConstructeurs(res.data);
+    });
   }, []);
-  var filtrerParConstructeurs = function filtrerParConstructeurs(data) {
-    if (!selectConstructeurs) {
-      console.log(data, "data");
-      return data;
-    }
-    var dataFiltrees = data.filter(function (voiture) {
-      return voiture.modele.constructeur.nom.indexOf(selectConstructeurs) !== -1;
-    });
-    return dataFiltrees;
+  var getResultat = function getResultat(props) {
+    setVoitures(props);
   };
-  var filtrerParModeles = function filtrerParModeles(data) {
-    if (!selectModeles) {
-      return data;
-    }
-    var dataFiltrees = data.filter(function (voiture) {
-      return voiture.modele.nom.indexOf(selectModeles) !== -1;
-    });
-    return dataFiltrees;
-  };
-  var filtrerParAnnees = function filtrerParAnnees(data) {
-    if (!selectAnnees) {
-      return data;
-    }
-    var dataFiltrees = data.filter(function (voiture) {
-      return voiture.modele.annee.toString().indexOf(selectAnnees) !== -1;
-    });
-    return dataFiltrees;
-  };
-  var handleConstructeurChange = function handleConstructeurChange(event) {
-    setSelectConstructeurs(event.target.value);
-  };
-  var handleModeleChange = function handleModeleChange(event) {
-    setSelectModeles(event.target.value);
-  };
-  var handleAnneeChange = function handleAnneeChange(event) {
-    setSelectAnnees(event.target.value);
-  };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var dataFiltrees = filtrerParConstructeurs(voitures);
-    dataFiltrees = filtrerParModeles(dataFiltrees);
-    dataFiltrees = filtrerParAnnees(dataFiltrees);
-    setVoituresFiltrees(dataFiltrees);
-  }, [selectConstructeurs, selectModeles, selectAnnees]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
         id: "voitures.titre"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "col",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_FormFilter__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_FormFilter__WEBPACK_IMPORTED_MODULE_2__["default"], {
             size: "22rem",
-            selectConstructeurs: selectConstructeurs,
-            selectModeles: selectModeles,
-            selectAnnees: selectAnnees,
-            handleConstructeurChange: handleConstructeurChange,
-            handleModeleChange: handleModeleChange,
-            handleAnneeChange: handleAnneeChange
+            getResultat: getResultat,
+            constructeurs: selectConstructeurs
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "col",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "row",
-            children: voituresFiltrees.map(function (voiture) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            children: voitures.length ? voitures.map(function (voiture) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                 className: "col",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_CardVoiture__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_CardVoiture__WEBPACK_IMPORTED_MODULE_1__["default"], {
                   voiture: voiture
                 })
               }, voiture.id);
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: "Nous sommes sur le point de trouver la voiture que vous voulez pour vous. Merci de revenir la prochaine fois."
             })
           })
         })]
@@ -15892,12 +15846,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var _css_voitureDetail_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../css/voitureDetail.css */ "./resources/css/voitureDetail.css");
 /* harmony import */ var _img_voiture_test_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./img/voiture-test.jpg */ "./resources/js/components/img/voiture-test.jpg");
-/* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../constantes */ "./resources/js/constantes.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_toastify__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-toastify */ "./node_modules/react-toastify/dist/react-toastify.esm.mjs");
+/* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../constantes */ "./resources/js/constantes.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -15920,9 +15875,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var VoitureDetail = function VoitureDetail() {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useParams)(),
     id = _useParams.id;
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
     _useState2 = _slicedToArray(_useState, 2),
     voiture = _useState2[0],
@@ -15935,10 +15892,27 @@ var VoitureDetail = function VoitureDetail() {
     _useState6 = _slicedToArray(_useState5, 2),
     imageSecondaires = _useState6[0],
     setImageSecondaires = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
-    _useState8 = _slicedToArray(_useState7, 2),
-    url = _useState8[0],
-    setUrl = _useState8[1];
+  var ajoutPanier = function ajoutPanier() {
+    if (localStorage.voitures) {
+      var panier = JSON.parse(localStorage.getItem('voitures'));
+      panier = panier.filter(function (voiturePanier) {
+        return voiturePanier.id != voiture.id;
+      });
+      panier.push(voiture);
+      localStorage.setItem("voitures", JSON.stringify(panier));
+    } else {
+      console.log('vide');
+      var _panier = [];
+      _panier.push(voiture);
+      localStorage.setItem("voitures", JSON.stringify(_panier));
+    }
+    react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success('hello bye', {
+      position: react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.POSITION.TOP_CENTER
+    });
+    setTimeout(function () {
+      navigate("/app/client-index");
+    }, 3000);
+  };
   var getData = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       var _yield$axios$get, data, photos, primaire, secondaire;
@@ -15947,12 +15921,11 @@ var VoitureDetail = function VoitureDetail() {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return axios.get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_3__.URL, "/api/v1/voiture/").concat(id));
+              return axios.get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/voiture/").concat(id));
             case 2:
               _yield$axios$get = _context.sent;
               data = _yield$axios$get.data;
               setVoiture(data);
-              console.log(data);
               photos = data.photos;
               primaire = photos.filter(function (photo) {
                 return photo.primaire === 1;
@@ -15963,7 +15936,7 @@ var VoitureDetail = function VoitureDetail() {
               });
               setImageSecondaires(secondaire);
               setUrl("/app/nouvelle-commande/".concat(id));
-            case 12:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -15977,35 +15950,35 @@ var VoitureDetail = function VoitureDetail() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getData();
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "wrapper-detail d-flex flex-column w-100 m-auto",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_3__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "container-title w-100 d-flex py-3 px-5 justify-content-between",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "container-title-left w-50",
           children: [voiture && voiture.modele.constructeur.nom, "-", voiture && voiture.modele.nom, "-", voiture && voiture.modele.annee]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "container-title-right w-50 d-flex justify-content-end",
           children: [voiture && voiture.prix, "$"]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "container-detail d-flex flex-wrap w-100 justify-content-around",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "container-detail-left p-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "container-detail-left-img-primary p-3 flex-column flex-wrap",
-            children: imagePrimaire && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+            children: imagePrimaire && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
               src: "/storage/".concat(imagePrimaire.path),
               className: "w-100",
               alt: "image"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "container-detail-left-img-secondary w-100 p-3 d-flex justify-content-around",
             children: imageSecondaires && imageSecondaires.map(function (photo, index) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-left-img-secondary-wrap justify-content-around",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
                   src: "/storage/".concat(photo.path),
                   className: "w-100 p-2 ",
                   alt: "image"
@@ -16013,106 +15986,107 @@ var VoitureDetail = function VoitureDetail() {
               }, index);
             })
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "container-detail-right d-flex flex-column p-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "container-detail-right-infos container",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.kilometrage"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.kilometrage
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.constructeur"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.modele.constructeur.nom
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.modele"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.modele.nom
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.annee"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.modele.annee
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.carburant"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.carburant.type
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.transmission"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.transmission.type
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
               className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-left w-50 d-flex",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.carrosserie"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                 className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
                 children: voiture && voiture.carrosserie.type
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
             className: "container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
               className: "container-detail-right-infos-wrap-left w-50 d-flex",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
                 type: "button",
                 className: "btn btn-reserver ",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
                   id: "voitureDetail.reserver"
                 })
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-              className: "container-detail-right-infos-wrap-right w-50 d-flex justify-content-end",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
-                className: "btn btn-acheter",
-                href: url,
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                  id: "voitureDetail.acheter"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "container-detail-right-infos-wrap-left w-50 d-flex",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                type: "button",
+                onClick: ajoutPanier,
+                className: "btn btn-reserver",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+                  id: "voitureDetail.panier"
                 })
               })
             })]
@@ -16161,7 +16135,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constantes */ "./resources/js/constantes.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -16173,20 +16155,76 @@ var ClientIndex = function ClientIndex() {
   var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_components_LangueWrapper__WEBPACK_IMPORTED_MODULE_1__.Context);
   var _Auth = (0,_route_Auth__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     nomAuthed = _Auth.nomAuthed;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    panier = _useState2[0],
+    setPanier = _useState2[1];
   (axios__WEBPACK_IMPORTED_MODULE_4___default().defaults.headers.common.Authorization) = "Bearer " + localStorage.getItem("tk");
+  var getPanier = function getPanier() {
+    setPanier(JSON.parse(localStorage.getItem('voitures')));
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getPanier();
     axios__WEBPACK_IMPORTED_MODULE_4___default()({
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_3__.URL, "/api/v1/user")
     }).then(function (res) {
       console.log(res.data);
     });
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("main", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+      className: "title-form font-weight-bold text-center m-4 p-3",
       children: "Espace de gestion client"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
       children: ["Bienvenue cher ", nomAuthed]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "my-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h2", {
+        children: ["Panier : ", panier.length, " Voitures"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+        className: "table",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              scope: "col",
+              children: "Modele"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              scope: "col",
+              children: "Constructeur"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              scope: "col",
+              children: "kilometrage"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+              scope: "col",
+              children: "Prix"
+            })]
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+          children: panier.map(function (voiture) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: voiture && voiture.modele.nom
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: voiture && voiture.modele.constructeur.nom
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: voiture && voiture.kilometrage
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                children: voiture && voiture.prix
+              })]
+            }, voiture.id);
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "container-detail-right-infos-wrap-left w-50 d-flex",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          type: "button",
+          className: "btn btn-reserver",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            id: "panier.commander"
+          })
+        })
+      })]
     })]
   });
 };
@@ -16208,8 +16246,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
-/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
+/* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
 /* harmony import */ var _constantes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../constantes */ "./resources/js/constantes.js");
@@ -16254,6 +16293,7 @@ var AjoutVoiture = function AjoutVoiture() {
     _useState8 = _slicedToArray(_useState7, 2),
     carburants = _useState8[0],
     setCarburants = _useState8[1];
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
   var getModele = function getModele() {
     axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/modele")).then(function (res) {
       setModeles(res.data);
@@ -16305,11 +16345,14 @@ var AjoutVoiture = function AjoutVoiture() {
       data: valeurs
     }).then(function (res) {
       if (res.status == 200) {
-        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "ajout_voiture_success"
         }), {
           position: react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.POSITION.TOP_CENTER
         });
+        setTimeout(function () {
+          navigate("/app/voiture/liste");
+        }, 3000);
       }
     });
   };
@@ -16326,7 +16369,7 @@ var AjoutVoiture = function AjoutVoiture() {
     onSubmit: formik.handleSubmit,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
       className: "title-form font-weight-bold text-center m-4 p-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
         id: "ajout_voiture.form_titre"
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_5__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -16334,7 +16377,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "date_arrivee",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "ajout_voiture.form_label_date"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread({
@@ -16343,7 +16386,7 @@ var AjoutVoiture = function AjoutVoiture() {
         className: "form-control"
       }, formik.getFieldProps('date_arrivee'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.date_arrivee && formik.errors.date_arrivee ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.date_arrivee && formik.errors.date_arrivee ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.date_arrivee
         }) : ''
       })]
@@ -16352,7 +16395,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "prix",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "ajout_voiture.form_label_prix"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread(_objectSpread({
@@ -16361,7 +16404,7 @@ var AjoutVoiture = function AjoutVoiture() {
         className: "form-control"
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.prix && formik.errors.prix ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.prix && formik.errors.prix ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.prix
         }) : ''
       })]
@@ -16370,7 +16413,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "kilometrage",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "ajout_voiture.form_label_kilometrage"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread(_objectSpread({
@@ -16379,7 +16422,7 @@ var AjoutVoiture = function AjoutVoiture() {
         className: "form-control"
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.prix && formik.errors.prix ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.prix && formik.errors.prix ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.kilometrage
         }) : ''
       })]
@@ -16388,7 +16431,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "carroserieId",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "voitureDetail.carrosserie"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('carroserieId')), {}, {
@@ -16404,7 +16447,7 @@ var AjoutVoiture = function AjoutVoiture() {
         })]
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.carroserieId && formik.errors.carroserieId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.carroserieId && formik.errors.carroserieId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.carroserieId
         }) : ''
       })]
@@ -16413,7 +16456,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "nom_modele",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "voitureDetail.modele"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('nom_modele')), {}, {
@@ -16428,7 +16471,7 @@ var AjoutVoiture = function AjoutVoiture() {
         })]
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.nom_modele && formik.errors.nom_modele ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.nom_modele && formik.errors.nom_modele ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.nom_modele
         }) : ''
       })]
@@ -16437,7 +16480,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "transmissionId",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "voitureDetail.transmission"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('transmissionId')), {}, {
@@ -16453,7 +16496,7 @@ var AjoutVoiture = function AjoutVoiture() {
         })]
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.transmissionId && formik.errors.transmissionId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.transmissionId && formik.errors.transmissionId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.transmissionId
         }) : ''
       })]
@@ -16462,7 +16505,7 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
         htmlFor: "carburantId",
         className: "form-label",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "voitureDetail.carburant"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({}, formik.getFieldProps('carburantId')), {}, {
@@ -16478,7 +16521,7 @@ var AjoutVoiture = function AjoutVoiture() {
         })]
       })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         className: "text-danger",
-        children: formik.touched.carburantId && formik.errors.carburantId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: formik.touched.carburantId && formik.errors.carburantId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: formik.errors.carburantId
         }) : ''
       })]
@@ -16487,13 +16530,13 @@ var AjoutVoiture = function AjoutVoiture() {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         type: "submit",
         className: "btn btn-primary",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "enregistrer.form_inscription"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary m-3",
-        to: "/",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        to: "/app",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "register.form_bt_retour"
         })
       })]
@@ -16668,7 +16711,7 @@ var Connexion = function Connexion() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary m-3",
-        to: "/",
+        to: "/app",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "register.form_bt_retour"
         })
@@ -16858,13 +16901,13 @@ var DetailClient = function DetailClient() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
         className: "btn btn-primary m-3",
-        to: "/modifier-profil/".concat(profil.id),
+        to: "/app/modifier-profil/".concat(profil.id),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: "modifier.form_inscription"
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
         className: "btn btn-primary m-3",
-        to: "/client-index",
+        to: "/app/client-index",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
           id: "confirmer.form_inscription"
         })
@@ -16951,7 +16994,7 @@ var Inscription = function Inscription() {
                   //console.log(res.data)
                   //const id = res.data.data.utilisateurInfo.id;
                   //navigate(`/inscription-client/${id}`)
-                  navigate('/connexion');
+                  navigate('/app/connexion');
                 }
               });
             case 2:
@@ -17042,7 +17085,7 @@ var Inscription = function Inscription() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
         className: "btn btn-primary m-3",
-        to: "/",
+        to: "/app",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "register.form_bt_retour"
         })
@@ -17749,7 +17792,7 @@ var NouvelleCommande = function NouvelleCommande() {
           position: react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.POSITION.TOP_CENTER
         });
         setTimeout(function () {
-          navigate("/voiture/liste");
+          navigate("/app/voiture/liste");
         }, 3000);
       }
     });
@@ -18059,7 +18102,7 @@ var NouvelleCommande = function NouvelleCommande() {
                           })
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
                           className: "btn btn-primary m-3",
-                          to: "/",
+                          to: "/app",
                           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
                             id: "register.form_bt_retour"
                           })
@@ -18290,7 +18333,7 @@ function RequireAuth(_ref2) {
     authed = _AuthConsumer.authed;
   console.log(authed);
   return authed === true ? children : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Navigate, {
-    to: "/connexion",
+    to: "/app/connexion",
     replace: true
   });
 }
@@ -23609,7 +23652,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\r\n  box-sizing: border-box;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n.box-app {\r\n    font-family: 'Poppins', sans-serif;\r\n    height: 100vh;\r\n}\r\n\r\nnav {\r\n  background-color: #F5F5F5;\r\n  z-index: 3;\r\n}\r\n\r\na.nav-link.active:hover {\r\n  color: #003866;\r\n}\r\n\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\nfooter .nav-link, \r\nfooter a {\r\n  color: white;\r\n  border-bottom: 2px solid;\r\n  text-decoration: none;\r\n}\r\n\r\nfooter {\r\n  color: white;\r\n}\r\n\r\na.nav-link, \r\nspan.nav-link,\r\n.nav-item {\r\n  padding: 0;\r\n  margin: 0.35em 5px 0.35em 0;\r\n  width: -moz-fit-content;\r\n  width: fit-content;\r\n}\r\n\r\n.btn-lang {\r\n  text-transform: uppercase;\r\n}\r\n\r\n.nav-link:hover {\r\n  color: black;\r\n}\r\n\r\n.btn:focus {\r\n  outline: none;\r\n}\r\n\r\n.btn:active {\r\n  transform: scale(0.98);\r\n}\r\n\r\n.btn-block {\r\n  display: block;\r\n  width: 100%;\r\n  margin: 0;\r\n}\r\n\r\n.list-group-item {\r\n  border: none;\r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n.box-app {\n    font-family: 'Poppins', sans-serif;\n    height: 100vh;\n}\n\nnav {\n  background-color: #F5F5F5;\n  z-index: 3;\n}\n\na.nav-link.active:hover {\n  color: #003866;\n}\n\n\nfooter {\n  color: white;\n}\n\nfooter .nav-link, \nfooter a {\n  color: white;\n  border-bottom: 2px solid;\n  text-decoration: none;\n}\n\nfooter {\n  color: white;\n}\n\na.nav-link, \nspan.nav-link,\n.nav-item {\n  padding: 0;\n  margin: 0.35em 5px 0.35em 0;\n  width: -moz-fit-content;\n  width: fit-content;\n}\n\n.btn-lang {\n  text-transform: uppercase;\n}\n\n.nav-link:hover {\n  color: black;\n}\n\n.btn:focus {\n  outline: none;\n}\n\n.btn:active {\n  transform: scale(0.98);\n}\n\n.btn-block {\n  display: block;\n  width: 100%;\n  margin: 0;\n}\n\n.list-group-item {\n  border: none;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23633,7 +23676,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".card-font{\r\n    color: #003866;\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".card-font{\n    color: #003866;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23657,7 +23700,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".bg-crm{\r\n    background-color: #003866;\r\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".bg-crm{\n    background-color: #003866;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23681,7 +23724,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container-img-crm-home{\r\n    width:100%;\r\n    height:auto;\r\n}\r\n\r\n.container-title-crm-home{\r\n    padding-top: 30px ;\r\n    padding-bottom: 30px;\r\n    color:#003866;\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n    text-align: center;\r\n    font-family: Verdana, Geneva, Tahoma, sans-serif; \r\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container-img-crm-home{\n    width:100%;\n    height:auto;\n}\n\n.container-title-crm-home{\n    padding-top: 30px ;\n    padding-bottom: 30px;\n    color:#003866;\n    font-size: 24px;\n    font-weight: bold;\n    text-align: center;\n    font-family: Verdana, Geneva, Tahoma, sans-serif; \n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23705,7 +23748,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "*{\r\n    text-decoration: none;\r\n}\r\n\r\n.footer{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.footer-logo{\r\n    width: 240px;\r\n    height: auto;\r\n\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "*{\n    text-decoration: none;\n}\n\n.footer{\n    background-color: #003866;\n    color:white;\n}\n\n.footer-logo{\n    width: 240px;\n    height: auto;\n\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23729,7 +23772,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\r\n    background-color: #003866;\r\n    color:white;\r\n\r\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".btn-filter-search{\n    background-color: #003866;\n    color:white;\n\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23753,7 +23796,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n.nav-logo{\r\n    width: 280px;\r\n    height: auto;\r\n}\r\n\r\n.nav-btn-lang{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.nav-spacing{\r\n    display: flex;\r\n    justify-content: right;\r\n}\r\n\r\n.nav-btn-connexion{\r\n    margin-left : 20px;\r\n    margin-right: 25px;\r\n}\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.nav-logo{\n    width: 280px;\n    height: auto;\n}\n\n.nav-btn-lang{\n    background-color: #003866;\n    color:white;\n}\n\n.nav-spacing{\n    display: flex;\n    justify-content: right;\n}\n\n.nav-btn-connexion{\n    margin-left : 20px;\n    margin-right: 25px;\n}\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23777,7 +23820,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".container-spacing{\r\n  margin-bottom: 60px;\r\n}\r\n\r\n .flex-container {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n\r\n  }\r\n\r\n  .text-wrapper{\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 55px 12px 0px 12px;\r\n  }\r\n\r\n  .confiance-title{\r\n    font-weight: bold;\r\n    text-align: center;\r\n    margin-bottom: 30px ;\r\n  }\r\n\r\n/*   .confiance.text{\r\n  } */\r\n\r\n .img-cles-wrapper{\r\n    display: flex;\r\n    width: 40%;\r\n    height: auto;\r\n    justify-content: center;\r\n  }\r\n\r\n  .img-cles-container{\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n\r\n  .img-presentation-wrapper{\r\n    display: flex;\r\n    width: 60%;\r\n    height: auto;\r\n    justify-content: center;\r\n  }\r\n\r\n  .img-presentation-container{\r\n    width: 100%;\r\n    height: auto;\r\n  }\r\n\r\n  @media screen and (max-width: 600px) {\r\n    .img-presentation-wrapper{\r\n        display: flex;\r\n        width: 100%;\r\n        height: auto;\r\n        justify-content: center;\r\n      }\r\n      .img-cles-wrapper{\r\n        display: flex;\r\n        width:100%;\r\n        height:auto;\r\n        justify-content: center;\r\n      }\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".container-spacing{\n  margin-bottom: 60px;\n}\n\n .flex-container {\n    display: flex;\n    flex-wrap: wrap;\n\n  }\n\n  .text-wrapper{\n    display: flex;\n    align-items: center;\n    padding: 55px 12px 0px 12px;\n  }\n\n  .confiance-title{\n    font-weight: bold;\n    text-align: center;\n    margin-bottom: 30px ;\n  }\n\n/*   .confiance.text{\n  } */\n\n .img-cles-wrapper{\n    display: flex;\n    width: 40%;\n    height: auto;\n    justify-content: center;\n  }\n\n  .img-cles-container{\n    width: 100%;\n    height: auto;\n  }\n\n  .img-presentation-wrapper{\n    display: flex;\n    width: 60%;\n    height: auto;\n    justify-content: center;\n  }\n\n  .img-presentation-container{\n    width: 100%;\n    height: auto;\n  }\n\n  @media screen and (max-width: 600px) {\n    .img-presentation-wrapper{\n        display: flex;\n        width: 100%;\n        height: auto;\n        justify-content: center;\n      }\n      .img-cles-wrapper{\n        display: flex;\n        width:100%;\n        height:auto;\n        justify-content: center;\n      }\n  }", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -23801,7 +23844,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n.btn-reserver{\r\n    background-color: #003866;\r\n    color:white;\r\n}\r\n\r\n.btn-acheter{\r\n    background-color: #003866;\r\n    color:white;\r\n\r\n} \r\n\r\n.container-title-left{\r\n    font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n    font-size: 24px;\r\n    font-weight: bold;\r\n}\r\n\r\n.container-title-right{ \r\n    font-family: Verdana, Geneva, Tahoma, sans-serif;\r\n    font-size: 24px;\r\n    color: #003866;\r\n    font-weight: bold;\r\n}\r\n\r\n.container-detail-right-infos-wrap-left{\r\n    color: #003866;\r\n    font-weight: bold;\r\n}\r\n\r\n.container-detail-left{\r\n    width: 600px;\r\n}\r\n\r\n.container-detail-right{\r\n    width: 400px;\r\n}\r\n\r\n.wrapper-detail{\r\n    width: 75%;\r\n}\r\n\r\n@media screen and (max-width: 600px) {\r\n    .wrapper-detail{\r\n        width: 100%;\r\n    }\r\n}\r\n\r\n\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.btn-reserver{\n    background-color: #003866;\n    color:white;\n}\n\n.btn-acheter{\n    background-color: #003866;\n    color:white;\n\n} \n\n.container-title-left{\n    font-family: Verdana, Geneva, Tahoma, sans-serif;\n    font-size: 24px;\n    font-weight: bold;\n}\n\n.container-title-right{ \n    font-family: Verdana, Geneva, Tahoma, sans-serif;\n    font-size: 24px;\n    color: #003866;\n    font-weight: bold;\n}\n\n.container-detail-right-infos-wrap-left{\n    color: #003866;\n    font-weight: bold;\n}\n\n.container-detail-left{\n    width: 600px;\n}\n\n.container-detail-right{\n    width: 400px;\n}\n\n.wrapper-detail{\n    width: 75%;\n}\n\n@media screen and (max-width: 600px) {\n    .wrapper-detail{\n        width: 100%;\n    }\n}\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -93048,7 +93091,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type","voitureDetail.panier":"Add to Cart","panier.commander":"To order"}');
 
 /***/ }),
 
@@ -93059,7 +93102,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant","voitureDetail.panier":"Ajouter au panier","panier.commander":"Passer la commande"}');
 
 /***/ })
 

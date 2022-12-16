@@ -1,67 +1,100 @@
-
-/* pour changement de langue */
-import {FormattedMessage} from 'react-intl';
-
+import {FormattedMessage} from 'react-intl';  /* pour changement de langue */
+import {useState, useEffect} from 'react'
 /* css */
 import '../../css/formFilter.css';
+import axios from 'axios'
+import {URL} from "../constantes";
 
-const FormFilter = ({
-    selectConstructeurs, handleConstructeurChange,
-    selectModeles, handleModeleChange,
-    selectAnnees, handleAnneeChange
-}) => {
+const FormFilter = ({constructeurs,getResultat}) => {
+
+
+    const [constructeurSelected, setConstructeur] = useState('')
+    const [modeleSelected, setModele] = useState('')
+    const [anneeSelected, setAnnee] = useState('')
+    const [modelesListe,setModeleListe] = useState(null)
+    const [objSelected,setObj] = useState([])
+
+    const changeConstructeur = (e) => {
+        const idConstructeur = e.target.value
+        setConstructeur(idConstructeur)
+        axios.get(`http://127.0.0.1:8000/api/v1/modeles/${idConstructeur}`)
+            .then(res=> {
+                const modeles = res.data
+                setModeleListe(modeles)
+            })
+
+    }
+
+
+    const changeModele = (e) => {
+        const idModele = e.target.value
+        setModele(idModele)
+
+
+    };
+
+    const changeAnnee = (e) => {
+        const annee = e.target.value
+        setAnnee(annee)
+    };
+
+    const envoyerRecherche = (e) => {
+        e.preventDefault();
+
+        axios({
+            method: 'POST',
+            url: `${URL}/api/v1/filtre`,
+            data: {constructeur:`${constructeurSelected}`,modele:`${modeleSelected}`,annee:`${anneeSelected}`}
+        }).then(res => {
+
+            getResultat(res.data.data.voitureInfo)
+
+        })
+    }
+
 
     return (
-        <form className="card p-5" style={{ width: '25rem' }}>
+        <form className="card p-5" style={{width: '25rem'}} onSubmit={envoyerRecherche}>
             <div className="mb-3 text-center">
                 <span className="fs-5 fw-bold"><FormattedMessage id="home.titre_filtre"/></span>
             </div>
             <div className="mb-3">
-                <select className="form-select" 
-                    style={{backgroundColor : '#d9d9d9'}}
-                    value={selectConstructeurs}
-                    onChange={handleConstructeurChange}
+                <select className="form-select"
+                        style={{backgroundColor: '#d9d9d9'}}
+                        value={constructeurSelected}
+                        onChange={(e) => changeConstructeur(e)}
+                        name = 'constructeur'
                 >
                     <FormattedMessage id="home.form_marque">
-                        { selectOption => <option value="">{selectOption}</option>}
+                        {selectOption => <option>{selectOption}</option>}
                     </FormattedMessage>
-                    <option value="BMW">BMW</option>
-                    <option value="Dodge">Dodge</option>
-                    <option value="KIA">KIA</option>
-                    <option value="Audi">Audi</option>
-                    <option value="Volkswagen">Volkswagen</option>
-                    <option value="Mercedes">Mercedes</option>
-                    <option value="Toyota">Toyota</option>
-                    <option value="Honda">Honda</option>
+                    {constructeurs.map((c, index) => <option key={index} value={c.id}>{c.nom}</option>)}
                 </select>
             </div>
             <div className="mb-3">
-                <select className="form-select" 
-                    style={{backgroundColor : '#d9d9d9'}}
-                    value={selectModeles}
-                    onChange={handleModeleChange}
+                <select className="form-select"
+                        style={{backgroundColor: '#d9d9d9'}}
+                        value={modeleSelected}
+                        onChange={(e) => changeModele(e)}
+                        name='modele'
                 >
                     <FormattedMessage id="home.form_modele">
-                        { selectOption => <option value="">{selectOption}</option>}
+                        {selectOption => <option value="">{selectOption}</option>}
                     </FormattedMessage>
-                    <option value="A5">A5</option>
-                    <option value="Corolla">Corolla</option>
-                    <option value="M2">M2</option>
-                    <option value="Civic">Civic</option>
-                    <option value="Classe C">Classe C</option>
-                    <option value="Journey">Journey</option>
-                    <option value="Sportage">Sportage</option>
-                    <option value="Atlas">Atlas</option>
+                    {
+                     modelesListe!==null? modelesListe.map((m, index) => <option key={index} value={m.id}>{m.nom}</option>):null
+                    }
                 </select>
             </div>
             <div className="mb-3">
-                <select className="form-select" 
-                    style={{backgroundColor : '#d9d9d9'}}
-                    value={selectAnnees}
-                    onChange={handleAnneeChange}
+                <select className="form-select"
+                        style={{backgroundColor: '#d9d9d9'}}
+                        value={anneeSelected}
+                        onChange={(e) => changeAnnee(e)}
+                        name='annee'
                 >
                     <FormattedMessage id="home.form_annee">
-                        { selectOption => <option value="">{selectOption}</option>}
+                        {selectOption => <option value="">{selectOption}</option>}
                     </FormattedMessage>
                     <option value="2021">2021</option>
                     <option value="2020">2020</option>
@@ -74,9 +107,10 @@ const FormFilter = ({
                 </select>
             </div>
             <div>
-                <button type="submit" className="btn btn-filter-search btn-block"><FormattedMessage id="home.form_rechercher"/></button>
+                <button type="submit" className="btn btn-filter-search btn-block"><FormattedMessage
+                    id="home.form_rechercher"/></button>
             </div>
-        </form>  
+        </form>
     )
 }
 
