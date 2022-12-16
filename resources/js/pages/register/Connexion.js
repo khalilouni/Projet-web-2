@@ -43,6 +43,7 @@ const Connexion = () => {
                 else {
                     const uInfo = res.data.data.utilisateurInfo
                     localStorage.setItem("nomAuthed",uInfo.nomDeUtilisateur)
+                    localStorage.setItem("idAuthed",uInfo.idUtilisateur)
                     let token =res.data.data.token
                     localStorage.setItem("tk",token)
                     login(uInfo.nomDeUtilisateur, uInfo.privilege)

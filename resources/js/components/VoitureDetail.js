@@ -39,7 +39,7 @@ const VoitureDetail = () => {
             localStorage.setItem(`voitures`, JSON.stringify(panier));
             
         }
-        toast.success('hello bye' , {
+        toast.success(<FormattedMessage id={"ajout_panier_success"} /> , {
             position: toast.POSITION.TOP_CENTER
         });
         setTimeout(() => {
@@ -61,7 +61,7 @@ const VoitureDetail = () => {
 
         const secondaire = photos.filter(photo => photo.primaire === 0);
         setImageSecondaires(secondaire);
-        setUrl(`/app/nouvelle-commande/${id}`)
+        
     };
     
     useEffect(() => {

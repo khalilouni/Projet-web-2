@@ -121,5 +121,6 @@
     "voiture.form_transmissionId_required" :  "Please choose a transmission type",
     "voiture.form_carburantId_required" :  "Please choose a fuel type",
     "voitureDetail.panier" : "Add to Cart",
-    "panier.commander" : "To order"
+    "panier.commander" : "To order",
+    "ajout_panier_success" : "Car added to cart"
 }
