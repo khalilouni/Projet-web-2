@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commande;
 use App\Models\Facture;
+use App\Models\Voiture;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -39,29 +40,47 @@ class CommandeController extends Controller
     public function store(Request $request)
     {
         
+        $quantite = count($request->voitures);
+        $voitures = $request->voitures;
+
         $nouvelleCommande = Commande::create([
+
             'date' => Carbon::today()->toDateString(),
-            'voitureId' => $request->voitureId,
-            'quantite' => 1,
-            'userId' => 1,
-            'modePaiementId' => 1,
-            'expeditionId' => $request->expedition,
+            'voitureId' => 1,
+            'quantite' => $quantite,
+            'userId' => $request->userId,
+            'modePaiementId' => $request->modePaiementId,
+            'expeditionId' => $request->expeditionId,
             'statutId' => 1,
  
         ]);
+
+
 
         $id = $nouvelleCommande->id;
         $nouvelleFacture = Facture::create([
             'commandeId' => $id,
             'date' => Carbon::today()->toDateString()
         ]);
+        
+        
+        for ($i=0; $i < count($voitures); $i++) { 
+            $voitures[$i]['id'];
+            $voitureCommander = Voiture::find($voitures[$i]['id']);
+            $voitureCommander->update([
+                'statutId' => 1,
+            ]);
+        }
 
         return response()->json([
             'commande' => $nouvelleCommande,
             'facture' => $nouvelleFacture,
-            'message' => 'commande passer avec succes'
+            'message' => 'commande passer avec succes et le statut des voitures est changer pour vendu id 1'
         ], 200);
-        //return response()->json($request);
+        
+
+   
+
     }
 
     /**
