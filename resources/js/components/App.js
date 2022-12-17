@@ -41,9 +41,9 @@ function App() {
                     <Route path="/app/upload-photo" element={<NouvellePhoto />}/>
 
                     <Route path="/app/nouvelle-commande" element={
-                    
-                        <NouvelleCommande />
-                        
+                        <RequireAuth>
+                            <NouvelleCommande />
+                        </RequireAuth>  
                     }/>
 
                     <Route path="/app/inscription-client/:id" element={
@@ -73,8 +73,16 @@ function App() {
                 <Route path="/crm" element={<CrmLayout/>}>
                     <Route index element={<CrmHome/>}/>
                     <Route path="/crm/home" element={<CrmHome/>}/>
-                    <Route path="/crm/ajout-voiture" element={<AjoutVoiture />} />
-                    <Route path="/crm/journal-connexion" element={<Journal />} />
+                    <Route path="/crm/ajout-voiture" element={
+                        <RequireAuth>
+                            <AjoutVoiture />
+                        </RequireAuth>
+                    } />
+                    <Route path="/crm/journal-connexion" element={
+                        <RequireAuth>
+                            <Journal />
+                        </RequireAuth>
+                    } />
                     <Route path="/crm/*" element={<CrmHome/>}/>
                 </Route>
 
