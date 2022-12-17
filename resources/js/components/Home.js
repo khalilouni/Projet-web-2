@@ -1,9 +1,11 @@
 import FormFilter from "./FormFilter"
 import SelectionVoiture from "./SelectionVoiture"
-import {FormattedMessage} from 'react-intl'; 
+import {FormattedMessage} from 'react-intl';
+/* import carImage from './img/com-soon.png' */
 
 /* photos*/
 import voiture from './img/voiture-presentation.png';
+
 import cles from './img/cles.jpg'
 
 /* css */
@@ -14,10 +16,10 @@ const Home = () => {
         <main className='container container-spacing'>
             <div className="container-bandeau-filtres">
                 <div className="d-flex justify-content-between mb-5 py-3 flex-container">
-                    <FormFilter/>
+                    {/*<FormFilter/>*/}
                     <div className="img-presentation-wrapper">
                         <img className='col-sm-8 rounded img-presentation-container' src={voiture} alt="Voiture de présentation"/>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div className="card mb-3">

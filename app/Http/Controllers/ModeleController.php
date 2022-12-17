@@ -19,4 +19,10 @@ class ModeleController extends Controller
         return response()->json($modeles);
 
     }
+
+    public function modelesListe(Request $request, $id) {
+        $modelesListe = Modele::where('constructeurId',$id)->orderBy('nom')->get();
+        return response()->json($modelesListe);
+    }
+
 }
