@@ -6,6 +6,7 @@ import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import {URL} from "../../constantes";
 import { ToastContainer, toast } from 'react-toastify';
+import CardVoiture from "../../components/CardVoiture";
 
 
 
@@ -86,19 +87,12 @@ return (
             <h2 className='font-weight-bold my-3'>Liste de voitures</h2>
             
             <div className="row row-cols-1 row-cols-md-2 g-4">
-            {voitures.map((voiture) => 
-                <div className="col"  key={voiture.id}>
-                    <div className="card">
-                        <img src="..." className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Prix : {voiture.prix} $</h5>
-                            <h5 className="card-title">Modele : {voiture && voiture.modele.nom}</h5>
-                            <h5 className="card-title">Constructeur : {voiture && voiture.modele.constructeur.nom}</h5>
-                            <h5 className="card-title">Kilometrage : {voiture && voiture.kilometrage}</h5>
-                        </div>
+                {voitures.map((voiture) => (
+                    <div className="col" key={voiture.id}>
+                        <CardVoiture voiture={voiture}/>
                     </div>
-                </div>
-            )}
+                    ))
+                }
             </div>
         </div>
         <hr/>
