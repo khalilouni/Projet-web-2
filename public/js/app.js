@@ -14461,7 +14461,7 @@ function App() {
             path: "/app/upload-photo",
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_pages_register_UploadPhoto__WEBPACK_IMPORTED_MODULE_18__["default"], {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_22__.Route, {
-            path: "/app/nouvelle-commande/:id",
+            path: "/app/nouvelle-commande",
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(_pages_register_PasserCommande__WEBPACK_IMPORTED_MODULE_17__["default"], {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_21__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_22__.Route, {
             path: "/app/inscription-client/:id",
@@ -16067,7 +16067,9 @@ var VoitureDetail = function VoitureDetail() {
       _panier.push(voiture);
       localStorage.setItem("voitures", JSON.stringify(_panier));
     }
-    react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success('hello bye', {
+    react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.success( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_7__["default"], {
+      id: "ajout_panier_success"
+    }), {
       position: react_toastify__WEBPACK_IMPORTED_MODULE_3__.toast.POSITION.TOP_CENTER
     });
     setTimeout(function () {
@@ -16096,8 +16098,7 @@ var VoitureDetail = function VoitureDetail() {
                 return photo.primaire === 0;
               });
               setImageSecondaires(secondaire);
-              setUrl("/app/nouvelle-commande/".concat(id));
-            case 11:
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -16297,6 +16298,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -16304,6 +16306,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0) { ; } } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -16320,11 +16323,25 @@ var ClientIndex = function ClientIndex() {
     _useState2 = _slicedToArray(_useState, 2),
     panier = _useState2[0],
     setPanier = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    _useState4 = _slicedToArray(_useState3, 2),
+    profil = _useState4[0],
+    setProfil = _useState4[1];
   (axios__WEBPACK_IMPORTED_MODULE_4___default().defaults.headers.common.Authorization) = "Bearer " + localStorage.getItem("tk");
   var getPanier = function getPanier() {
     setPanier(JSON.parse(localStorage.getItem('voitures')));
   };
+  var getProfil = function getProfil() {
+    var userId = JSON.parse(localStorage.getItem('idAuthed'));
+    axios__WEBPACK_IMPORTED_MODULE_4___default()({
+      url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_3__.URL, "/api/v1/profil-userId/").concat(userId)
+    }).then(function (response) {
+      //console.log(response.data[0]);
+      setProfil(response.data[0]);
+    });
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    getProfil();
     getPanier();
     axios__WEBPACK_IMPORTED_MODULE_4___default()({
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_3__.URL, "/api/v1/user")
@@ -16332,61 +16349,186 @@ var ClientIndex = function ClientIndex() {
       console.log(res.data);
     });
   }, []);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    className: "container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
-      className: "title-form font-weight-bold text-center m-4 p-3",
-      children: "Espace de gestion client"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
-      children: ["Bienvenue cher ", nomAuthed]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      className: "my-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h2", {
-        children: ["Panier : ", panier.length, " Voitures"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-        className: "table",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              scope: "col",
-              children: "Modele"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              scope: "col",
-              children: "Constructeur"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              scope: "col",
-              children: "kilometrage"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-              scope: "col",
-              children: "Prix"
-            })]
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
-          children: panier.map(function (voiture) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: voiture && voiture.modele.nom
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: voiture && voiture.modele.constructeur.nom
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: voiture && voiture.kilometrage
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                children: voiture && voiture.prix
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    className: "mb-5",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "col-12",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "card p-3 m-5",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "card-body border p-0",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+              className: "btn btn-secondary w-100 h-100 d-flex align-items-center justify-content-between",
+              "data-bs-toggle": "collapse",
+              href: "#collapseExample",
+              role: "button",
+              "aria-expanded": "true",
+              "aria-controls": "collapseExample",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "fw-bold",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  id: "titre.collapse-profil"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                className: "fab fa-cc-paypal"
               })]
-            }, voiture.id);
-          })
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "collapse p-3 pt-0",
+            id: "collapseExample",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+              className: "row",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "m-5",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "prenom.form_inscription"
+                    }), " : "]
+                  }), profil.prenom]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "nom.form_inscription"
+                    }), " : "]
+                  }), profil.nom]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "anniversaire.form_inscription"
+                    }), " : "]
+                  }), profil.anniversaire]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "adresse.form_inscription"
+                    }), " : "]
+                  }), profil.anniversaire]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "ville.form_inscription"
+                    }), " : "]
+                  }), profil.adresse]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "telephone.form_inscription"
+                    }), " : "]
+                  }), profil.telephone]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                className: "container-detail-right-infos-wrap-left w-50 d-flex",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+                  className: "btn btn-reserver",
+                  to: "/app/modifier-profil/".concat(profil.id),
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    id: "btn.modifier-profil"
+                  })
+                })
+              })]
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+          className: "card-body border p-0 align-content-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("a", {
+              className: "btn btn-secondary p-2 w-100 h-100 d-flex align-items-center justify-content-between",
+              "data-bs-toggle": "collapse",
+              href: "#collapseExample",
+              role: "button",
+              "aria-expanded": "true",
+              "aria-controls": "collapseExample",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                className: "fw-bold",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  id: "titre.collapse-panier"
+                }), " ", panier ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                  children: ["  ", panier.length, " "]
+                }) : "est vide"]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+                className: "",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "fab fa-cc-amex"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "fab fa-cc-mastercard"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+                  className: "fab fa-cc-discover"
+                })]
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+            className: "collapse show p-3 pt-0",
+            id: "collapseExample",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "row",
+              children: panier ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                className: "my-4",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h2", {
+                  children: ["Panier : ", panier.length, " Voitures"]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                  className: "table",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        scope: "col",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          id: "voitureDetail.modele"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        scope: "col",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          id: "voitureDetail.constructeur"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        scope: "col",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          id: "voitureDetail.kilometrage"
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        scope: "col",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                          id: "ajout_voiture.form_label_prix"
+                        })
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                    children: panier.map(function (voiture) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: voiture && voiture.modele.nom
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: voiture && voiture.modele.constructeur.nom
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: voiture && voiture.kilometrage
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: voiture && voiture.prix
+                        })]
+                      }, voiture.id);
+                    })
+                  })]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "container-detail-right-infos-wrap-left w-50 d-flex",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("a", {
+                    href: "/app/nouvelle-commande",
+                    type: "button",
+                    className: "btn btn-reserver",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                      id: "panier.commander"
+                    })
+                  })
+                })]
+              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  id: "panier.vide"
+                })
+              })
+            })
+          })]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        className: "container-detail-right-infos-wrap-left w-50 d-flex",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
-          type: "button",
-          className: "btn btn-reserver",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_6__["default"], {
-            id: "panier.commander"
-          })
-        })
-      })]
-    })]
+      })
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ClientIndex);
@@ -16874,6 +17016,7 @@ var Connexion = function Connexion() {
                 } else {
                   var uInfo = res.data.data.utilisateurInfo;
                   localStorage.setItem("nomAuthed", uInfo.nomDeUtilisateur);
+                  localStorage.setItem("idAuthed", uInfo.idUtilisateur);
                   var token = res.data.data.token;
                   localStorage.setItem("tk", token);
                   login(uInfo.nomDeUtilisateur, uInfo.privilege);
@@ -17938,7 +18081,7 @@ var ModificationClient = function ModificationClient() {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
           className: "btn btn-primary m-3",
-          to: "/app/detail-profil/".concat(profil.id),
+          to: "/app/client-index",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_5__["default"], {
             id: "back.form_inscription"
           })
@@ -17966,7 +18109,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/dist/index.js");
 /* harmony import */ var react_intl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-intl */ "./node_modules/react-intl/lib/src/components/message.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
@@ -17996,52 +18138,56 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var NouvelleCommande = function NouvelleCommande() {
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useParams)(),
-    id = _useParams.id;
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    voiture = _useState2[0],
-    setVoiture = _useState2[1];
+    voitures = _useState2[0],
+    setVoitures = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _useState4 = _slicedToArray(_useState3, 2),
+    total = _useState4[0],
+    setTotal = _useState4[1];
   var getData = function getData() {
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/voiture/").concat(id)).then(function (res) {
-      setVoiture(res.data);
+    setVoitures(JSON.parse(localStorage.getItem('voitures')));
+    var paniers = JSON.parse(localStorage.getItem('voitures'));
+    var prixTotal = 0;
+    paniers.forEach(function (panier) {
+      prixTotal += panier.prix;
+      setTotal(prixTotal);
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     getData();
   }, []);
   var initialValues = {
-    expedition: '',
-    cardNumber: '',
-    dateExpiration: '',
-    cvvCode: '',
-    nom: '',
-    voitureId: "".concat(id)
+    expeditionId: '',
+    modePaiementId: '',
+    userId: localStorage.getItem('idAuthed'),
+    voitures: JSON.parse(localStorage.getItem('voitures'))
   };
   var validationSchema = yup__WEBPACK_IMPORTED_MODULE_3__.object({
-    expedition: yup__WEBPACK_IMPORTED_MODULE_3__.number().required('expedition.type-requierd'),
-    cardNumber: yup__WEBPACK_IMPORTED_MODULE_3__.string().matches(/([0-9]{16})/, 'paiement.carte-invalide').required('paiement.carte-requierd'),
-    nom: yup__WEBPACK_IMPORTED_MODULE_3__.string().required('nom.paiement-requierd'),
-    dateExpiration: yup__WEBPACK_IMPORTED_MODULE_3__.string().matches(/([0-9]{2})\/([0-9]{2})/, 'date.expiration-invalide').required('date.expiration-requierd'),
-    cvvCode: yup__WEBPACK_IMPORTED_MODULE_3__.string().matches(/([0-9]{3})/, 'code.format').required('cvv.requierd')
+    expeditionId: yup__WEBPACK_IMPORTED_MODULE_3__.string().required('expedition.type-requierd'),
+    modePaiementId: yup__WEBPACK_IMPORTED_MODULE_3__.string().required('expedition.type-requierd')
   });
   var onSubmit = function onSubmit(valeurs) {
+    console.log(valeurs);
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
       method: 'post',
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/commande"),
       data: valeurs
     }).then(function (res) {
+      //console.log(res.data);
       if (res.status == 200) {
         react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "commande_success"
         }), {
           position: react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.POSITION.TOP_CENTER
         });
-        setTimeout(function () {
-          navigate("/app/voiture/liste");
-        }, 3000);
       }
+      setTimeout(function () {
+        localStorage.removeItem('voitures');
+        navigate("/app/voiture/liste");
+      }, 3000);
     });
   };
   var formik = (0,formik__WEBPACK_IMPORTED_MODULE_2__.useFormik)({
@@ -18050,319 +18196,129 @@ var NouvelleCommande = function NouvelleCommande() {
     onSubmit: onSubmit
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    className: "container bg-light p-2",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_5__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: " m-5",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
-        className: "title-form font-weight-bold text-center m-4 p-3",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          id: "detail.titre-commande"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
-        className: "mb-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          id: "detail.voiture"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "voitureDetail.annee"
-          }), " : "]
-        }), voiture && voiture.date_arrivee]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "voitureDetail.modele"
-          }), " : "]
-        }), voiture && voiture.modele.nom]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "voitureDetail.constructeur"
-          }), " : "]
-        }), voiture && voiture.modele.constructeur.nom]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "ajout_voiture.form_label_prix"
-          }), " : "]
-        }), voiture && voiture.prix, " $"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "voitureDetail.transmission"
-          }), " : "]
-        }), voiture && voiture.transmission.type]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("strong", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-            id: "voitureDetail.carburant"
-          }), " : "]
-        }), voiture && voiture.carburant.type]
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      className: "col-12",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "card p-3 m-5",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "card-body border p-0",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
-              className: "btn btn-primary w-100 h-100 d-flex align-items-center justify-content-between",
-              "data-bs-toggle": "collapse",
-              href: "#collapseExample",
-              role: "button",
-              "aria-expanded": "true",
-              "aria-controls": "collapseExample",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                className: "fw-bold",
-                children: "PayPal"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                className: "fab fa-cc-paypal"
+    className: "container bg-light py-3 my-3",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_toastify__WEBPACK_IMPORTED_MODULE_5__.ToastContainer, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+      className: "title-form font-weight-bold text-center m-4 p-3",
+      children: "Detail de commande"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+        className: "font-weight-bold my-3",
+        children: "Liste de voitures"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "row row-cols-1 row-cols-md-2 g-4",
+        children: voitures.map(function (voiture) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            className: "col",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              className: "card",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+                src: "...",
+                className: "card-img-top",
+                alt: "..."
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                className: "card-body",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+                  className: "card-title",
+                  children: ["Prix : ", voiture.prix, " $"]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+                  className: "card-title",
+                  children: ["Modele : ", voiture && voiture.modele.nom]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+                  className: "card-title",
+                  children: ["Constructeur : ", voiture && voiture.modele.constructeur.nom]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+                  className: "card-title",
+                  children: ["Kilometrage : ", voiture && voiture.kilometrage]
+                })]
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "collapse p-3 pt-0",
-            id: "collapseExample",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-              className: "row",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                className: "col-8",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-                  className: "h4 mb-0",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                    id: "sommaire.commande"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                  className: "mb-0",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "fw-bold",
-                    children: "Product:"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "c-green",
-                    children: ": Name of product"
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                  className: "mb-0",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                    className: "fw-bold",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                      id: "prix.commande"
-                    }), " :"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "c-green",
-                    children: ":$452.90"
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-                  className: "mb-0",
-                  children: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque nihil neque quisquam aut repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab quis, iste harum ipsum hic, nemo qui!"
-                })]
-              })
-            })
+          }, voiture.id);
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      className: "container",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+        className: "font-weight-bold my-5",
+        children: "Prix total avec taxes"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+        className: "mt-2",
+        children: ["Total HT : ", total, " $"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+        className: "mt-2",
+        children: ["TPS - 5 %  = ", total * 0.05, "  $"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+        className: "mt-2",
+        children: ["TPQ - 9.975 %  = ", total * 0.09975, " $"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+        className: "mt-2",
+        children: ["TOTAL TAXES - 14.975 %  = ", total * 0.09975 + total * 0.05, " $"]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h5", {
+        className: "mt-2",
+        children: ["Total TTC = ", total * 0.09975 + total * 0.05 + total, "  $"]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+      className: "form  border-opacity-25 rounded my-5",
+      onSubmit: formik.handleSubmit,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        className: "row row-cols-1 row-cols-md-2 g-4 my-3",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "container",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+            className: "font-weight-bold my-3 text-center",
+            children: "Mode de paiement"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({
+            className: "form-select form-select-sm my-3",
+            "aria-label": ".form-select-sm example"
+          }, formik.getFieldProps('modePaiementId')), {}, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              children: "Choisir mode de paiement"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "1",
+              children: "Cash"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "2",
+              children: "Carte de credit"
+            })]
+          })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "text-danger",
+            children: formik.touched.modePaiementId && formik.errors.modePaiementId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              id: formik.errors.modePaiementId
+            }) : ''
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "card-body border p-0 align-content-center",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("a", {
-              className: "btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between",
-              "data-bs-toggle": "collapse",
-              href: "#collapseExample",
-              role: "button",
-              "aria-expanded": "true",
-              "aria-controls": "collapseExample",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                className: "fw-bold",
-                children: "Credit Card"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                className: "",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                  className: "fab fa-cc-amex"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                  className: "fab fa-cc-mastercard"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                  className: "fab fa-cc-discover"
-                })]
-              })]
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "collapse show p-3 pt-0",
-            id: "collapseExample",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-              className: "row",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                className: "col-lg-5 mb-lg-0 mb-3",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-                  className: "h4 mb-0",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                    id: "sommaire.commande"
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                  className: "mb-0",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                    className: "fw-bold",
-                    children: "Product : "
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                    className: "c-green",
-                    children: [" ", voiture && voiture.modele.nom, " , ", voiture && voiture.modele.constructeur.nom]
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
-                  className: "mb-0",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                    className: "fw-bold",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                      id: "prix.commande"
-                    }), " :"]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
-                    className: "c-green",
-                    children: ["  ", voiture && voiture.prix, " $"]
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-                  className: "mb-0",
-                  children: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque nihil neque quisquam aut repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab quis, iste harum ipsum hic, nemo qui!"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                className: "col-lg-7",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
-                  className: "form",
-                  onSubmit: formik.handleSubmit,
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("fieldset", {
-                    className: "border p-2",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("legend", {
-                      className: "w-auto float-none",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                        id: "legend.expedition"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                      className: "mb-3",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({
-                        className: "form-select"
-                      }, formik.getFieldProps('expedition')), {}, {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                          children: "Choisir"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                          value: "1",
-                          children: "Chez vous !"
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                          value: "2",
-                          children: "En magazin"
-                        })]
-                      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                        className: "text-danger",
-                        children: formik.touched.expedition && formik.errors.expedition ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                          id: formik.errors.expedition
-                        }) : ''
-                      })]
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("fieldset", {
-                    className: "border p-2",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("legend", {
-                      className: "w-auto float-none",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                        id: "legend.paiement"
-                      })
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                      className: "row mt-2",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                        className: "text-danger",
-                        children: formik.touched.cardNumber && formik.errors.cardNumber ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                          id: formik.errors.cardNumber
-                        }) : ''
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                        className: "col-12",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                          className: "form__div",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread({
-                            type: "text",
-                            className: "form-control",
-                            placeholder: " "
-                          }, formik.getFieldProps('cardNumber'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                            htmlFor: "cardNumber",
-                            className: "form__label",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                              id: "numero.carte"
-                            })
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                        className: "text-danger",
-                        children: formik.touched.dateExpiration && formik.errors.dateExpiration ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                          id: formik.errors.dateExpiration
-                        }) : ''
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                        className: "col-6",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                          className: "form__div",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread({
-                            type: "text",
-                            className: "form-control"
-                          }, formik.getFieldProps('dateExpiration'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                            htmlFor: "",
-                            className: "form__label",
-                            children: "MM / yy"
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                        className: "text-danger",
-                        children: formik.touched.cvvCode && formik.errors.cvvCode ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                          id: formik.errors.cvvCode
-                        }) : ''
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                        className: "col-6",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                          className: "form__div",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread({
-                            type: "password",
-                            className: "form-control"
-                          }, formik.getFieldProps('cvvCode'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                            htmlFor: "",
-                            className: "form__label",
-                            children: "cvv code"
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
-                        className: "text-danger",
-                        children: formik.touched.nom && formik.errors.nom ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                          id: formik.errors.nom
-                        }) : ''
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                        className: "col-12",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                          className: "form__div",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", _objectSpread({
-                            type: "text",
-                            className: "form-control"
-                          }, formik.getFieldProps('nom'))), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                            htmlFor: "",
-                            className: "form__label",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                              id: "nom.carte"
-                            })
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                        className: "col-12 mt-4",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
-                          type: "submit",
-                          className: "btn btn-primary",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                            id: "btn.submit-paiement"
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
-                          className: "btn btn-primary m-3",
-                          to: "/app",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
-                            id: "register.form_bt_retour"
-                          })
-                        })]
-                      })]
-                    })]
-                  })]
-                })
-              })]
-            })
+          className: "container",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h2", {
+            className: "font-weight-bold my-3 text-center",
+            children: "Mode de livraison"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", _objectSpread(_objectSpread({
+            className: "form-select form-select-sm my-3",
+            "aria-label": ".form-select-sm example"
+          }, formik.getFieldProps('expeditionId')), {}, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              children: "Choisir mode de livraison"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "1",
+              children: "A votre adresse"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+              value: "2",
+              children: "En magazin"
+            })]
+          })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "text-danger",
+            children: formik.touched.expeditionId && formik.errors.expeditionId ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
+              id: formik.errors.expeditionId
+            }) : ''
           })]
         })]
-      })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        className: "container my-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+          type: "submit",
+          className: "btn btn-outline-primary",
+          children: "Valider"
+        })
+      })]
     })]
   });
 };
@@ -98078,7 +98034,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type","voitureDetail.panier":"Add to Cart","panier.commander":"To order"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find your next pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type","voitureDetail.panier":"Add to Cart","panier.commander":"To order","ajout_panier_success":"Car added to cart","titre.collapse-profil":"Details of your account","titre.collapse-panier":"Cart","panier.vide":"Empty","btn.modifier-profil":"Edit your profil"}');
 
 /***/ }),
 
@@ -98089,7 +98045,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant","voitureDetail.panier":"Ajouter au panier","panier.commander":"Passer la commande"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver votre prochain véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant","voitureDetail.panier":"Ajouter au panier","panier.commander":"Passer la commande","ajout_panier_success":"Voiture ajouter au panier","titre.collapse-profil":"Détail de votre compte","titre.collapse-panier":"Panier","panier.vide":"Vide","btn.modifier-profil":"Modifier votre Profil"}');
 
 /***/ })
 
