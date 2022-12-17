@@ -122,5 +122,10 @@
     "voiture.form_carburantId_required" :  "Veuillez choisir un type de carburant",
     "voitureDetail.panier" : "Ajouter au panier",
     "panier.commander" : "Passer la commande",
-    "ajout_panier_success" : "Voiture ajouter au panier"
+    "ajout_panier_success" : "Voiture ajouter au panier",
+    "titre.collapse-profil" : "Détail de votre compte",
+    "titre.collapse-panier" : "Panier",
+    "panier.vide" : "Vide",
+    "btn.modifier-profil" : "Modifier votre Profil"
+
 }

@@ -122,5 +122,9 @@
     "voiture.form_carburantId_required" :  "Please choose a fuel type",
     "voitureDetail.panier" : "Add to Cart",
     "panier.commander" : "To order",
-    "ajout_panier_success" : "Car added to cart"
+    "ajout_panier_success" : "Car added to cart",
+    "titre.collapse-profil" : "Details of your account",
+    "titre.collapse-panier" : "Cart",
+    "panier.vide" : "Empty",
+    "btn.modifier-profil" : "Edit your profil"
 }

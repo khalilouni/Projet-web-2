@@ -162,4 +162,13 @@ class ProfilController extends ApiController
 
 
     }
+
+
+    public function getProfilByUserId ($userId) {
+
+            $profil = Profil::where('userId', $userId)->get();
+            return response()->json($profil);
+
+    }
+
 }

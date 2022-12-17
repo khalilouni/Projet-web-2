@@ -156,7 +156,7 @@ const ModificationClient = () => {
                 </div>
                 <div className="mb-3 ">
                     <button type="submit" className="btn btn-primary"><FormattedMessage id="modifier.form_inscription"/></button>
-                    <Link className='btn btn-primary m-3' to={`/app/detail-profil/${profil.id}`}><FormattedMessage id="back.form_inscription"/></Link>
+                    <Link className='btn btn-primary m-3' to={`/app/client-index`}><FormattedMessage id="back.form_inscription"/></Link>
                 </div>
 
             </form>
