@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v1'], function() {
 Route::post('v1/register', [AuthController::class,'inscrire'])->name('inscrire');
 Route::post('v1/login', [AuthController::class,'login'])->name('login');
 Route::get('v1/user', [AuthController::class,'utilisateur'])->name('utilisateur');
+Route::get('v1/profil-userId/{id}', [ProfilController::class,'getProfilByUserId'])->name('profil.userId');
 Route::post('v1/inscription-client', [ProfilController::class,'store'])->name('inscrire.client');
 
 Route::get('v1/modeles/{id}', [ModeleController::class,'modelesListe'])->name('modeles.liste');
