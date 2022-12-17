@@ -6,14 +6,20 @@ import axios from 'axios'
 
 const ListeVoitures = () => {
 
-    const [voitures, setVoitures] = useState([])
+    let voituresInitiales = JSON.parse(localStorage.getItem('voituresInitiales'))
+    if(voituresInitiales) {
+        voituresInitiales=JSON.parse(localStorage.getItem('voituresInitiales'))
+    }
+    const [voitures, setVoitures] = useState(voituresInitiales)
     const [selectConstructeurs, setSelectConstructeurs] = useState([])
 
     useEffect(() => {
         const getVoitures = async () => {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
-            const data = await res.json()
-            setVoitures(await data)
+            if(!voituresInitiales) {
+                const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+                const data = await res.json()
+                setVoitures(await data)
+            }
         }
         getVoitures()
     }, [])
@@ -44,7 +50,7 @@ const ListeVoitures = () => {
                     <div className="col">
                         <div className="row">
                             {
-                                voitures.length?
+                                voitures?
                                 voitures.map((voiture) => (
                                 <div className="col" key={voiture.id}>
                                     <CardVoiture voiture={voiture}/>

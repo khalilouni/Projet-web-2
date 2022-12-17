@@ -12,6 +12,12 @@ import logo from './img/logo.svg';
 const Header = () => {
     const context = useContext(Context);
     const {authed,nomAuthed,logout, privilege} = Auth()
+    const effacerStorgage = ()=> {
+        if(localStorage.getItem('voituresInitiales')) {
+            localStorage.removeItem('voituresInitiales')
+        }
+    }
+
     return (
         <header>
             <nav className="navbar navbar-expand-lg bg-light navbar-style">
@@ -26,7 +32,7 @@ const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse nav-spacing" id="navbarNavDropdown">
                         <ul className="navbar-nav">
-                            {privilege && (privilege == 1 || privilege == 2) && 
+                            {privilege && (privilege == 1 || privilege == 2) &&
                                 (<li className="nav-item">
                                     <Link className="nav-link active" to="/crm"><FormattedMessage id="header.crm"/></Link>
                                 </li>)
@@ -35,8 +41,9 @@ const Header = () => {
                                 <Link className="nav-link active" to="/app"><FormattedMessage id="header.accueil"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page"
-                                      to="/app/voiture/liste"><FormattedMessage id="header.voitures"/></Link>
+                                <Link className="nav-link active" aria-current="page" to="/app/voiture/liste">
+                                     <span onClick={()=>effacerStorgage()}><FormattedMessage id="header.voitures"/></span>
+                                </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page"
