@@ -126,6 +126,8 @@
     "titre.collapse-profil" : "Détail de votre compte",
     "titre.collapse-panier" : "Panier",
     "panier.vide" : "Vide",
-    "btn.modifier-profil" : "Modifier votre Profil"
+    "btn.modifier-profil" : "Modifier votre Profil",
+    "statut.1": "Vendue",
+    "statut.2": "Reservée"
 
 }

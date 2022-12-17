@@ -38,7 +38,7 @@ const Header = () => {
                                       to="/crm/ajout-voiture"><FormattedMessage id="crmHeader.ajouter.voiture"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active text-white" to="/crm"><FormattedMessage id="crmHeader.journal.connexion"/></Link>
+                                <Link className="nav-link active text-white" to="/crm/journal-connexion"><FormattedMessage id="crmHeader.journal.connexion"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" to="/crm"><FormattedMessage id="crmHeader.gestion.employés"/></Link>

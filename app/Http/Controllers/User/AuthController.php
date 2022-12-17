@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
+use App\Models\Journal_connexion;
 use App\Models\User;
 use App\Models\Profil;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class AuthController extends ApiController
 {
@@ -123,10 +125,16 @@ class AuthController extends ApiController
         //Vérifier que le profil de l'utilisateur existe
         $profil = $this->obtenirParIdDeUtilisateur($utilisateur->id);
         $hasProfil = false;
-        if (!is_null($profil)) {
+        if (!is_null($profil) || $utilisateur->privilegeId == 1) {
           $hasProfil = true;
         }
 
+        //créer un enregistrement de connexion
+        $connexion = new Journal_connexion;
+        $connexion->ip = $request->getClientIp();
+        $connexion->date = Carbon::now();
+        $connexion->userId = $utilisateur->id;
+        $connexion->save();
 
         //Les données utilisateur sont assemblées et renvoyées
         return response()->json([

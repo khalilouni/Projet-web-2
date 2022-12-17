@@ -21,6 +21,7 @@ import AjoutVoiture from "../pages/register/AjoutVoiture";
 import NouvelleCommande from "../pages/register/PasserCommande";
 import NouvellePhoto from "../pages/register/UploadPhoto";
 import {AuthProvider, RequireAuth} from '../route/Auth.js'
+import Journal from "../pages/crm/Journal";
 
 function App() {
     return (
@@ -73,6 +74,7 @@ function App() {
                     <Route index element={<CrmHome/>}/>
                     <Route path="/crm/home" element={<CrmHome/>}/>
                     <Route path="/crm/ajout-voiture" element={<AjoutVoiture />} />
+                    <Route path="/crm/journal-connexion" element={<Journal />} />
                     <Route path="/crm/*" element={<CrmHome/>}/>
                 </Route>
 
