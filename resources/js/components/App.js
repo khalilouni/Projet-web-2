@@ -39,7 +39,11 @@ function App() {
                     {/* upload photo toujours en test */}
                     <Route path="/app/upload-photo" element={<NouvellePhoto />}/>
 
-                    <Route path="/app/nouvelle-commande/:id" element={<NouvelleCommande />}/>
+                    <Route path="/app/nouvelle-commande" element={
+                    
+                        <NouvelleCommande />
+                        
+                    }/>
 
                     <Route path="/app/inscription-client/:id" element={
                         <RequireAuth>
