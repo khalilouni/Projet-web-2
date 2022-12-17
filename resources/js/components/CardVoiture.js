@@ -1,17 +1,20 @@
 import { Link } from 'react-router-dom'
+import {FormattedMessage} from "react-intl";
 
 /* css */
 import '../../css/cardsVoiture.css';
 
 const CardVoiture = ({size, width, height,voiture}) => {
 
-    const photo = voiture.photos.filter(photo => photo.primaire === 1)[0];
+    const photo = voiture.photos.filter(photo => photo.primaire === 1)[0]
+    const statut = voiture.statutId
+    const statutIntl = `statut.${statut}`
     console.log(voiture)
 
     return(
-        <div className="card px-0" style={{ width: width, height: height}}>
+        <div className="card px-0" style={{ width: width, height: height,opacity:(statut===3)?1:0.5}}>
 
-             <Link className="text-decoration-none"  to={`/app/voiture/${voiture.id}`}>
+             <Link className="text-decoration-none"  to={`/app/voiture/${voiture.id}`} style={{pointerEvents:(statut===3)?'auto':'none'}}>
                     <img src={`/storage/${photo.path}`} style={{ width: size}} alt="Voiture blanche" />
                     <div className="card-body">
                         <h5 className="card-title fw-bold card-font">{voiture.modele.constructeur.nom}  - {voiture.modele.nom}</h5>
@@ -19,6 +22,7 @@ const CardVoiture = ({size, width, height,voiture}) => {
                             <p className="">{voiture.kilometrage}km</p>
                             <p className="fw-bold fs-4">{voiture.prix} $</p>
                         </div>
+                        {statut===3?'': <span className="badge rounded-pill text-bg-warning"><FormattedMessage id={statutIntl}/></span>}
                     </div>
              </Link>
 

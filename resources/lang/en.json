@@ -126,5 +126,7 @@
     "titre.collapse-profil" : "Details of your account",
     "titre.collapse-panier" : "Cart",
     "panier.vide" : "Empty",
-    "btn.modifier-profil" : "Edit your profil"
+    "btn.modifier-profil" : "Edit your profil",
+    "statut.1": "Sold",
+    "statut.2": "Reserved"
 }
