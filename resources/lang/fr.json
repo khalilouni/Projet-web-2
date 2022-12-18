@@ -140,6 +140,7 @@
     "option.carte" : "Par carte",
     "expedition.titre" : "Expedition",
     "expedition.adresse" : "Chez vous",
-    "expedition.magazin" : "En magasin"
+    "expedition.magazin" : "En magasin",
+    "vider.panier" : "Vider panier"
 
 }

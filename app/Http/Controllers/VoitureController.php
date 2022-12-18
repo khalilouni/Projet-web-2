@@ -165,4 +165,21 @@ class VoitureController extends Controller
         $voiture->delete();
         return response()->json('voiture supprimer');
     }
+
+    public function reserverVoiture ($id) {
+
+        
+        $voiture = Voiture::where('id', $id)->get();
+        $voiture[0]->update([
+            'statutId' => 2
+        ]);
+        return response()->json([
+            'voiture' => $voiture,
+            'message' => 'voiture reserver avec succes'
+        ], 200);
+
+
+    }
+
+
 }

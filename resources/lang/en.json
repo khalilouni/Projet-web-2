@@ -140,5 +140,6 @@
     "option.carte" : "By card",
     "expedition.titre" : "Shipping",
     "expedition.adresse" : "At home",
-    "expedition.magazin" : "At the store"
+    "expedition.magazin" : "At the store",
+    "vider.panier" : "Empty cart"
 }
