@@ -26,7 +26,8 @@ const ModificationClient = () => {
         axios.get(`${URL}/api/v1/profil/${id}`)
         .then(res => {
             setProfil(res.data[0]);
-            
+            //console.log(res.data);
+
         })
 
     };
@@ -35,7 +36,7 @@ const ModificationClient = () => {
         axios.get(`${URL}/api/v1/ville`)
         .then(res => {
             setVilles(res.data)
-            
+            //console.log(res.data);
         })
     };
 
