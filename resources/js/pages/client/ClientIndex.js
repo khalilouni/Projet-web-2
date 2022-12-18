@@ -12,14 +12,43 @@ const ClientIndex = ( ) => {
     const {nomAuthed} = Auth();
     const [panier, setPanier] = useState([]); 
     const [profil, setProfil] = useState({});
+    const [reservations, setReservations] = useState([]);
 
     axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("tk");
+    
+
+    const reserverToPanier = () => {
+
+        let reserve = JSON.parse(localStorage.getItem('reservations'));
+        
+        if (localStorage.voitures) {
+
+            let voitures = JSON.parse(localStorage.getItem('voitures'));
+            let panierNouveau = reserve.concat(voitures);
+            localStorage.setItem('voitures', JSON.stringify(panierNouveau));
+            localStorage.removeItem('reservations');
+            
+        }
+        else {
+
+            localStorage.setItem('voitures', JSON.stringify(reserve));
+            localStorage.removeItem('reservations');
+            
+        }
+
+        location.reload();
+    }
+
+
 
     const getPanier = () => {
         setPanier(JSON.parse(localStorage.getItem('voitures')));
+        setReservations(JSON.parse(localStorage.getItem('reservations')))
     }
-    const getProfil = () => {
 
+
+
+    const getProfil = () => {
         let userId = JSON.parse(localStorage.getItem('idAuthed'));
         
         
@@ -27,7 +56,7 @@ const ClientIndex = ( ) => {
             url: `${URL}/api/v1/profil-userId/${userId}`
         })
             .then((response) => {
-                //console.log(response.data[0]);
+
                 setProfil(response.data[0]);
         })
     }
@@ -35,12 +64,6 @@ const ClientIndex = ( ) => {
     useEffect(() => {
         getProfil();
         getPanier();
-        axios({
-            url: `${URL}/api/v1/user`,
-        })
-            .then(res => {
-                console.log(res.data)
-            })
     },[])
 
     return(
@@ -89,7 +112,7 @@ const ClientIndex = ( ) => {
                         <div className="collapse show p-3 pt-0" id="collapseExample">
                             <div className="row">
                                 {panier ? <div className="my-4">
-                                        <h2>Panier : {panier.length} Voitures</h2>
+                                        <h2>{panier.length} Voitures</h2>
                                         <table className="table">
                                             <thead>
                                             
@@ -115,6 +138,53 @@ const ClientIndex = ( ) => {
                                             <a href="/app/nouvelle-commande" type="button"  className="btn btn-reserver">
                                                 <FormattedMessage id="panier.commander"/>
                                             </a>
+                                        </div>
+                                </div> : <h3><FormattedMessage id="panier.vide" /></h3>} 
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-body border p-0 align-content-center">
+                        <p>
+                            <a className="btn btn-secondary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                                aria-controls="collapseExample">
+                                <span className="fw-bold"><FormattedMessage id="titre.collapse-reservation" /> {reservations ? <span>  {reservations.length} </span> : "est vide" }</span>
+                                <span className="">
+                                    <span className="fab fa-cc-amex"></span>
+                                    <span className="fab fa-cc-mastercard"></span>
+                                    <span className="fab fa-cc-discover"></span>
+                                </span>
+                            </a>
+                        </p>
+                        <div className="collapse show p-3 pt-0" id="collapseExample">
+                            <div className="row">
+                                {reservations ? <div className="my-4">
+                                        <h2>{reservations.length} Voitures</h2>
+                                        <table className="table">
+                                            <thead>
+                                            
+                                                <tr>
+                                                    <th scope="col"><FormattedMessage id="voitureDetail.modele" /></th>
+                                                    <th scope="col"><FormattedMessage id="voitureDetail.constructeur" /></th>
+                                                    <th scope="col"><FormattedMessage id="voitureDetail.kilometrage" /></th>
+                                                    <th scope="col"><FormattedMessage id="ajout_voiture.form_label_prix" /></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    {reservations.map((voiture) => 
+                                                        <tr key={voiture.id}>
+                                                            <td>{voiture && voiture.modele.nom}</td>
+                                                            <td>{voiture && voiture.modele.constructeur.nom}</td>
+                                                            <td>{voiture && voiture.kilometrage}</td>
+                                                            <td>{voiture && voiture.prix}</td>
+                                                        </tr>
+                                                    )}
+                                            </tbody>
+                                        </table>
+                                        <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
+                                            <button type="button" onClick={reserverToPanier} className="btn btn-reserver">
+                                                <FormattedMessage id="voitureDetail.panier"/>
+                                            </button>
                                         </div>
                                 </div> : <h3><FormattedMessage id="panier.vide" /></h3>} 
                             </div>
