@@ -13,10 +13,21 @@ const ClientIndex = ( ) => {
     const [panier, setPanier] = useState([]); 
     const [profil, setProfil] = useState({});
     const [reservations, setReservations] = useState([]);
+    const token = localStorage.getItem('tk');
 
+
+    
     axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("tk");
     
 
+    const viderPanier = () => {
+
+       
+        localStorage.removeItem('voitures');
+        setPanier([]);
+        
+
+    }
     const reserverToPanier = () => {
 
         let reserve = JSON.parse(localStorage.getItem('reservations'));
@@ -26,17 +37,18 @@ const ClientIndex = ( ) => {
             let voitures = JSON.parse(localStorage.getItem('voitures'));
             let panierNouveau = reserve.concat(voitures);
             localStorage.setItem('voitures', JSON.stringify(panierNouveau));
-            localStorage.removeItem('reservations');
+            setPanier(JSON.parse(localStorage.getItem('voitures')));
             
         }
         else {
 
             localStorage.setItem('voitures', JSON.stringify(reserve));
-            localStorage.removeItem('reservations');
-            
+            setPanier(JSON.parse(localStorage.getItem('voitures')));
         }
+        localStorage.removeItem('reservations');
+        setReservations([]);
 
-        location.reload();
+        
     }
 
 
@@ -138,7 +150,11 @@ const ClientIndex = ( ) => {
                                             <a href="/app/nouvelle-commande" type="button"  className="btn btn-reserver">
                                                 <FormattedMessage id="panier.commander"/>
                                             </a>
+                                            <button type="button" onClick={viderPanier} className="btn btn-outline-danger mx-3">
+                                                <FormattedMessage id="vider.panier"/>
+                                            </button>
                                         </div>
+                                        
                                 </div> : <h3><FormattedMessage id="panier.vide" /></h3>} 
                             </div>
                         </div>
@@ -148,7 +164,7 @@ const ClientIndex = ( ) => {
                             <a className="btn btn-secondary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
                                 data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
                                 aria-controls="collapseExample">
-                                <span className="fw-bold"><FormattedMessage id="titre.collapse-reservation" /> {reservations ? <span>  {reservations.length} </span> : "est vide" }</span>
+                                <span className="fw-bold"><FormattedMessage id="titre.collapse-reservation" /> {reservations ? <span>  {reservations.length} </span> : "" }</span>
                                 <span className="">
                                     <span className="fab fa-cc-amex"></span>
                                     <span className="fab fa-cc-mastercard"></span>

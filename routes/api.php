@@ -47,6 +47,7 @@ Route::post('v1/inscription-client', [ProfilController::class,'store'])->name('i
 
 Route::get('v1/modeles/{id}', [ModeleController::class,'modelesListe'])->name('modeles.liste');
 Route::post('v1/filtre', [VoitureController::class,'filtre'])->name('filtre');
+Route::post('v1/voiture-reserver/{id}', [VoitureController::class,'reserverVoiture'])->name('voiture.reserver');
 Route::get('v1/crm/journal', [JournalController::class,'index'])->name('index');
 
 

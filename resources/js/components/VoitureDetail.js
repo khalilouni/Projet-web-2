@@ -5,11 +5,13 @@ import { FormattedMessage } from 'react-intl';
 /* css */
 import '../../css/voitureDetail.css';
 
+
 /* import image statique pour test rendu affichage*/
 import test from './img/voiture-test.jpg'
 import { ToastContainer, toast } from 'react-toastify';
 
 import {URL} from "../constantes";
+import axios from 'axios';
 
 
 const VoitureDetail = () => {
@@ -32,9 +34,19 @@ const VoitureDetail = () => {
             panier.push(voiture);
             localStorage.setItem(`reservations`, JSON.stringify(panier));
         }
+
+        axios({
+            method: 'post',
+            url: `${URL}/api/v1/voiture-reserver/${voiture.id}`
+        }).then(res => {
+            console.log(res.data);
+        })
         toast.success(<FormattedMessage id={"reservation_success"} /> , {
             position: toast.POSITION.TOP_CENTER
         });
+        setTimeout(() => {
+            navigate("/app/client-index")
+        }, 2000);
         
     }
 
@@ -69,6 +81,7 @@ const VoitureDetail = () => {
     }
 
     const getData = async () => {
+
         const { data } = await axios.get(`${URL}/api/v1/voiture/${id}`);
         setVoiture(data);
         
