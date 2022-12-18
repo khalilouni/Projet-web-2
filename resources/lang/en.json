@@ -130,5 +130,15 @@
     "statut.1": "Sold",
     "statut.2": "Reserved",
     "reservation_success" : "Reserved",
-    "titre.collapse-reservation" : "Reserve"
+    "titre.collapse-reservation" : "Reserve",
+    "commande.title" : "Order details",
+    "voiture.liste" : "Car lists",
+    "calcul.taxe" : "Price with tax",
+    "paiement.titre" : "Payment method",
+    "select.paiement" : "Choose an option",
+    "option.cash" : "In cash",
+    "option.carte" : "By card",
+    "expedition.titre" : "Shipping",
+    "expedition.adresse" : "At home",
+    "expedition.magazin" : "At the store"
 }

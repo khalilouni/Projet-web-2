@@ -82,9 +82,9 @@ return (
 
     <div className='container bg-light py-3 my-3'>
         <ToastContainer />
-        <h1 className='title-form font-weight-bold text-center m-4 p-3'>Detail de commande</h1>
+        <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id={"commande.title"}/></h1>
         <div className="container">
-            <h2 className='font-weight-bold my-3'>Liste de voitures</h2>
+            <h2 className='font-weight-bold my-3'><FormattedMessage id={"voiture.liste"}/></h2>
             
             <div className="row row-cols-1 row-cols-md-2 g-4">
                 {voitures.map((voiture) => (
@@ -99,7 +99,7 @@ return (
         
         
         <div className="container">
-            <h2 className='font-weight-bold my-5'>Prix total avec taxes</h2>
+            <h2 className='font-weight-bold my-5'><FormattedMessage id={"calcul.taxe"}/></h2>
             <h5 className="mt-2">Total HT : {total} $</h5>
             <h5 className="mt-2">TPS - 5 %  = {total * 0.05}  $</h5>
             <h5 className="mt-2">TPQ - 9.975 %  = {total * 0.09975} $</h5>
@@ -111,7 +111,7 @@ return (
             <div className='row row-cols-1 row-cols-md-2 g-4 my-3'>
                 
                 <div className="container">
-                    <h2 className='font-weight-bold my-3 text-center'>Mode de paiement</h2>
+                    <h2 className='font-weight-bold my-3 text-center'><FormattedMessage id={"paiement.titre"}/></h2>
                     <select className="form-select form-select-sm my-3" 
                     aria-label=".form-select-sm example" 
                     {...formik.getFieldProps('modePaiementId')}
@@ -124,7 +124,7 @@ return (
                             <FormattedMessage id={formik.errors.modePaiementId}/> : ''}</span>
                 </div>
                 <div className="container">
-                    <h2 className='font-weight-bold my-3 text-center'>Mode de livraison</h2>
+                    <h2 className='font-weight-bold my-3 text-center'><FormattedMessage id="expedition.titre"/></h2>
                     <select className="form-select form-select-sm my-3" 
                     aria-label=".form-select-sm example"
                     {...formik.getFieldProps('expeditionId')}
@@ -139,7 +139,7 @@ return (
             </div>
             <div className='container my-4'>
                 <button type="submit" className="btn btn-outline-primary">
-                    Valider
+                    <FormattedMessage id="confirmer.form_inscription"/>
                 </button>
             </div>
         </form>
