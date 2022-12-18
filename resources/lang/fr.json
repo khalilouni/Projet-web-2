@@ -130,6 +130,16 @@
     "statut.1": "Vendue",
     "statut.2": "Reservée",
     "reservation_success" : "Reservée",
-    "titre.collapse-reservation" : "Reserver"
+    "titre.collapse-reservation" : "Reserver",
+    "commande.title" : "Detail de commande",
+    "voiture.liste" : "Listes voitures",
+    "calcul.taxe" : "Prix avec taxes",
+    "paiement.titre" : "Mode de paiement",
+    "select.paiement" : "Choisissez une option",
+    "option.cash" : "En espèce",
+    "option.carte" : "Par carte",
+    "expedition.titre" : "Expedition",
+    "expedition.adresse" : "Chez vous",
+    "expedition.magazin" : "En magasin"
 
 }
