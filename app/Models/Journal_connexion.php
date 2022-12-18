@@ -21,4 +21,5 @@ class Journal_connexion extends Model
     ];
 
 
+
 }

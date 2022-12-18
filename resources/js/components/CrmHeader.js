@@ -31,7 +31,7 @@ const Header = () => {
                             </li>
                             <li className="nav-item font-crm">
                                 <Link className="nav-link active text-white" aria-current="page"
-                                      to="/app/voiture/liste"><FormattedMessage id="crmHeader.nos.voitures"/></Link>
+                                      to="/crm/voiture/liste"><FormattedMessage id="crmHeader.nos.voitures"/></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" aria-current="page"

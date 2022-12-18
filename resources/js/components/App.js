@@ -22,6 +22,9 @@ import NouvelleCommande from "../pages/register/PasserCommande";
 import NouvellePhoto from "../pages/register/UploadPhoto";
 import {AuthProvider, RequireAuth} from '../route/Auth.js'
 import Journal from "../pages/crm/Journal";
+import CrmListeVoitures from "../components/CrmListeVoitures";
+import CrmVoitureDetail from './CrmVoitureDetail';
+import ModifierVoiture from '../pages/register/ModifierVoiture';
 
 function App() {
     return (
@@ -78,6 +81,22 @@ function App() {
                             <AjoutVoiture />
                         </RequireAuth>
                     } />
+                    <Route path="/crm/voiture/liste" element={
+                        <RequireAuth>
+                            <CrmListeVoitures />
+                        </RequireAuth>
+                    } />
+
+                    <Route path="/crm/voiture/:id" element={
+                        <RequireAuth>
+                            <CrmVoitureDetail/>
+                        </RequireAuth>
+                    }/>
+                    <Route path="/crm/modifier-voiture/:id" element={
+                        <RequireAuth>
+                            <ModifierVoiture/>
+                        </RequireAuth>
+                    }/>
                     <Route path="/crm/journal-connexion" element={
                         <RequireAuth>
                             <Journal />

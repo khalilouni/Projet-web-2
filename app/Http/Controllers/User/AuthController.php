@@ -132,7 +132,7 @@ class AuthController extends ApiController
         //créer un enregistrement de connexion
         $connexion = new Journal_connexion;
         $connexion->ip = $request->getClientIp();
-        $connexion->date = Carbon::now();
+        $connexion->date = Carbon::now('America/Toronto')->toDateTimeString();
         $connexion->userId = $utilisateur->id;
         $connexion->save();
 

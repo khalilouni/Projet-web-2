@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Modele;
 use App\Models\Voiture;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 
 class VoitureController extends Controller
@@ -162,6 +163,7 @@ class VoitureController extends Controller
      */
     public function destroy(Voiture $voiture)
     {
+        Photo::where('voitureId', $voiture->id)->delete();
         $voiture->delete();
         return response()->json('voiture supprimer');
     }
