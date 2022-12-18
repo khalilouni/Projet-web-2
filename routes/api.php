@@ -49,6 +49,7 @@ Route::get('v1/modeles/{id}', [ModeleController::class,'modelesListe'])->name('m
 Route::post('v1/filtre', [VoitureController::class,'filtre'])->name('filtre');
 Route::post('v1/voiture-reserver/{id}', [VoitureController::class,'reserverVoiture'])->name('voiture.reserver');
 Route::get('v1/crm/journal', [JournalController::class,'index'])->name('index');
+Route::post('v1/ajout-photo', [PhotoController::class,'uploadPhoto'])->name('photo');
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PhotoController extends Controller
 {
@@ -14,7 +15,8 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        //
+        $photos = Photo::all();
+        return response()->json(["status" => "success", "count" => count($photos), "data" => $photos]);
     }
 
     /**
@@ -88,5 +90,50 @@ class PhotoController extends Controller
     public function destroy(Photo $photo)
     {
         //
+    }
+
+    /**
+     * Upload Photo
+     * @param $request
+     * @return JSON response
+     */
+    public function uploadPhoto(Request $request)
+    {
+        $photosName = [];
+        $response = [];
+ 
+        $validator = Validator::make($request->all(),
+            [
+                'photos' => 'required',
+                'photos.*' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
+            ]
+        );
+ 
+        if($validator->fails()) {
+            return response()->json(["status" => "failed", "message" => "Validation error", "errors" => $validator->errors()]);
+        }
+ 
+        if($request->has('photos')) {
+            foreach($request->file('photos') as $photo) {
+                $filename = $photo->getClientOriginalName();
+                $photo->storeAs('/', $filename, 'public');
+
+                Photo::create([
+                    'path' => $filename,
+                    'primaire' => 0,
+                    'voitureId' => 1
+                ]);
+            }
+ 
+            $response["status"] = "successs";
+            $response["message"] = "Success! image(s) uploaded";
+        }
+ 
+        else {
+            $response["status"] = "failed";
+            $response["message"] = "Failed! image(s) not uploaded";
+        }
+
+        return response()->json($response);
     }
 }

@@ -144,5 +144,7 @@
     "expedition.titre" : "Shipping",
     "expedition.adresse" : "At home",
     "expedition.magazin" : "At the store",
-    "vider.panier" : "Empty cart"
+    "vider.panier" : "Empty cart",
+    "ajout_photo.bouton_ajout" : "Upload",
+    "ajout_photo.form_titre" : "Add photos"
 }
