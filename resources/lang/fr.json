@@ -128,6 +128,8 @@
     "panier.vide" : "Vide",
     "btn.modifier-profil" : "Modifier votre Profil",
     "statut.1": "Vendue",
-    "statut.2": "Reservée"
+    "statut.2": "Reservée",
+    "reservation_success" : "Reservée",
+    "titre.collapse-reservation" : "Reserver"
 
 }

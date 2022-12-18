@@ -20,6 +20,24 @@ const VoitureDetail = () => {
     const [imagePrimaire, setImagePrimaire] = useState();
     const [imageSecondaires, setImageSecondaires] = useState();
     
+    const ajoutReservation = () => {
+
+        if (localStorage.reservations) {
+            let panier = JSON.parse(localStorage.getItem('reservations'));
+            panier = panier.filter(voiturePanier => voiturePanier.id != voiture.id);
+            panier.push(voiture);
+            localStorage.setItem(`reservations`, JSON.stringify(panier));
+        }else {
+            let panier = [];
+            panier.push(voiture);
+            localStorage.setItem(`reservations`, JSON.stringify(panier));
+        }
+        toast.success(<FormattedMessage id={"reservation_success"} /> , {
+            position: toast.POSITION.TOP_CENTER
+        });
+        
+    }
+
 
     const ajoutPanier = () => {
 
@@ -33,7 +51,7 @@ const VoitureDetail = () => {
             
         }else {
 
-            console.log('vide');
+            
             let panier = [];
             panier.push(voiture);
             localStorage.setItem(`voitures`, JSON.stringify(panier));
@@ -179,7 +197,7 @@ const VoitureDetail = () => {
                         <div className='container-detail-right-infos-wrap w-100 p-3 d-flex justify-content-between'>
 
                             <div className='container-detail-right-infos-wrap-left w-50 d-flex'>
-                                <button type="button" className="btn btn-reserver ">
+                                <button type="button" onClick={ajoutReservation} className="btn btn-reserver ">
                                     <FormattedMessage id="voitureDetail.reserver"/>
                                 </button>
                             </div>

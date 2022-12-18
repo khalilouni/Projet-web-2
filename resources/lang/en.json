@@ -128,5 +128,7 @@
     "panier.vide" : "Empty",
     "btn.modifier-profil" : "Edit your profil",
     "statut.1": "Sold",
-    "statut.2": "Reserved"
+    "statut.2": "Reserved",
+    "reservation_success" : "Reserved",
+    "titre.collapse-reservation" : "Reserve"
 }
