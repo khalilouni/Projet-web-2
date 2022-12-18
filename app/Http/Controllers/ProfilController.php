@@ -85,9 +85,9 @@ class ProfilController extends ApiController
      * @param  \App\Models\Profil  $profil
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Profil $Profil)
+    public function show($id)
     {
-        $profil = Profil::find($Profil);
+        $profil = Profil::where('id', $id)->get();
         return response()->json($profil);
     }
 

@@ -21,10 +21,13 @@ const ModificationClient = () => {
     const inputTelephone = useRef(null);
     const inputCellulaire = useRef(null);
 
-    const getProfil = async () => {
+    const getProfil =  () => {
 
-        const { data } = await axios.get(`${URL}/api/v1/profil/${id}`)
-        setProfil(data[0]);
+        axios.get(`${URL}/api/v1/profil/${id}`)
+        .then(res => {
+            setProfil(res.data[0]);
+            
+        })
 
     };
 
@@ -32,7 +35,7 @@ const ModificationClient = () => {
         axios.get(`${URL}/api/v1/ville`)
         .then(res => {
             setVilles(res.data)
-            console.log(res.data);
+            
         })
     };
 
@@ -43,7 +46,7 @@ const ModificationClient = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(profil);
+        //console.log(profil);
         axios.put(`${URL}/api/v1/profil/${id}`, profil)
             .then(res => {
                 console.log(res.data);

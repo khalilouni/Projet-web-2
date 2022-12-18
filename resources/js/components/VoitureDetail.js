@@ -34,7 +34,6 @@ const VoitureDetail = () => {
             panier.push(voiture);
             localStorage.setItem(`reservations`, JSON.stringify(panier));
         }
-
         axios({
             method: 'post',
             url: `${URL}/api/v1/voiture-reserver/${voiture.id}`
