@@ -16,7 +16,7 @@ class CreateJournalConnexionsTable extends Migration
         Schema::create('journal_connexions', function (Blueprint $table) {
             $table->id();
             $table->string('ip');
-            $table->date('date');
+            $table->dateTime('date');
             $table->bigInteger('userId')->unsigned();
             $table->foreign('userId')->references('id')->on('users');
             $table->timestamps();

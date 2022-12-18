@@ -1,74 +1,82 @@
 import Table from '../../components/Table'
-import { useMemo } from 'react'
+import {useEffect,useState, useMemo} from 'react'
 import 'github-markdown-css'
+import axios from "axios";
 
 const Journal =() => {
+
+
+    const [connexionInfos,setConnexion] = useState([])
+    const fetchConnexion = async () => {
+        return axios.get('http://127.0.0.1:8000/api/v1/crm/journal').then((res) => {
+            const resp = res.data.data.connexionInfo.connexions
+            setConnexion(resp)
+        })
+    }
+
+
+ /*   const [connInfos,setConnInfos] = useState([{
+        id: '蒋铁柱',
+        userId: '北京市海淀区西三环中路19号',
+        ip: '2022-07-01',
+        date: '1596694478675759682'
+    }])*/
+
     const data = useMemo(
-        () => [
-            {
-                name: '蒋铁柱',
-                address: '北京市海淀区西三环中路19号',
-                date: '2022-07-01',
-                order: '1596694478675759682'
-            },
-            {
-                name: '陈成功',
-                address: '湖北武汉武昌区天子家园',
-                date: '2022-06-27',
-                order: '1448752212249399810'
-            },
-            {
-                name: '宋阿美',
-                address: '湖北武汉武昌区天子家园',
-                date: '2022-06-21',
-                order: '1171859737495400477'
-            },
-            {
-                name: '张小乐',
-                address: '北京市海淀区北航南门',
-                date: '2022-06-30',
-                order: '1096242976523544343'
-            },
-            {
-                name: '马国庆',
-                address: '北京市海淀区花园桥东南',
-                date: '2022-06-12',
-                order: '1344783976877111376'
-            },
-            {
-                name: '小果',
-                address: '广州天河机场西侧停车场',
-                date: '2022-06-07',
-                order: '1505069508845600364'
-            }
-        ],
-        []
+        () => {
+            return [...connexionInfos]
+        },
+        [connexionInfos]
     )
 
     const columns = useMemo(
         () => [
             {
-                Header: '订单编号',
-                accessor: 'order'
+                Header: 'ID',
+                accessor: 'id'
             },
             {
-                Header: '姓名',
+                Header: 'Nom',
                 accessor: 'name'
             },
             {
-                Header: '收货地址',
-                accessor: 'address'
+                Header: 'Courriel',
+                accessor: 'email'
             },
             {
-                Header: '下单日期',
-                accessor: 'date'
-            }
+                Header: 'IP DE CONNEXION',
+                accessor: 'conn[0].ip'
+            },
+            {
+                Header: 'DATE DE CONNEXION',
+                accessor: 'conn[0].date'
+            },
+
         ],
         []
     )
+
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/api/v1/crm/journal')
+            .then(res => {
+                const resultats = res.data.data.connexionInfo
+                const nouveau = resultats.map((item,index)=> {
+                    let max = item.connexions.length -1
+                    if(!(max<0)) {
+                     let conn = [item.connexions[max]]
+                        return {...item,'conn':conn}
+                  }
+                    else {
+                        return {...item,'conn': [{ip:'jamais connecté',date: 'jamais connecté'}]}
+                    }
+                })
+                setConnexion(nouveau)
+            })
+    }, [])
+
     return(
         <div className="markdown-body" style={{ padding: '20px' }}>
-            <h1>React Table Demo</h1>
+            <h1>Tableau De Connexion</h1>
            <Table columns={columns} data={data}></Table>
         </div>
     )

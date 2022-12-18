@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JournalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VoitureController;
@@ -46,6 +47,7 @@ Route::post('v1/inscription-client', [ProfilController::class,'store'])->name('i
 
 Route::get('v1/modeles/{id}', [ModeleController::class,'modelesListe'])->name('modeles.liste');
 Route::post('v1/filtre', [VoitureController::class,'filtre'])->name('filtre');
+Route::get('v1/crm/journal', [JournalController::class,'index'])->name('index');
 
 
 
