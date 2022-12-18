@@ -171,7 +171,7 @@ const navigate = useNavigate();
                 </div>
 
                 <div className="mb-3 ">
-                    <button type="submit" className="btn btn-primary"><FormattedMessage id="enregistrer.form_inscription" /></button>
+                    <Link type="submit" className='btn btn-primary m-3' to='/crm/ajout-photo'><FormattedMessage id="enregistrer.form_inscription" /></Link>
                     <Link className='btn btn-primary m-3' to='/app'><FormattedMessage id="register.form_bt_retour" /></Link>
                 </div>
         </form>

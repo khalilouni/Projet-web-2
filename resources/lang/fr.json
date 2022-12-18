@@ -144,6 +144,8 @@
     "expedition.titre" : "Expedition",
     "expedition.adresse" : "Chez vous",
     "expedition.magazin" : "En magasin",
-    "vider.panier" : "Vider panier"
+    "vider.panier" : "Vider panier",
+    "ajout_photo.bouton_ajout" : "Téléverser",
+    "ajout_photo.form_titre" : "Ajouter des photos"
 
 }

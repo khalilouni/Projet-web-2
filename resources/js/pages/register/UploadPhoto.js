@@ -1,61 +1,78 @@
-import {useState, useEffect} from 'react'
-import axios from 'axios'
-import {useNavigate, Link} from 'react-router-dom'
-import {FormattedMessage} from 'react-intl'
-
+import { useState} from "react";
 import {URL} from "../../constantes";
-import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
+import {FormattedMessage} from 'react-intl'
 
 const UploadPhoto = () => {
 
+    const [imageData, setImageData] = useState("");
+    const [isChecked, setIsChecked] = useState(false);
 
-    const [image, setImage] = useState([]);
+    const handleChangeCheck = () => {
+        setIsChecked(!isChecked);
+    };
 
-    useEffect(() => {
-       
-    }, []);
+    const handleChange = (e) => {
+        const imagesArray = [];
 
-    const onSubmit = (e) => {
-        e.preventDeafult();
+        for (let i = 0; i < e.target.files.length; i++) {
+            imagesArray.push(e.target.files[i]);
+        }
+        setImageData(imagesArray);
+    };
 
-        // axios({
-        //     method: 'post',
-        //     url: `${URL}/api/v1/photo`,
-        //     data: image
-        // }).then(res => {
-        //     if (res.status == 200) {
-        //         toast.success(<FormattedMessage id={"ajout_voiture_success"} /> , {
-        //             position: toast.POSITION.TOP_CENTER
-        //         })
-        //     }
-        // })
+    const submitData = (e) => {
+        e.preventDefault();
 
-    }
+        const fileData = new FormData();
 
-   
+        for (let i = 0; i < imageData.length; i++) {
+            fileData.append("photos[]", imageData[i]);
+        }
+
+        axios
+        .post(`${URL}/api/v1/ajout-photo`, fileData)
+        .then((res) => {
+            console.log(res, "response");
+            setTimeout(() => {
+                setImageData("");
+            }, 1000);
+    
+            document.querySelector("#imageForm").reset();
+
+        })
+        .catch((e) => {
+            console.error("failure", e);
+        });
+    };
 
     return (
-        <form className='form px-5 border-opacity-25 rounded bg-light' enctype="multipart/form-data" style={{ margin: '15vh' }} onSubmit={onSubmit}>
-            <h1 className='title-form font-weight-bold text-center m-4 p-3'><FormattedMessage id="ajout_voiture.form_titre" /></h1>
-            {/* <ToastContainer />   */}
-                <div className="mb-3">
-                    <label htmlFor="file" className="form-label">image</label>
-                    <input
-                        type="file"
-                        name="file"
-                        className="form-control"
-                        onChange={(e) => setImage(e.target.current.value)}
-                    />
-                </div>
-
-                <div className="mb-3 ">
-                    <button type="submit" className="btn btn-primary"><FormattedMessage id="enregistrer.form_inscription" /></button>
-                    <Link className='btn btn-primary m-3' to='/'><FormattedMessage id="register.form_bt_retour" /></Link>
-                </div>
+        <form onSubmit={submitData} encType="multipart/form-data" id="imageForm">
+            <h1 className='title-form text-center m-4 p-3'><FormattedMessage id="ajout_photo.form_titre" /></h1>
+            <div className="mb-3">
+                <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="primaire"
+                    checked={isChecked}
+                    onChange={handleChangeCheck}
+                />
+            </div>
+            <div className="mb-3">
+                <input
+                    type="file"
+                    name="photo"
+                    className="form-control mt-3"
+                    onChange={handleChange}
+                    multiple
+                />
+            </div>
+            <button className="btn btn-success mt-3" type="submit">
+                <FormattedMessage id="ajout_photo.bouton_ajout" />
+            </button>
         </form>
-    )
 
-
+    );
 }
 
 export default UploadPhoto;
