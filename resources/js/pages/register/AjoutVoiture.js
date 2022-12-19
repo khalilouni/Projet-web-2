@@ -82,7 +82,7 @@ const navigate = useNavigate();
                     position: toast.POSITION.TOP_CENTER
                 })
                 setTimeout(() => {
-                    navigate("/app/voiture/liste")
+                    navigate("/crm/ajout-photo")
                 }, 3000);
             }
         })
@@ -129,7 +129,7 @@ const navigate = useNavigate();
                         className="form-control"
                         
                     />
-                    <span className='text-danger'>{formik.touched.prix && formik.errors.prix ?
+                    <span className='text-danger'>{formik.touched.kilometrage && formik.errors.kilometrage ?
                         <FormattedMessage id={formik.errors.kilometrage}/> : ''}</span>
                 </div>
                 <div className="mb-3">
@@ -171,7 +171,7 @@ const navigate = useNavigate();
                 </div>
 
                 <div className="mb-3 ">
-                    <Link type="submit" className='btn btn-primary m-3' to='/crm/ajout-photo'><FormattedMessage id="enregistrer.form_inscription" /></Link>
+                    <button type="submit" className='btn btn-primary m-3'><FormattedMessage id="enregistrer.form_inscription" /></button>
                     <Link className='btn btn-primary m-3' to='/app'><FormattedMessage id="register.form_bt_retour" /></Link>
                 </div>
         </form>

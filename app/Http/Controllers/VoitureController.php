@@ -81,13 +81,16 @@ class VoitureController extends Controller
         $prixVente = $request->prix + ($request->prix)/4;
 
         $nouvelleVoiture = Voiture::create([
+
             'date_arrivee' => $request->date_arrivee,
             'prix' => $prixVente,
             'modeleId' => $request->nom_modele,
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
             'carrosserieId' => $request->carroserieId,
+            'kilometrage' => $request->kilometrage,
             'statutId' => 3
+            
         ]);
 
         return response()->json([
