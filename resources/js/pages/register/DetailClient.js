@@ -9,16 +9,19 @@ import {URL} from "../../constantes";
 const DetailClient = () => {
 
     const [profil, setProfil] = useState({});
-    let id = window.location.pathname.split('/')[2];
+    let id = window.location.pathname.split('/')[3];
+    console.log(id)
+
     const token = localStorage.getItem('tk')
 
 
     useEffect(() => {
         axios({
             url: `${URL}/api/v1/profil/${id}`,
-            headers: {Authorization:`${token}`},
+            headers: {Authorization:`Bearer${token}`},
         })
             .then((response) => {
+                console.log(response.data)
                 setProfil(response.data[0]);
         })
         }, []);

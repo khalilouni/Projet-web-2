@@ -19130,15 +19130,17 @@ var DetailClient = function DetailClient() {
     _useState2 = _slicedToArray(_useState, 2),
     profil = _useState2[0],
     setProfil = _useState2[1];
-  var id = window.location.pathname.split('/')[2];
+  var id = window.location.pathname.split('/')[3];
+  console.log(id);
   var token = localStorage.getItem('tk');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id),
       headers: {
-        Authorization: "".concat(token)
+        Authorization: "Bearer".concat(token)
       }
     }).then(function (response) {
+      console.log(response.data);
       setProfil(response.data[0]);
     });
   }, []);
