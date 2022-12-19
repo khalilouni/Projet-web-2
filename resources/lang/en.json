@@ -146,5 +146,6 @@
     "expedition.magazin" : "At the store",
     "vider.panier" : "Empty cart",
     "ajout_photo.bouton_ajout" : "Upload",
-    "ajout_photo.form_titre" : "Add photos"
+    "ajout_photo.form_titre" : "Add photos",
+    "ajout_voiture_success" : "Add success"
 }

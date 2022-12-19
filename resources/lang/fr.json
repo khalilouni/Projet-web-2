@@ -146,6 +146,7 @@
     "expedition.magazin" : "En magasin",
     "vider.panier" : "Vider panier",
     "ajout_photo.bouton_ajout" : "Téléverser",
-    "ajout_photo.form_titre" : "Ajouter des photos"
+    "ajout_photo.form_titre" : "Ajouter des photos",
+    "ajout_voiture_success" : "Voiture ajouter avec succes"
 
 }
