@@ -149,6 +149,6 @@
     "ajout_photo.form_titre" : "Ajouter des photos",
     "modifier_voiture.form_titre": "Modifier cette voiture",
     "modifier_voiture.form_label_btn_modifier": "Sauvegarder",
-    "ajout_voiture_success" : "Voiture ajouter avec succes"
-
+    "ajout_voiture_success" : "Voiture ajouter avec succes",
+    "ajout_photo.form_label_checkbox" : "Choisir la photo principal"
 }
