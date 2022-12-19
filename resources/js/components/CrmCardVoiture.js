@@ -34,7 +34,7 @@ const CrmCardVoiture = ({size, width, height,voiture}) => {
 CrmCardVoiture.defaultProps = {
     size: '100%',
     width: '18rem',
-    height: '20rem',
+    height: '22rem',
 }
 
 export default CrmCardVoiture

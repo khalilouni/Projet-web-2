@@ -42,7 +42,7 @@ const ListeVoitures = () => {
                     <div className='m-2 align-items-center'>
                         <FormFilter
                             size={"18rem"}
-                            height={"20rem"}
+                            height={"22rem"}
                             getResultat ={getResultat}
                             constructeurs = {selectConstructeurs}
                         />

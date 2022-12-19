@@ -68,7 +68,7 @@ const ClientIndex = ( ) => {
             url: `${URL}/api/v1/profil-userId/${userId}`
         })
             .then((response) => {
-
+                console.log(response);
                 setProfil(response.data[0]);
         })
     }
