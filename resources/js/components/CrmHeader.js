@@ -41,7 +41,7 @@ const Header = () => {
                                 <Link className="nav-link active text-white" to="/crm/journal-connexion"><FormattedMessage id="crmHeader.journal.connexion"/></Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active text-white" to="/crm"><FormattedMessage id="crmHeader.gestion.employés"/></Link>
+                                <Link className="nav-link active text-white" to="/crm/gestion-employes"><FormattedMessage id="crmHeader.gestion.employés"/></Link>
                             </li>
                             <li className="nav-item">
                                 {authed ? <Link className="nav-link active text-white" aria-current="page"

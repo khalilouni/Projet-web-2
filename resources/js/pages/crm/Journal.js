@@ -14,14 +14,6 @@ const Journal =() => {
         })
     }
 
-
- /*   const [connInfos,setConnInfos] = useState([{
-        id: '蒋铁柱',
-        userId: '北京市海淀区西三环中路19号',
-        ip: '2022-07-01',
-        date: '1596694478675759682'
-    }])*/
-
     const data = useMemo(
         () => {
             return [...connexionInfos]
@@ -81,7 +73,5 @@ const Journal =() => {
         </div>
     )
 }
-
-
 
 export default Journal
