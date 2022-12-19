@@ -22,7 +22,7 @@
     "footer.votre_courriel": "Votre courriel",
     "footer.envoyer": "Envoyer",
     "footer.partenaires": "Partenaires",
-    "home.titre_filtre": "Trouver votre prochain véhicule d'occasion",
+    "home.titre_filtre": "Trouver un véhicule d'occasion",
     "home.form_marque": "Choisissez une marque",
     "home.form_modele": "Choisissez un modèle",
     "home.form_annee": "Choisissez une année",
@@ -146,6 +146,7 @@
     "expedition.magazin" : "En magasin",
     "vider.panier" : "Vider panier",
     "ajout_photo.bouton_ajout" : "Téléverser",
-    "ajout_photo.form_titre" : "Ajouter des photos"
-
+    "ajout_photo.form_titre" : "Ajouter des photos",
+    "modifier_voiture.form_titre": "Modifier cette voiture",
+    "modifier_voiture.form_label_btn_modifier": "Sauvegarder"
 }

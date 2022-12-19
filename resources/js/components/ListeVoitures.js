@@ -37,28 +37,25 @@ const ListeVoitures = () => {
 
     return (
         <div>
-            <h1><FormattedMessage id="voitures.titre"/></h1>
             <div className="container">
-                <div className="row">
-                    <div className="col">
+                <div className="d-flex flex-wrap justify-content-around">
+                    <div className='m-2 align-items-center'>
                         <FormFilter
-                            size={"22rem"}
+                            size={"18rem"}
+                            height={"20rem"}
                             getResultat ={getResultat}
                             constructeurs = {selectConstructeurs}
                         />
                     </div>
-                    <div className="col">
-                        <div className="row">
-                            {
-                                voitures?
-                                voitures.map((voiture) => (
-                                <div className="col" key={voiture.id}>
-                                    <CardVoiture voiture={voiture}/>
-                                </div>
-                            )):<div>Nous sommes sur le point de trouver la voiture que vous voulez pour vous. Merci de revenir la prochaine fois.</div>
-                            }
+                    {
+                        voitures&&
+                        voitures.map((voiture) => (
+                        <div className="m-2" key={voiture.id}>
+                            <CardVoiture voiture={voiture}/>
                         </div>
-                    </div>
+                    ))
+                    }
+  
                 </div>
             </div>
         </div>

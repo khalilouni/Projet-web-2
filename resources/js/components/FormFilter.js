@@ -5,7 +5,7 @@ import '../../css/formFilter.css';
 import axios from 'axios'
 import {URL} from "../constantes";
 
-const FormFilter = ({constructeurs,getResultat}) => {
+const FormFilter = ({size, height, constructeurs,getResultat}) => {
 
 
     const [constructeurSelected, setConstructeur] = useState('')
@@ -54,7 +54,7 @@ const FormFilter = ({constructeurs,getResultat}) => {
 
 
     return (
-        <form className="card p-5" style={{width: '25rem'}} onSubmit={envoyerRecherche}>
+        <form className="card p-4" style={{width: size, height: height}} onSubmit={envoyerRecherche}>
             <div className="mb-3 text-center">
                 <span className="fs-5 fw-bold"><FormattedMessage id="home.titre_filtre"/></span>
             </div>
