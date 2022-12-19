@@ -13,10 +13,12 @@ const [modeles, setModeles] = useState([]);
 const [transmissions, setTransmissions] = useState([]);
 const [carroseries, setCarroseries] = useState([]);
 const [carburants, setCarburants] = useState([]);
+const [voiture, setVoiture] = useState();
 
-const navigate = useNavigate();
 
-  const  getModele = () => {
+    const navigate = useNavigate();
+
+    const  getModele = () => {
         axios.get(`${URL}/api/v1/modele`)
         .then(res => {
             setModeles(res.data);
@@ -70,6 +72,10 @@ const navigate = useNavigate();
         getCarburant();
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('voiture', JSON.stringify(voiture));
+    }, [voiture]);
+
     const onSubmit = valeurs => {
         
         axios({
@@ -78,10 +84,12 @@ const navigate = useNavigate();
             data: valeurs
         }).then(res => {
             if (res.status == 200) {
+                let voiture = res.data
                 toast.success(<FormattedMessage id={"ajout_voiture_success"} /> , {
                     position: toast.POSITION.TOP_CENTER
                 })
                 setTimeout(() => {
+                    setVoiture(voiture)
                     navigate("/crm/ajout-photo")
                 }, 3000);
             }

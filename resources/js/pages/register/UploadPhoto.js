@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import {URL} from "../../constantes";
 import axios from "axios";
 import {FormattedMessage} from 'react-intl'
@@ -7,6 +7,15 @@ const UploadPhoto = () => {
 
     const [imageData, setImageData] = useState("");
     const [isChecked, setIsChecked] = useState(false);
+    const [voiture, setVoiture] = useState();
+    // let id = voiture.id;
+
+    useEffect(() => {
+        const voitureData = JSON.parse(localStorage.getItem('voiture'));
+        if (voiture) {
+            setVoiture(voitureData);
+        }
+    }, []);
 
     const handleChangeCheck = () => {
         setIsChecked(!isChecked);
@@ -34,6 +43,7 @@ const UploadPhoto = () => {
         .post(`${URL}/api/v1/ajout-photo`, fileData)
         .then((res) => {
             console.log(res, "response");
+
             setTimeout(() => {
                 setImageData("");
             }, 1000);
@@ -50,8 +60,9 @@ const UploadPhoto = () => {
         <form onSubmit={submitData} encType="multipart/form-data" id="imageForm">
             <h1 className='title-form text-center m-4 p-3'><FormattedMessage id="ajout_photo.form_titre" /></h1>
             <div className="mb-3">
+                <label><FormattedMessage id="ajout_photo.form_label_checkbox" /></label>
                 <input
-                    className="form-check-input"
+                    className="form-check-input mx-3"
                     type="checkbox"
                     name="primaire"
                     checked={isChecked}
@@ -67,6 +78,11 @@ const UploadPhoto = () => {
                     multiple
                 />
             </div>
+            <input
+                type="hidden"
+                value=""
+                name="voitureId"
+            />
             <button className="btn btn-success mt-3" type="submit">
                 <FormattedMessage id="ajout_photo.bouton_ajout" />
             </button>

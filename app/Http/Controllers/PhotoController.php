@@ -101,6 +101,8 @@ class PhotoController extends Controller
     {
         $photosName = [];
         $response = [];
+        $voitureId = $request->voitureId;
+
  
         $validator = Validator::make($request->all(),
             [
@@ -121,7 +123,7 @@ class PhotoController extends Controller
                 Photo::create([
                     'path' => $filename,
                     'primaire' => 0,
-                    'voitureId' => 1
+                    'voitureId' => $voitureId
                 ]);
             }
  

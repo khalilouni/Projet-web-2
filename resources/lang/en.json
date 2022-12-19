@@ -149,5 +149,6 @@
     "ajout_photo.form_titre" : "Add photos",
     "modifier_voiture.form_titre": "Update this car",
     "modifier_voiture.form_label_btn_modifier": "Save",
-    "ajout_voiture_success" : "Add success"
+    "ajout_voiture_success" : "Add success",
+    "ajout_photo.form_label_checkbox" : "Choose the main photo"
 }
