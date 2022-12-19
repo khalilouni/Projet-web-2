@@ -34,7 +34,7 @@ const CardVoiture = ({size, width, height,voiture}) => {
 CardVoiture.defaultProps = {
     size: '100%',
     width: '18rem',
-    height: '25rem',
+    height: '22rem',
 }
 
 export default CardVoiture

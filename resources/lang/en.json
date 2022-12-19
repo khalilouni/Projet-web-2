@@ -22,7 +22,7 @@
     "footer.votre_courriel": "Your email",
     "footer.envoyer": "Send",
     "footer.partenaires": "Partners",
-    "home.titre_filtre": "Find your next pre-owned vehicle",
+    "home.titre_filtre": "Find pre-owned vehicle",
     "home.form_marque": "Choose a brand",
     "home.form_modele": "Choose a model",
     "home.form_annee": "Choose a year",
@@ -147,5 +147,7 @@
     "vider.panier" : "Empty cart",
     "ajout_photo.bouton_ajout" : "Upload",
     "ajout_photo.form_titre" : "Add photos",
+    "modifier_voiture.form_titre": "Update this car",
+    "modifier_voiture.form_label_btn_modifier": "Save",
     "ajout_voiture_success" : "Add success"
 }

@@ -47,6 +47,8 @@ const Home = () => {
             <div className="container-bandeau-filtres">
                 <div className="d-flex justify-content-between mb-5 py-3 flex-container">
                     <FormFilter
+                        size={"23rem"}
+                        height={"25rem"}
                         getResultat ={getResultat}
                         constructeurs = {selectConstructeurs}
                     />

@@ -146,10 +146,11 @@ class VoitureController extends Controller
         $voiture->update([
             'date_arrivee' => $request->date_arrivee,
             'prix' => $request->prix,
+            'kilometrage '=> $request->kilometrage,
             'modeleId' => $request->nom_modele,
             'transmissionId' => $request->transmissionId,
             'carburantId' => $request->carburantId,
-            'carrosserieId' => $request->carroserieId,
+            'carrosserieId' => $request->carrosserieId,
         ]);
 
         return response()->json([

@@ -17,6 +17,7 @@ use App\Models\Province;
 use App\Models\Ville;
 use App\Models\Photo;
 use App\Models\Statut;
+use App\Models\Profil;
 
 class DatabaseSeeder extends Seeder
 {
@@ -148,6 +149,19 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        Profil::create([
+            'nom' => 'Alex',
+            'prenom' => 'Alex',
+            'courriel' => 'alex@alex.com',
+            'anniversaire' => Carbon::parse('1999-01-01'),
+            'adresse' => 'Rue Alex',
+            'code_postal' => 'H2J 1k3',
+            'telephone' => '5144431234',
+            'cellulaire' => '5144431235',
+            'userId' => 1,
+            'villeId' => 1
+        ]);
+
         User::create([
             'name' => 'Tim',
             'privilegeid' => 2,
@@ -155,11 +169,37 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
+        Profil::create([
+            'nom' => 'Tim',
+            'prenom' => 'Tim',
+            'courriel' => 'tim@tim.com',
+            'anniversaire' => Carbon::parse('1999-01-01'),
+            'adresse' => 'Rue Tim',
+            'code_postal' => 'H2J 1k3',
+            'telephone' => '5144431234',
+            'cellulaire' => '5144431235',
+            'userId' => 2,
+            'villeId' => 2
+        ]);
+
         User::create([
             'name' => 'Emma',
             'privilegeid' => 3,
             'email' => 'emma@emma.com',
             'password' => Hash::make('password'),
+        ]);
+
+        Profil::create([
+            'nom' => 'Emma',
+            'prenom' => 'Emma',
+            'courriel' => 'emma@emma.com',
+            'anniversaire' => Carbon::parse('1999-01-01'),
+            'adresse' => 'Rue Emma',
+            'code_postal' => 'H2J 1k3',
+            'telephone' => '5144431234',
+            'cellulaire' => '5144431235',
+            'userId' => 3,
+            'villeId' => 3
         ]);
 
         /* créer les carburants */

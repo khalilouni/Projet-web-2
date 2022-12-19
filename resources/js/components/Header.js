@@ -46,10 +46,6 @@ const Header = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link active" aria-current="page"
-                                      to="/app/home"><FormattedMessage id="header.a_propos"/></Link>
-                            </li>
-                            <li className="nav-item">
                                 {authed ? <Link className="nav-link active" aria-current="page"
                                                 to="/app/client-index"><FormattedMessage id="header.client_centre"/>{nomAuthed}
                                 </Link> : <Link className="nav-link active" aria-current="page"
