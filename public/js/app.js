@@ -15570,12 +15570,22 @@ var CardVoiture = function CardVoiture(_ref) {
     width = _ref.width,
     height = _ref.height,
     voiture = _ref.voiture;
-  var photo = voiture.photos.filter(function (photo) {
-    return photo.primaire === 1;
-  })[0];
+  var src = "/storage/app/public/audi-primary.jpg";
+  if (voiture.photos.length === 0) {
+    src = "/storage/com-soon.png";
+  } else {
+    var photo = voiture.photos.filter(function (photo) {
+      return photo.primaire === 1;
+    })[0];
+    src = "/storage/".concat(photo.path);
+  }
+
+  // console.log(photo);
+
   var statut = voiture.statutId;
   var statutIntl = "statut.".concat(statut);
-  console.log(voiture);
+  //console.log(voiture);
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "card px-0",
     style: {
@@ -15590,7 +15600,7 @@ var CardVoiture = function CardVoiture(_ref) {
         pointerEvents: statut === 3 ? 'auto' : 'none'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-        src: "/storage/".concat(photo.path),
+        src: "".concat(src),
         style: {
           width: size
         },
@@ -15655,9 +15665,15 @@ var CrmCardVoiture = function CrmCardVoiture(_ref) {
     width = _ref.width,
     height = _ref.height,
     voiture = _ref.voiture;
-  var photo = voiture.photos.filter(function (photo) {
-    return photo.primaire === 1;
-  })[0];
+  var src = "/storage/app/public/audi-primary.jpg";
+  if (voiture.photos.length === 0) {
+    src = "/storage/com-soon.png";
+  } else {
+    var photo = voiture.photos.filter(function (photo) {
+      return photo.primaire === 1;
+    })[0];
+    src = "/storage/".concat(photo.path);
+  }
   var statut = voiture.statutId;
   var statutIntl = "statut.".concat(statut);
   console.log(voiture);
@@ -15675,7 +15691,7 @@ var CrmCardVoiture = function CrmCardVoiture(_ref) {
         pointerEvents: statut === 3 ? 'auto' : 'none'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-        src: "/storage/".concat(photo.path),
+        src: "".concat(src),
         style: {
           width: size
         },
@@ -18662,6 +18678,10 @@ var AjoutVoiture = function AjoutVoiture() {
     _useState8 = _slicedToArray(_useState7, 2),
     carburants = _useState8[0],
     setCarburants = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _useState10 = _slicedToArray(_useState9, 2),
+    voiture = _useState10[0],
+    setVoiture = _useState10[1];
   var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
   var getModele = function getModele() {
     axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_constantes__WEBPACK_IMPORTED_MODULE_4__.URL, "/api/v1/modele")).then(function (res) {
@@ -18707,6 +18727,9 @@ var AjoutVoiture = function AjoutVoiture() {
     getCarroserie();
     getCarburant();
   }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    localStorage.setItem('voiture', JSON.stringify(voiture));
+  }, [voiture]);
   var onSubmit = function onSubmit(valeurs) {
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
       method: 'post',
@@ -18714,12 +18737,14 @@ var AjoutVoiture = function AjoutVoiture() {
       data: valeurs
     }).then(function (res) {
       if (res.status == 200) {
+        var _voiture = res.data;
         react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.success( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_8__["default"], {
           id: "ajout_voiture_success"
         }), {
           position: react_toastify__WEBPACK_IMPORTED_MODULE_5__.toast.POSITION.TOP_CENTER
         });
         setTimeout(function () {
+          setVoiture(_voiture);
           navigate("/crm/ajout-photo");
         }, 3000);
       }
@@ -19130,15 +19155,17 @@ var DetailClient = function DetailClient() {
     _useState2 = _slicedToArray(_useState, 2),
     profil = _useState2[0],
     setProfil = _useState2[1];
-  var id = window.location.pathname.split('/')[2];
+  var id = window.location.pathname.split('/')[3];
+  console.log(id);
   var token = localStorage.getItem('tk');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
       url: "".concat(_constantes__WEBPACK_IMPORTED_MODULE_2__.URL, "/api/v1/profil/").concat(id),
       headers: {
-        Authorization: "".concat(token)
+        Authorization: "Bearer".concat(token)
       }
     }).then(function (response) {
+      console.log(response.data);
       setProfil(response.data[0]);
     });
   }, []);
@@ -20680,6 +20707,18 @@ var UploadPhoto = function UploadPhoto() {
     _useState4 = _slicedToArray(_useState3, 2),
     isChecked = _useState4[0],
     setIsChecked = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _useState6 = _slicedToArray(_useState5, 2),
+    voiture = _useState6[0],
+    setVoiture = _useState6[1];
+  // let id = voiture.id;
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var voitureData = JSON.parse(localStorage.getItem('voiture'));
+    if (voiture) {
+      setVoiture(voitureData);
+    }
+  }, []);
   var handleChangeCheck = function handleChangeCheck() {
     setIsChecked(!isChecked);
   };
@@ -20715,15 +20754,19 @@ var UploadPhoto = function UploadPhoto() {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
         id: "ajout_photo.form_titre"
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "mb-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-        className: "form-check-input",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_intl__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          id: "ajout_photo.form_label_checkbox"
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+        className: "form-check-input mx-3",
         type: "checkbox",
         name: "primaire",
         checked: isChecked,
         onChange: handleChangeCheck
-      })
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "mb-3",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
@@ -20733,6 +20776,10 @@ var UploadPhoto = function UploadPhoto() {
         onChange: handleChange,
         multiple: true
       })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+      type: "hidden",
+      value: "",
+      name: "voitureId"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
       className: "btn btn-success mt-3",
       type: "submit",
@@ -104843,7 +104890,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type","voitureDetail.panier":"Add to Cart","voitureDetail.modifier":"Update","voitureDetail.supprimer":"Delete","voitureDetail.modalTitre":"Do you really want to delete this car?","panier.commander":"To order","ajout_panier_success":"Car added to cart","titre.collapse-profil":"Details of your account","titre.collapse-panier":"Cart","panier.vide":"Empty","btn.modifier-profil":"Edit your profil","statut.1":"Sold","statut.2":"Reserved","reservation_success":"Reserved","titre.collapse-reservation":"Reserve","commande.title":"Order details","voiture.liste":"Car lists","calcul.taxe":"Price with tax","paiement.titre":"Payment method","select.paiement":"Choose an option","option.cash":"In cash","option.carte":"By card","expedition.titre":"Shipping","expedition.adresse":"At home","expedition.magazin":"At the store","vider.panier":"Empty cart","ajout_photo.bouton_ajout":"Upload","ajout_photo.form_titre":"Add photos","modifier_voiture.form_titre":"Update this car","modifier_voiture.form_label_btn_modifier":"Save","ajout_voiture_success":"Add success"}');
+module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","voitureDetail.constructeur":"Constructor","voitureDetail.modele":"Model","voitureDetail.annee":"Year","voitureDetail.carburant":"Fuel","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Body","voitureDetail.acheter":"Buy","voitureDetail.reserver":"Reserve","voitureDetail.kilometrage":"Kilometers","header.s_inscrire":"Sign up","header.a_propos":"About us","header.connexion":"Login","header.deconnectionner":"Logout","header.client_centre":"Hello, ","footer.contactez_nous":"Contact us","footer.nous_suivre":"Follow us","footer.politiques_de_ventes":"Sales policy","footer.s_inscrire_infolettre":"Subscribe to our newsletter","footer.votre_courriel":"Your email","footer.envoyer":"Send","footer.partenaires":"Partners","home.titre_filtre":"Find pre-owned vehicle","home.form_marque":"Choose a brand","home.form_modele":"Choose a model","home.form_annee":"Choose a year","home.form_rechercher":"Search","home.voiture_recent":"Our new cars","titre.form_inscription":"Subscribe","courriel.form_inscription":"Email","nom.form_inscription":"First Name","prenom.form_inscription":"Last Name","anniversaire.form_inscription":"Birth Day","adresse.form_inscription":"Your address","codePostal.form_inscription":"Zip code","ville.form_inscription":"City","telephone.form_inscription":"Your phone","cellulaire.form_inscription":"Mobile","submit.form_inscription":"Submit","back.form_inscription":"Confirm","titre.detail_client":"Your profil Detail","modifier.form_inscription":"Update","confirmer.form_inscription":"Confirm","enregistrer.form_inscription":"Save","titre.form_modification":"Update Your profil","register.form_titre":"Create account","register.form_courriel":"Email","register.form_nom_utilisateur":"User Name","register.form_mot_de_passe":"Password","register.form_bt_inscrire":"Register","register.form_bt_retour":"Back","register.form_courriel_invalide":"Incorrect or invalid email address","register.form_courriel_required":"Enter your email address","register.form_courriel_existe":"Email address already exists","register.form_nom_invalide":"A maximum of 15 characters required","register.form_nom_required":"Enter your username","register.form_password_invalide":"A minimum of 6 characters required","register.form_password_required":"Enter your password","profil.form_courriel_invalide":"Incorrect or invalid email address","profil.form_courriel_required":"Enter your email address","profil.form_nom_invalide":"A maximum of 35 characters required","profil.form_nom_required":"Enter your last name","profil.form_prenom_invalide":"A maximum of 35 characters required","profil.form_prenom_required":"Enter your firstname","profil.form_anniversaire_invalide":"You must be at least 18 years","profil.form_anniversaire_required":"Enter your birthday","profil.form_adresse_required":"Enter your address","profil.form_adresse_invalide":"A minimum of 6 characters required","profil.form_code_postal_format_invalide":"Your zip code is not in the correct format. (The correct format should be like this: H1X 2N5)","profil.form_code_postal_required":"Enter your zip code","profil.form_telephone_required":"Enter your telephone number","profil.form_telephone_invalide":"Your telephone number should be 10 digits","profil.form_cellulaire_invalide":"Your cellphone number should be 10 digits","profil.from_ville_required":"Enter your city name","connexion.form_titre":"User Login","connexion.form_courriel_inexistant":"User\'s email address does not exist","voitures.titre":"Car list","home.confiance-title":"Buy your vehicle with complete peace of mind thanks to our contract of trust!","home.confiance-texte-1":"- An inspection report is made on each of the vehicles offered for sale on our site.","home.confiance-texte-2":"- All our vehicles are guaranteed for 9 months from the date of purchase.","home.confiance-texte-3":"- Assistance with financing is offered by our employees.","home.confiance-texte-4":"- For any questions, our employees will be happy to answer you Monday to Friday from 9 a.m. to 2 p.m. at 514-555-556 or write to us at vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Our cars","crmHeader.ajouter.voiture":"Add a car","header.crm":"CRM interface","crmHeader.accueil.return.ecom":"Ecommerce interface","crmHeader.journal.connexion":"Connection diary","crmHeader.gestion.employés":"Employee management","crmHome.titre":"Welcome to the CRM interface of the Véhicules d\'Occasion inc. site !","expedition.type-requierd":"Please choose a shipping type!","paiement.carte-requierd":"Please enter your card number !","date.expiration-requierd":"Enter expiry date MM/YY","cvv.requierd":"Enter security code","nom.paiement-requierd":"Enter your name","commande_success":"Command success","code.format":"Enter a valid code exemple :  123","paiement.carte-invalide":"enter sixteen card digits","date.expiration-invalide":"Valid format MM/YY","detail.titre-commande":"Command detail","detail.voiture":"Car detail","sommaire.commande":"Summary","prix.commande":"Total","Produit.commande":"Product","legend.expedition":"Type of shipment","choisir.expedition":"Choose shipment","legend.paiement":"Payment","numero.carte":"Card number","nom.carte":"Name on the card","btn.submit-paiement":"Order","ajout_voiture.form_titre":"Add car","ajout_voiture.form_label_date":"Construction date","ajout_voiture.form_label_prix":"Price","ajout_voiture.form_label_kilometrage":"Mileage","voiture.form_kilometrage_required":"Enter Mileage","voiture.form_date_arrivee_required":"Enter start date","voiture.form_prix_required":"Enter purchase price","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Please choose a body type","voiture.form_transmissionId_required":"Please choose a transmission type","voiture.form_carburantId_required":"Please choose a fuel type","voitureDetail.panier":"Add to Cart","voitureDetail.modifier":"Update","voitureDetail.supprimer":"Delete","voitureDetail.modalTitre":"Do you really want to delete this car?","panier.commander":"To order","ajout_panier_success":"Car added to cart","titre.collapse-profil":"Details of your account","titre.collapse-panier":"Cart","panier.vide":"Empty","btn.modifier-profil":"Edit your profil","statut.1":"Sold","statut.2":"Reserved","reservation_success":"Reserved","titre.collapse-reservation":"Reserve","commande.title":"Order details","voiture.liste":"Car lists","calcul.taxe":"Price with tax","paiement.titre":"Payment method","select.paiement":"Choose an option","option.cash":"In cash","option.carte":"By card","expedition.titre":"Shipping","expedition.adresse":"At home","expedition.magazin":"At the store","vider.panier":"Empty cart","ajout_photo.bouton_ajout":"Upload","ajout_photo.form_titre":"Add photos","modifier_voiture.form_titre":"Update this car","modifier_voiture.form_label_btn_modifier":"Save","ajout_voiture_success":"Add success","ajout_photo.form_label_checkbox":"Choose the main photo"}');
 
 /***/ }),
 
@@ -104854,7 +104901,7 @@ module.exports = JSON.parse('{"header.accueil":"Home","header.voitures":"Cars","
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver un véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant","voitureDetail.panier":"Ajouter au panier","voitureDetail.modifier":"Modifier","voitureDetail.supprimer":"Supprimer","voitureDetail.modalTitre":"Voulez-vous vraiment supprimer cette voiture","panier.commander":"Passer la commande","ajout_panier_success":"Voiture ajouter au panier","titre.collapse-profil":"Détail de votre compte","titre.collapse-panier":"Panier","panier.vide":"Vide","btn.modifier-profil":"Modifier votre Profil","statut.1":"Vendue","statut.2":"Reservée","reservation_success":"Reservée","titre.collapse-reservation":"Reserver","commande.title":"Detail de commande","voiture.liste":"Listes voitures","calcul.taxe":"Prix avec taxes","paiement.titre":"Mode de paiement","select.paiement":"Choisissez une option","option.cash":"En espèce","option.carte":"Par carte","expedition.titre":"Expedition","expedition.adresse":"Chez vous","expedition.magazin":"En magasin","vider.panier":"Vider panier","ajout_photo.bouton_ajout":"Téléverser","ajout_photo.form_titre":"Ajouter des photos","modifier_voiture.form_titre":"Modifier cette voiture","modifier_voiture.form_label_btn_modifier":"Sauvegarder","ajout_voiture_success":"Voiture ajouter avec succes"}');
+module.exports = JSON.parse('{"header.accueil":"Accueil","header.voitures":"Voitures","voitureDetail.constructeur":"Constructeur","voitureDetail.modele":"Modele","voitureDetail.annee":"Annee","voitureDetail.carburant":"Carburant","voitureDetail.transmission":"Transmission","voitureDetail.carrosserie":"Carrosserie","voitureDetail.acheter":"Acheter","voitureDetail.reserver":"Réserver","voitureDetail.kilometrage":"Kilomètres","header.s_inscrire":"S\'inscrire","header.a_propos":"À propos","header.connexion":"Connexion","header.deconnectionner":"Se Déconnecter","header.client_centre":"Bonjour, ","footer.contactez_nous":"Contactez-nous","footer.nous_suivre":"Nous suivre","footer.politiques_de_ventes":"Politiques de ventes","footer.s_inscrire_infolettre":"S\'inscrire à l\'infolettre","footer.votre_courriel":"Votre courriel","footer.envoyer":"Envoyer","footer.partenaires":"Partenaires","home.titre_filtre":"Trouver un véhicule d\'occasion","home.form_marque":"Choisissez une marque","home.form_modele":"Choisissez un modèle","home.form_annee":"Choisissez une année","home.form_rechercher":"Rechercher","home.voiture_recent":"Nos nouveautés","titre.form_inscription":"S\'abonner","courriel.form_inscription":"Courriel","nom.form_inscription":"Nom","prenom.form_inscription":"Prenom","anniversaire.form_inscription":"Date d\'anniversaire","adresse.form_inscription":"Votre adresse","codePostal.form_inscription":"Code Postale","ville.form_inscription":"Ville","telephone.form_inscription":"Telephone","cellulaire.form_inscription":"Cellulaire","submit.form_inscription":"S\'abonner","back.form_inscription":"Retour","enregistrer.form_inscription":"Enregistrer","confirmer.form_inscription":"Confirmer","titre.detail_client":"Detail de votre profil","modifier.form_inscription":"Modifier","titre.form_modification":"Mettre a jour votre profile","register.form_titre":"Créer un compte","register.form_courriel":"Courriel","register.form_nom_utilisateur":"Nom De L\'Utilisateur","register.form_mot_de_passe":"Mot De Passe","register.form_bt_inscrire":"S\'inscrire","register.form_bt_retour":"Retour","register.form_courriel_invalide":"Adresse électronique incorrect ou invalide","register.form_courriel_required":"Saisissez votre courriel","register.form_courriel_existe":"L\'adresse courriel existe déjà","register.form_nom_invalide":"Un maximum de 15 caractères requis","register.form_nom_required":"Saisissez votre nom de l\'utilisateur","register.form_password_invalide":"Un minimum de 6 caractères requis","register.form_password_required":"Saisissez votre mot de passe","profil.form_courriel_invalide":"Adresse électronique incorrect ou invalide","profil.form_courriel_required":"Saisissez votre courriel","profil.form_nom_invalide":"Un maximum de 35 caractères requis","profil.form_nom_required":"Saisissez votre nom","profil.form_prenom_invalide":"Un maximum de 35 caractères requis","profil.form_prenom_required":"Saisissez votre prénom","profil.form_anniversaire_invalide":"Vous devez avoir au moins 18 ans","profil.form_anniversaire_required":"Saisissez votre date de naissance","profil.form_adresse_invalide":"Un minimum de 6 caractères requis","profil.form_adresse_required":"Saisissez votre adresse","profil.form_code_postal_format_invalide":"Votre code postal n\'est pas au bon format. (Le format correct devrait ressembler à ceci: H1X 2N5)","profil.form_code_postal_required":"Saisissez votre code postal","profil.form_telephone_required":"Saisissez votre numéro de téléphone ","profil.form_telephone_invalide":"Votre numéro de téléphone doit comporter dix chiffres","profil.form_cellulaire_invalide":"Votre numéro de cellulaire doit comporter dix chiffres","profil.from_ville_required":"Saisissez votre ville","connexion.form_titre":"Connexion de L\'utilisateur","connexion.form_courriel_inexistant":"L\'adresse courriel de l\'utilisateur n\'existe pas","voitures.titre":"Liste De Voitures","home.confiance-title":"Acheter votre véhicule en toute sérénité grâce à notre contrat de confiance !","home.confiance-texte-1":"- Un rapport d’inspection est fait sur chacun des véhicules mis en vente sur notre site.","home.confiance-texte-2":"- Tous nos véhicules sont garantis 9 mois à partir de la date d’achat.","home.confiance-texte-3":"- Une assistance aux financements est offerte par nos employés.","home.confiance-texte-4":"- Pour toutes questions, nos employés se feront un plaisir de vous répondre du lundi au vendredi de 9h à 14h au 514-555-556 ou écrivez-nous a vehicules_ocassion@google.com.","crmHeader.nos.voitures":"Nos voitures","crmHeader.ajouter.voiture":"Ajouter une voiture","header.crm":"Interface CRM","crmHeader.accueil.return.ecom":"Interface Marchande","crmHeader.journal.connexion":"Journal de connexion","crmHeader.gestion.employés":"Gestion des employés","crmHome.titre":"Bienvenu sur l\'interface CRM du site Véhicules d\'occasion inc. !","expedition.type-requierd":"Veuillez choisir un type d\'expedition !","paiement.carte-requierd":"Entrer votre numero de carte svp !","date.expiration-requierd":"Entrer la date d\'expiration MM/AA","cvv.requierd":"Entrer le code de securité","nom.paiement-requierd":"Entrer votre nom","commande_success":"Commande passer avec succes","code.format":"Entrer un code valide exemple :  123","paiement.carte-invalide":"entrer seize chiffre de la carte","date.expiration-invalide":"format valide MM/YY","detail.titre-commande":"Details de la commande","detail.voiture":"Voiture details","sommaire.commande":"Sommaire","prix.commande":"Totale","Produit.commande":"Produit","legend.expedition":"Type d\'expedition","choisir.expedition":"Choisir l\'expedition","legend.paiement":"Paiement","numero.carte":"Numero carte","nom.carte":"Nom sur la carte","btn.submit-paiement":"Commander","ajout_voiture.form_titre":"Ajouter voiture","ajout_voiture.form_label_date":"Date de construction","ajout_voiture.form_label_prix":"Prix","ajout_voiture.form_label_kilometrage":"kilometrage","voiture.form_kilometrage_required":"Entrer le Kilometrage","voiture.form_date_arrivee_required":"Enter date de mise en marche","voiture.form_prix_required":"Entrer le prix d\'achat","voiture.form_carroserieId_required":"Veuillez choisir un type de carosserie","voiture.form_nom_modele_required":"Veuillez choisir un modele","voiture.form_transmissionId_required":"Veuillez choisir un type de transmission","voiture.form_carburantId_required":"Veuillez choisir un type de carburant","voitureDetail.panier":"Ajouter au panier","voitureDetail.modifier":"Modifier","voitureDetail.supprimer":"Supprimer","voitureDetail.modalTitre":"Voulez-vous vraiment supprimer cette voiture","panier.commander":"Passer la commande","ajout_panier_success":"Voiture ajouter au panier","titre.collapse-profil":"Détail de votre compte","titre.collapse-panier":"Panier","panier.vide":"Vide","btn.modifier-profil":"Modifier votre Profil","statut.1":"Vendue","statut.2":"Reservée","reservation_success":"Reservée","titre.collapse-reservation":"Reserver","commande.title":"Detail de commande","voiture.liste":"Listes voitures","calcul.taxe":"Prix avec taxes","paiement.titre":"Mode de paiement","select.paiement":"Choisissez une option","option.cash":"En espèce","option.carte":"Par carte","expedition.titre":"Expedition","expedition.adresse":"Chez vous","expedition.magazin":"En magasin","vider.panier":"Vider panier","ajout_photo.bouton_ajout":"Téléverser","ajout_photo.form_titre":"Ajouter des photos","modifier_voiture.form_titre":"Modifier cette voiture","modifier_voiture.form_label_btn_modifier":"Sauvegarder","ajout_voiture_success":"Voiture ajouter avec succes","ajout_photo.form_label_checkbox":"Choisir la photo principal"}');
 
 /***/ })
 
