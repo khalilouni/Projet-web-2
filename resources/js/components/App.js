@@ -25,6 +25,7 @@ import Journal from "../pages/crm/Journal";
 import CrmListeVoitures from "../components/CrmListeVoitures";
 import CrmVoitureDetail from './CrmVoitureDetail';
 import ModifierVoiture from '../pages/register/ModifierVoiture';
+import GestionEmployes from "../pages/crm/GestionEmployes";
 
 function App() {
     return (
@@ -40,11 +41,13 @@ function App() {
                     <Route path="/app/voiture/:id" element={<VoitureDetail/>}/>
                     <Route path="/app/connexion" element={<Connexion/>}/>
                     <Route path="/app/register" element={<Inscription/>}/>
+                    {/* upload photo toujours en test */}
+                    <Route path="/app/upload-photo" element={<NouvellePhoto />}/>
 
                     <Route path="/app/nouvelle-commande" element={
                         <RequireAuth>
                             <NouvelleCommande />
-                        </RequireAuth>  
+                        </RequireAuth>
                     }/>
 
                     <Route path="/app/inscription-client/:id" element={
@@ -99,6 +102,11 @@ function App() {
                     <Route path="/crm/journal-connexion" element={
                         <RequireAuth>
                             <Journal />
+                        </RequireAuth>
+                    } />
+                    <Route path="/crm/gestion-employes" element={
+                        <RequireAuth>
+                            <GestionEmployes />
                         </RequireAuth>
                     } />
                     <Route path="/crm/*" element={<CrmHome/>}/>

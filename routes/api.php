@@ -51,6 +51,9 @@ Route::post('v1/voiture-reserver/{id}', [VoitureController::class,'reserverVoitu
 Route::get('v1/crm/journal', [JournalController::class,'index'])->name('index');
 Route::post('v1/ajout-photo', [PhotoController::class,'uploadPhoto'])->name('photo');
 
+Route::get('v1/crm/employe', [EmployeController::class,'index'])->name('employe.index');
+Route::put('v1/crm/employe/update/{id}', [EmployeController::class,'update'])->name('employe.update');
+Route::get('v1/crm/employe/delete/{utilisateur}', [EmployeController::class,'destroy'])->name('employe.destroy');
 
 
 

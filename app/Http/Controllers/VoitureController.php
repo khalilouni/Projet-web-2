@@ -136,7 +136,7 @@ class VoitureController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Voiture $voiture
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request,  $id)
     {

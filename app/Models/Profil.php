@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Profil extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['nom', 'prenom', 'anniversaire', 'courriel', 'adresse', 'code_postal', 'telephone', 'cellulaire', 'userId', 'villeId'];
 
+    public function utilisateur(){
+        /* ici hasOne */
+        return $this->hasOne
+        ('App\Models\User','id','userId');
+    }
 }
