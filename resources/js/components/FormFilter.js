@@ -17,7 +17,7 @@ const FormFilter = ({size, height, constructeurs,getResultat}) => {
     const changeConstructeur = (e) => {
         const idConstructeur = e.target.value
         setConstructeur(idConstructeur)
-        axios.get(`http://127.0.0.1:8000/api/v1/modeles/${idConstructeur}`)
+        axios.get(`${URL}/api/v1/modeles/${idConstructeur}`)
             .then(res=> {
                 const modeles = res.data
                 setModeleListe(modeles)

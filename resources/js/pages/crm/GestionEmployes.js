@@ -20,7 +20,7 @@ const GestionEmployes = () => {
     const handleClose = () => setShow(false);
     const handleSave = () => {
         setShow(false)
-        axios.put(`http://127.0.0.1:8000/api/v1/crm/employe/update/${idUtilisateur}`,{
+        axios.put(`${URL}/api/v1/crm/employe/update/${idUtilisateur}`,{
             idPrivilege:`${privilegeId}`
         })
             .then(res => {
@@ -48,14 +48,14 @@ const GestionEmployes = () => {
 
     const handleEffaceConfirmer =() => {
         setShowEfface(false)
-        axios.get(`http://127.0.0.1:8000/api/v1/crm/employe/delete/${idEfface}`).then(res => {
+        axios.get(`${URL}/api/v1/crm/employe/delete/${idEfface}`).then(res => {
            console.log(res.data)
 
         })
     }
 
     useEffect(()=> {
-        axios.get('http://127.0.0.1:8000/api/v1/crm/employe')
+        axios.get(`${URL}/api/v1/crm/employe`)
             .then( res => {
                 setEmployes(res.data.data.utilisateurInfo)
             })

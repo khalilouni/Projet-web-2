@@ -6,6 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {URL} from "../../constantes";
 
 const Connexion = () => {
 
@@ -24,7 +25,7 @@ const Connexion = () => {
     const onSubmit = async (valeurs) => {
       await axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/login',
+            url: `${URL}/api/v1/login`,
             data: valeurs
         })
             .then(res => {

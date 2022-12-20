@@ -13,6 +13,7 @@ import cles from './img/cles.jpg'
 import '../../css/home.css';
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {URL} from "../constantes";
 
 const Home = () => {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const Home = () => {
 
     useEffect(() => {
         const getVoitures = async () => {
-            const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+            const res = await fetch(`${URL}/api/v1/voiture`)
             const data = await res.json()
             setVoitures(await data)
         }
@@ -29,7 +30,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/v1/constructeur')
+        axios.get(`${URL}/api/v1/constructeur`)
             .then(res => {
                 setSelectConstructeurs(res.data)
             })
