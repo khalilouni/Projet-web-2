@@ -3,6 +3,7 @@ import CardVoiture from "./CardVoiture";
 import FormFilter from "./FormFilter";
 import {FormattedMessage} from "react-intl";
 import axios from 'axios'
+import {URL} from "../constantes";
 
 const ListeVoitures = () => {
 
@@ -16,7 +17,7 @@ const ListeVoitures = () => {
     useEffect(() => {
         const getVoitures = async () => {
             if(!voituresInitiales) {
-                const res = await fetch('http://127.0.0.1:8000/api/v1/voiture')
+                const res = await fetch(`${URL}/api/v1/voiture`)
                 const data = await res.json()
                 setVoitures(await data)
             }
@@ -25,7 +26,7 @@ const ListeVoitures = () => {
     }, [])
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/v1/constructeur')
+        axios.get(`${URL}/api/v1/constructeur`)
             .then(res=> {
                 setSelectConstructeurs(res.data)
             })

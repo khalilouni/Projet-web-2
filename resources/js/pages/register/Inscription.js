@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { ToastContainer, toast } from 'react-toastify';
+import {URL} from "../../constantes";
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -26,7 +27,7 @@ const Inscription = () => {
     const onSubmit = async (valeurs) => {
         await axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/api/v1/register',
+            url: `${URL}/api/v1/register`,
             data: valeurs
         })
             .then(res => {

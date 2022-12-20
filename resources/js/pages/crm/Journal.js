@@ -2,13 +2,14 @@ import Table from '../../components/Table'
 import {useEffect,useState, useMemo} from 'react'
 import 'github-markdown-css'
 import axios from "axios";
+import {URL} from "../../constantes";
 
 const Journal =() => {
 
 
     const [connexionInfos,setConnexion] = useState([])
     const fetchConnexion = async () => {
-        return axios.get('http://127.0.0.1:8000/api/v1/crm/journal').then((res) => {
+        return axios.get(`${URL}/api/v1/crm/journal`).then((res) => {
             const resp = res.data.data.connexionInfo.connexions
             setConnexion(resp)
         })
@@ -49,7 +50,7 @@ const Journal =() => {
     )
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/v1/crm/journal')
+        axios.get(`${URL}/api/v1/crm/journal`)
             .then(res => {
                 const resultats = res.data.data.connexionInfo
                 const nouveau = resultats.map((item,index)=> {
